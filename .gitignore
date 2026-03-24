@@ -1,0 +1,9 @@
+*.db
+*.db-wal
+*.db-shm
+*.db-journal
+__pycache__/
+*.pyc
+.db_write_test*
+*.skill
+v2.html

@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teto — Crédito com Garantia de Imóvel</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23004d40'/%3E%3Cpath d='M6 26V14a10 10 0 0120 0v12' stroke='%23e91e90' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3Cline x1='6' y1='26' x2='26' y2='26' stroke='%23e91e90' stroke-width='2.5' stroke-linecap='round'/%3E%3Cline x1='12' y1='26' x2='12' y2='19' stroke='%23e91e90' stroke-width='2' stroke-linecap='round'/%3E%3Cline x1='20' y1='26' x2='20' y2='19' stroke='%23e91e90' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..900;1,9..40,300..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root{--terra-950:#002520;--terra-900:#003d33;--terra-800:#004d40;--terra-700:#00695c;--terra-600:#00897b;--gold-600:#c2185b;--gold-500:#e91e90;--gold-400:#f06abf;--gold-300:#f8a4d8;--gold-200:#fce4ec;--green-500:#69f0ae;--green-600:#00c853;--red-500:#ff5252;--red-100:#ffebee;--bg:#f5f7f6;--bg-warm:#e8f0ee;--bg-card:#fff;--text-primary:#1a2a25;--text-secondary:#4a6058;--text-muted:#8a9e96;--border:#d5e0dc;--border-light:#e8f0ee;--radius:16px;--radius-sm:10px;--radius-lg:24px;--shadow-gold:0 8px 32px rgba(233,30,144,.2);--shadow-lg:0 16px 48px rgba(0,37,32,.1);--shadow-xl:0 24px 64px rgba(0,37,32,.14)}
+    *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',-apple-system,sans-serif;background:var(--bg);color:var(--text-primary);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes slideInRight{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+    @keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-20px) rotate(3deg)}}
+    @keyframes float2{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px) rotate(-2deg)}}
+    @keyframes pulse-glow{0%,100%{box-shadow:0 0 20px rgba(233,30,144,.15)}50%{box-shadow:0 0 40px rgba(233,30,144,.3)}}
+    @keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    .aos{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}.aos.v{opacity:1;transform:translateY(0)}
+
+    .header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(0,37,32,.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(233,30,144,.1);transition:all .4s cubic-bezier(.16,1,.3,1)}
+    .header.scrolled{background:rgba(0,37,32,.98);box-shadow:0 4px 30px rgba(0,0,0,.15)}
+    .header-inner{max-width:1240px;margin:0 auto;padding:0 32px;height:76px;display:flex;align-items:center;justify-content:space-between}
+    .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+    .logo-icon{width:42px;height:42px;background:linear-gradient(135deg,#e91e90,#f06abf);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(233,30,144,.35);transition:transform .3s}
+    .logo:hover .logo-icon{transform:rotate(-5deg) scale(1.05)}
+    .logo-icon svg{width:24px;height:24px}
+    .logo-text{font-family:'DM Sans',sans-serif;font-size:26px;font-weight:900;color:#fff;letter-spacing:-1px}
+    .logo-text span{color:var(--gold-400)}
+    .nav{display:flex;gap:8px;align-items:center}.nav a{color:rgba(255,255,255,.65);text-decoration:none;font-size:14px;font-weight:500;padding:8px 16px;border-radius:8px;transition:all .25s}
+    .nav a:hover{color:#fff;background:rgba(255,255,255,.06)}
+    .nav-cta{background:linear-gradient(135deg,var(--gold-500),var(--gold-400))!important;color:#fff!important;padding:10px 24px!important;font-weight:700!important;box-shadow:var(--shadow-gold)}
+    .nav-cta:hover{transform:translateY(-1px)!important;box-shadow:0 12px 36px rgba(233,30,144,.35)!important}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:0;border:0;padding:8px;border-radius:8px}
+    .hamburger:hover{background:rgba(255,255,255,.06)}.hamburger span{width:22px;height:2px;background:#fff;border-radius:2px}
+
+    /* DD Check Grid */
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .dd-item{display:flex;align-items:center;gap:10px;padding:14px 16px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);transition:all .4s}
+    .dd-item.running{border-color:var(--gold-500);box-shadow:0 0 0 3px rgba(233,30,144,.08)}
+    .dd-item.done{border-color:var(--green-500)} .dd-item.warn{border-color:var(--gold-500)} .dd-item.fail{border-color:var(--red-500)}
+    .dd-spin{width:20px;height:20px;border:2.5px solid var(--border);border-top-color:var(--gold-500);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
+    .dd-item .dd-lbl{font-size:12px;font-weight:600;color:var(--text-primary)}.dd-item .dd-sub{font-size:10px;color:var(--text-muted);margin-top:1px}
+
+    /* DD Result Cards */
+    .ddc{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:14px;transition:box-shadow .3s}
+    .ddc:hover{box-shadow:var(--shadow-lg)}
+    .ddh{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+    .ddi{width:44px;height:44px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+    .ddt{font-weight:700;font-size:15px}.dds{font-size:11px;color:var(--text-muted);margin-top:2px}
+    .ddm{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px}
+    .ddmx{padding:14px 16px;background:var(--bg-warm);border-radius:8px;border:1px solid var(--border-light)}
+    .ddml{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
+    .ddmv{font-size:15px;font-weight:700}.ddms{font-size:10px;color:var(--text-muted);margin-top:2px}
+    .ddb{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:100px;font-size:11px;font-weight:700}
+    .ddb.ok{background:rgba(52,211,153,.08);color:var(--green-600)} .ddb.rw{background:rgba(233,30,144,.1);color:var(--gold-600)} .ddb.ng{background:rgba(239,68,68,.08);color:var(--red-500)}
+    .dd-bar{height:7px;background:var(--border-light);border-radius:100px;overflow:hidden;margin-top:8px}
+    .dd-fill{height:100%;border-radius:100px;transition:width 1.5s ease-out}
+    .dd-alert{padding:10px 14px;border-radius:8px;font-size:12px;margin-top:10px;display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+    .dd-alert.info{background:rgba(59,130,246,.05);border:1px solid rgba(59,130,246,.12);color:#1e40af}
+    .dd-alert.ok{background:rgba(52,211,153,.05);border:1px solid rgba(52,211,153,.12);color:var(--green-600)}
+    .dd-alert.wr{background:rgba(233,30,144,.06);border:1px solid rgba(233,30,144,.15);color:#880e4f}
+    .dd-alert.dg{background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.12);color:#991b1b}
+    @media(max-width:768px){#ddGrid{grid-template-columns:1fr 1fr}.ddm{grid-template-columns:1fr 1fr}}
+    @media(max-width:480px){#ddGrid{grid-template-columns:1fr}}
+
+    .hero{min-height:100vh;background:var(--terra-950);display:flex;align-items:center;position:relative;overflow:hidden}
+    .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 40%,rgba(233,30,144,.06) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 20% 80%,rgba(0,77,64,.5) 0%,transparent 60%),linear-gradient(180deg,var(--terra-950),var(--terra-900) 60%,var(--terra-800))}
+    .hero-shape{position:absolute;border-radius:20%;opacity:.04;border:2px solid var(--gold-500)}
+    .hero-shape-1{width:300px;height:300px;top:10%;right:5%;animation:float 8s ease-in-out infinite;transform:rotate(45deg)}
+    .hero-shape-2{width:200px;height:200px;bottom:15%;left:8%;animation:float2 10s ease-in-out infinite;border-radius:50%;border-color:rgba(233,30,144,.4);background:rgba(233,30,144,.02)}
+    .hero-shape-3{width:120px;height:120px;top:30%;left:15%;animation:float 12s ease-in-out infinite 2s;border-radius:30%}
+    .hero-dots{position:absolute;top:0;right:0;width:40%;height:60%;background-image:radial-gradient(rgba(233,30,144,.08) 1px,transparent 1px);background-size:30px 30px}
+    .hero-photos{position:absolute;top:0;right:0;width:50%;height:100%;z-index:1;pointer-events:none}
+    .hero-photo{position:absolute;border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4);border:3px solid rgba(255,255,255,.08)}
+    .hero-photo img{width:100%;height:100%;object-fit:cover}
+    .hero-photo-1{width:240px;height:320px;top:12%;right:8%;animation:float 8s ease-in-out infinite;transform:rotate(4deg)}
+    .hero-photo-2{width:200px;height:260px;bottom:15%;right:25%;animation:float2 10s ease-in-out infinite;transform:rotate(-3deg)}
+    .hero-photo-3{width:160px;height:200px;top:35%;right:40%;animation:float 12s ease-in-out infinite 2s;transform:rotate(2deg);opacity:.7}
+    .img-section{padding:100px 0;overflow:hidden}
+    .img-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;max-width:1240px;margin:0 auto;padding:0 32px}
+    .img-card{border-radius:20px;overflow:hidden;position:relative;height:320px;transition:transform .4s}
+    .img-card:hover{transform:scale(1.02)}
+    .img-card img{width:100%;height:100%;object-fit:cover}
+    .img-card-overlay{position:absolute;bottom:0;left:0;right:0;padding:28px;background:linear-gradient(transparent,rgba(0,0,0,.7))}
+    .img-card-overlay h3{color:#fff;font-size:20px;font-weight:800;margin-bottom:4px}
+    .img-card-overlay p{color:rgba(255,255,255,.7);font-size:14px}
+    @media(max-width:1024px){.hero-photos{display:none}.img-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:768px){.img-grid{grid-template-columns:1fr}.img-card{height:240px}}
+    .hero-inner{max-width:1240px;margin:0 auto;padding:140px 32px 100px;display:grid;grid-template-columns:1.1fr .9fr;gap:80px;align-items:center;position:relative;z-index:2}
+    .hero-content{animation:fadeInUp .8s ease-out}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(233,30,144,.08);border:1px solid rgba(233,30,144,.2);border-radius:100px;padding:8px 20px 8px 12px;font-size:13px;color:var(--gold-400);font-weight:600;margin-bottom:28px;backdrop-filter:blur(10px)}
+    .hero-badge-dot{width:8px;height:8px;background:var(--green-500);border-radius:50%;animation:pulse-glow 2s ease-in-out infinite;box-shadow:0 0 8px rgba(52,211,153,.5)}
+    .hero h1{font-family:'DM Sans',sans-serif;font-size:clamp(40px,5vw,60px);color:#fff;line-height:1.1;margin-bottom:24px;letter-spacing:-1.5px;font-weight:800}
+    .hero h1 em{font-style:italic;background:linear-gradient(135deg,var(--gold-400),var(--gold-200));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero-sub{font-size:18px;color:rgba(255,255,255,.55);margin-bottom:40px;max-width:500px;line-height:1.8;font-weight:300}
+    .hero-buttons{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+    .btn-hero-primary{display:inline-flex;align-items:center;gap:10px;padding:18px 36px;background:linear-gradient(135deg,var(--gold-500),var(--gold-300));color:#fff;border:0;border-radius:100px;font-size:16px;font-weight:700;font-family:inherit;cursor:pointer;text-decoration:none;transition:all .3s cubic-bezier(.16,1,.3,1);box-shadow:var(--shadow-gold)}
+    .btn-hero-primary:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(233,30,144,.4)}
+    .btn-hero-secondary{display:inline-flex;align-items:center;gap:8px;padding:18px 28px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.8);border-radius:100px;font-size:15px;font-weight:500;font-family:inherit;cursor:pointer;text-decoration:none;transition:all .3s;backdrop-filter:blur(10px)}
+    .btn-hero-secondary:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2);color:#fff}
+    .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:56px;padding-top:40px;border-top:1px solid rgba(255,255,255,.06)}
+    .hero-stat-value{font-size:36px;font-weight:800;color:#fff;letter-spacing:-1px;line-height:1}.hero-stat-value span{color:var(--gold-400);font-size:24px}
+    .hero-stat-label{font-size:13px;color:rgba(255,255,255,.4);margin-top:8px}
+    .hero-card-wrap{animation:slideInRight .8s ease-out .2s both}
+    .hero-card{background:rgba(255,255,255,.04);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius-lg);padding:40px;position:relative;overflow:hidden}
+    .hero-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold-500),var(--gold-300),var(--gold-500));background-size:200% auto;animation:shimmer 3s linear infinite}
+    .hero-card h3{color:#fff;font-size:22px;font-weight:700;margin-bottom:4px}.hero-card>p{color:rgba(255,255,255,.45);font-size:14px;margin-bottom:32px}
+    .mini-field{margin-bottom:20px}.mini-field label{display:block;color:rgba(255,255,255,.6);font-size:12px;font-weight:600;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+    .mini-field input,.mini-field select{width:100%;padding:15px 18px;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:var(--radius-sm);color:#fff;font-size:15px;font-family:inherit;outline:0;transition:all .25s}
+    .mini-field input::placeholder{color:rgba(255,255,255,.25)}
+    .mini-field input:focus,.mini-field select:focus{border-color:var(--gold-500);background:rgba(233,30,144,.06);box-shadow:0 0 0 3px rgba(233,30,144,.1)}
+    .mini-field select option{background:var(--terra-800);color:#fff}
+    .btn-gold{width:100%;padding:16px;background:linear-gradient(135deg,var(--gold-500),var(--gold-300));color:#fff;border:0;border-radius:var(--radius-sm);font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;transition:all .3s cubic-bezier(.16,1,.3,1)}
+    .btn-gold:hover{transform:translateY(-2px);box-shadow:var(--shadow-gold)}
+
+    .trust-bar{background:var(--bg-card);border-bottom:1px solid var(--border-light);padding:32px}
+    .trust-bar-inner{max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap}
+    .trust-item{display:flex;align-items:center;gap:12px;color:var(--text-muted);font-size:14px;font-weight:500}.trust-item i{font-size:18px;color:var(--gold-500)}
+
+    .sc{max-width:1240px;margin:0 auto;padding:0 32px}
+    .sl{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--gold-500);text-transform:uppercase;letter-spacing:2.5px;margin-bottom:16px}
+    .sl::before{content:'';width:24px;height:2px;background:var(--gold-500);border-radius:2px}
+    .st{font-family:'DM Sans',sans-serif;font-size:clamp(30px,3.5vw,46px);color:var(--terra-900);margin-bottom:16px;letter-spacing:-.5px;font-weight:700;line-height:1.15}
+    .sd{color:var(--text-secondary);font-size:17px;max-width:560px;margin-bottom:56px;line-height:1.7}
+
+    .features{padding:120px 0}
+    .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .fc{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:36px 32px;transition:all .4s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}
+    .fc::after{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--gold-500),var(--gold-300));opacity:0;transition:opacity .3s}
+    .fc:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}.fc:hover::after{opacity:1}
+    .fi{width:56px;height:56px;background:linear-gradient(135deg,rgba(233,30,144,.1),rgba(233,30,144,.03));border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:24px;transition:all .3s}
+    .fc:hover .fi{background:linear-gradient(135deg,var(--gold-500),var(--gold-300))}.fi i{font-size:22px;color:var(--gold-500);transition:color .3s}.fc:hover .fi i{color:var(--terra-900)}
+    .fc h3{font-size:18px;font-weight:700;margin-bottom:10px}.fc p{color:var(--text-secondary);font-size:14px;line-height:1.8}
+
+    .comparison{padding:120px 0;background:var(--bg-warm)}
+    .comparison .sl,.comparison .st,.comparison .sd{text-align:center}.comparison .sd{margin:0 auto 56px}
+    .ct{width:100%;border-collapse:separate;border-spacing:0;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-lg);background:var(--bg-card)}
+    .ct thead th{padding:20px 24px;font-size:14px;font-weight:700;text-align:center;background:var(--terra-900);color:rgba(255,255,255,.7);border-bottom:2px solid rgba(233,30,144,.2)}
+    .ct thead th:first-child{text-align:left;color:rgba(255,255,255,.5)}
+    .ct thead th.hl{background:linear-gradient(180deg,var(--gold-600),var(--gold-500));color:#fff;font-size:15px;position:relative}
+    .ct thead th.hl::after{content:'MELHOR';position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--green-500);color:#fff;font-size:9px;padding:3px 10px;border-radius:0 0 6px 6px;letter-spacing:1px;font-weight:800}
+    .ct tbody td{padding:18px 24px;font-size:14px;text-align:center;border-bottom:1px solid var(--border-light);color:var(--text-secondary)}
+    .ct tbody td:first-child{text-align:left;font-weight:600;color:var(--text-primary)}.ct tbody td.hl{background:rgba(233,30,144,.04);color:var(--terra-900);font-weight:700}
+    .ct tbody tr:last-child td{border-bottom:0}.tc{color:var(--green-500);font-weight:700}.tx{color:var(--red-500)}
+
+    .hiw{background:var(--terra-950);padding:120px 0;position:relative;overflow:hidden}
+    .hiw::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 40% at 80% 20%,rgba(233,30,144,.05) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 10% 80%,rgba(233,30,144,.03) 0%,transparent 60%)}
+    .hiw-inner{position:relative;z-index:1}.hiw .sl{color:var(--gold-400)}.hiw .st{color:#fff}.hiw .sd{color:rgba(255,255,255,.45)}
+    .sg{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+    .sc2{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);padding:36px 28px;text-align:center;transition:all .3s;position:relative}
+    .sc2:hover{background:rgba(255,255,255,.05);border-color:rgba(233,30,144,.2);transform:translateY(-4px)}
+    .sn{width:60px;height:60px;background:linear-gradient(135deg,var(--gold-500),var(--gold-300));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:#fff;margin:0 auto 24px;box-shadow:0 8px 24px rgba(233,30,144,.25)}
+    .sc2 h3{color:#fff;font-size:17px;font-weight:700;margin-bottom:12px}.sc2 p{color:rgba(255,255,255,.45);font-size:14px;line-height:1.7}
+    .sa{position:absolute;top:50%;right:-24px;color:rgba(233,30,144,.3);font-size:20px;z-index:2}
+
+    .test{padding:120px 0}.test .sl,.test .st{text-align:center}.test .sd{text-align:center;margin:0 auto 56px}
+    .tg{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+    .tc2{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:36px;transition:all .3s}
+    .tc2:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+    .ts{display:flex;gap:2px;margin-bottom:16px}.ts i{color:var(--gold-500);font-size:14px}
+    .tt{color:var(--text-secondary);font-size:15px;line-height:1.8;margin-bottom:24px;font-style:italic}
+    .ta{display:flex;align-items:center;gap:14px}
+    .tav{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--terra-700),var(--terra-600));display:flex;align-items:center;justify-content:center;color:var(--gold-400);font-weight:700;font-size:16px}
+    .tan{font-weight:700;font-size:15px}.tar{font-size:13px;color:var(--text-muted)}
+
+    .simulator{padding:120px 0;background:var(--bg-warm)}
+    .sim-wrapper{max-width:920px;margin:0 auto}
+    .simulator .sl,.simulator .st,.simulator .sd{text-align:center}.simulator .sd{margin:0 auto 56px}
+    .sim-container{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-xl)}
+    .sim-progress{display:flex;background:var(--terra-950)}
+    .sps{flex:1;padding:20px 8px;text-align:center;font-size:12px;font-weight:600;color:rgba(255,255,255,.3);cursor:default;transition:all .4s;position:relative;letter-spacing:.3px}
+    .sps::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:transparent;transition:all .4s}
+    .sps.active{color:var(--gold-400)}.sps.active::after{background:linear-gradient(90deg,var(--gold-500),var(--gold-300))}
+    .sps.completed{color:var(--green-500)}.sps.completed::after{background:var(--green-500)}
+    .sim-body{padding:48px}
+    .ss{display:none;animation:fadeInUp .4s ease-out}.ss.active{display:block}
+    .ss h2{font-size:26px;font-weight:800;margin-bottom:8px;letter-spacing:-.5px}.ss>p{color:var(--text-secondary);font-size:15px;margin-bottom:36px}
+    .fg{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .fgr{margin-bottom:0}.fgr.full{grid-column:1/-1}
+    .fgr label{display:block;font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:8px}.fgr label .req{color:var(--red-500)}
+    .fgr input,.fgr select{width:100%;padding:14px 18px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:15px;font-family:inherit;background:#fff;color:var(--text-primary);outline:0;transition:all .25s}
+    .fgr input:focus,.fgr select:focus{border-color:var(--gold-500);box-shadow:0 0 0 4px rgba(233,30,144,.1)}
+    .fgr input::placeholder{color:var(--text-muted)}
+    .fh{font-size:12px;color:var(--text-muted);margin-top:6px;display:flex;align-items:center;gap:4px}
+    .rg{display:flex;gap:10px;flex-wrap:wrap}.ro{flex:1;min-width:110px}.ro input{display:none}
+    .ro label{display:flex;align-items:center;justify-content:center;padding:14px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:13px;font-weight:600;cursor:pointer;transition:all .25s;text-align:center;background:var(--bg-card)}
+    .ro label:hover{border-color:var(--gold-400);background:rgba(233,30,144,.03)}
+    .ro input:checked+label{border-color:var(--gold-500);background:linear-gradient(135deg,rgba(233,30,144,.08),rgba(233,30,144,.03));color:var(--gold-600);box-shadow:0 0 0 3px rgba(233,30,144,.08)}
+    .rd{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:16px}
+    .rv{font-size:32px;font-weight:800;background:linear-gradient(135deg,var(--gold-600),var(--gold-400));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-.5px}
+    .rl{font-size:14px;color:var(--text-secondary);font-weight:500}
+    input[type="range"]{-webkit-appearance:none;width:100%;height:8px;background:var(--border);border-radius:10px;outline:0;border:0;padding:0}
+    input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;background:linear-gradient(135deg,var(--gold-500),var(--gold-300));border-radius:50%;cursor:pointer;box-shadow:0 4px 12px rgba(233,30,144,.4);border:3px solid #fff}
+    .rlim{display:flex;justify-content:space-between;margin-top:10px;font-size:12px;color:var(--text-muted)}
+    .snav{display:flex;justify-content:space-between;margin-top:40px;padding-top:28px;border-top:1px solid var(--border-light)}
+    .bb{padding:14px 28px;background:0;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;color:var(--text-secondary);transition:all .25s;display:flex;align-items:center;gap:8px}
+    .bb:hover{border-color:var(--text-secondary);color:var(--text-primary)}
+    .bn{padding:14px 36px;background:linear-gradient(135deg,var(--gold-500),var(--gold-300));color:#fff;border:0;border-radius:var(--radius-sm);font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;transition:all .3s cubic-bezier(.16,1,.3,1);display:flex;align-items:center;gap:8px}
+    .bn:hover{transform:translateY(-2px);box-shadow:var(--shadow-gold)}.bn:disabled{opacity:.35;cursor:not-allowed;transform:none!important;box-shadow:none!important}
+
+    .rc{background:linear-gradient(135deg,var(--terra-950),var(--terra-800));border-radius:var(--radius);padding:40px;color:#fff;margin-bottom:28px;position:relative;overflow:hidden}
+    .rc::before{content:'';position:absolute;top:-50%;right:-30%;width:300px;height:300px;background:radial-gradient(circle,rgba(233,30,144,.08) 0%,transparent 70%);border-radius:50%}
+    .rhi{text-align:center;padding:32px 0;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:20px;position:relative}
+    .rhi .lb{font-size:13px;color:rgba(255,255,255,.45);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;font-weight:600}
+    .rhi .vl{font-size:48px;font-weight:900;background:linear-gradient(135deg,var(--gold-400),var(--gold-200));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-1px}
+    .rhi .sb{font-size:13px;color:rgba(255,255,255,.35);margin-top:8px}
+    .rr{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.05)}.rr:last-child{border-bottom:0}
+    .rrl{color:rgba(255,255,255,.55);font-size:14px}.rrv{font-size:17px;font-weight:700}
+    .rdis{background:rgba(233,30,144,.06);border:1px solid rgba(233,30,144,.15);border-radius:var(--radius-sm);padding:20px 24px;font-size:13px;color:var(--text-secondary);line-height:1.7}
+
+    .faq{padding:120px 0}.faq .sl,.faq .st,.faq .sd{text-align:center}.faq .sd{margin:0 auto 56px}
+    .faq-w{max-width:800px;margin:0 auto}
+    .fqi{border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;overflow:hidden;background:var(--bg-card);transition:all .3s}.fqi:hover{border-color:var(--gold-400)}
+    .fqq{padding:22px 28px;font-weight:600;font-size:15px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;transition:background .2s;user-select:none}
+    .fqq:hover{background:rgba(233,30,144,.03)}
+    .fqq i{font-size:14px;color:var(--text-muted);transition:all .3s;flex-shrink:0;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--bg-warm)}
+    .fqi.open .fqq i{transform:rotate(180deg);color:var(--gold-500);background:rgba(233,30,144,.1)}
+    .fqa{max-height:0;overflow:hidden;transition:max-height .4s ease}
+    .fqa-inner{padding:0 28px 24px;color:var(--text-secondary);font-size:14px;line-height:1.9}.fqi.open .fqa{max-height:400px}
+
+    .cta{background:var(--terra-950);padding:100px 32px;text-align:center;position:relative;overflow:hidden}
+    .cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(233,30,144,.06) 0%,transparent 60%)}
+    .cta-inner{position:relative;z-index:1}
+    .cta h2{font-family:'DM Sans',sans-serif;font-size:clamp(28px,3.5vw,44px);color:#fff;margin-bottom:16px;font-weight:700}
+    .cta p{color:rgba(255,255,255,.45);font-size:17px;margin-bottom:40px;max-width:500px;margin-left:auto;margin-right:auto}
+
+    .footer{background:var(--terra-950);border-top:1px solid rgba(255,255,255,.04);padding:72px 32px 36px}
+    .footer-inner{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px}
+    .footer-brand p{color:rgba(255,255,255,.35);font-size:14px;margin-top:20px;line-height:1.8;max-width:300px}
+    .footer-col h4{color:var(--gold-400);font-size:12px;text-transform:uppercase;letter-spacing:2px;margin-bottom:24px;font-weight:700}
+    .footer-col a{display:block;color:rgba(255,255,255,.45);text-decoration:none;font-size:14px;margin-bottom:14px;transition:all .2s}
+    .footer-col a:hover{color:var(--gold-400);transform:translateX(4px)}
+    .fsoc{display:flex;gap:12px;margin-top:24px}
+    .fsoc a{width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);font-size:16px;margin-bottom:0;transition:all .25s}
+    .fsoc a:hover{background:rgba(233,30,144,.15);color:var(--gold-400);transform:translateY(-2px)}
+    .footer-bottom{max-width:1240px;margin:48px auto 0;padding-top:28px;border-top:1px solid rgba(255,255,255,.04);display:flex;justify-content:space-between;align-items:center;font-size:13px;color:rgba(255,255,255,.25);flex-wrap:wrap;gap:12px}
+
+    @media(max-width:1024px){.hero-inner{grid-template-columns:1fr;gap:48px}.hero-card-wrap{max-width:500px}.features-grid{grid-template-columns:1fr 1fr}.sg{grid-template-columns:1fr 1fr}.sa{display:none}.tg{grid-template-columns:1fr 1fr}.footer-inner{grid-template-columns:1fr 1fr}}
+    @media(max-width:768px){.nav{display:none}.hamburger{display:flex}.nav.open{display:flex;flex-direction:column;position:absolute;top:76px;left:0;right:0;background:rgba(0,37,32,.98);backdrop-filter:blur(24px);padding:24px;gap:8px;border-bottom:1px solid rgba(255,255,255,.06);animation:fadeIn .3s}.hero-inner{padding:120px 24px 80px}.hero-buttons{flex-direction:column;align-items:stretch}.hero-stats{grid-template-columns:repeat(3,1fr);gap:16px}.hero-stat-value{font-size:24px}.sc{padding:0 20px}.features-grid,.sg,.tg{grid-template-columns:1fr}.fg{grid-template-columns:1fr}.sim-body{padding:28px}.sps{font-size:10px;padding:16px 4px}.ct{font-size:12px}.ct thead th,.ct tbody td{padding:12px 10px}.footer-inner{grid-template-columns:1fr;gap:32px}.footer-bottom{flex-direction:column;text-align:center}.trust-bar-inner{gap:24px}}
+    @media(max-width:480px){.hero-stats{grid-template-columns:1fr;gap:16px}.rg{flex-direction:column}.ro{min-width:100%}.rhi .vl{font-size:36px}}
+  </style>
+</head>
+<body>
+
+<header class="header" id="header"><div class="header-inner">
+  <a href="#" class="logo"><div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V10a8 8 0 0116 0v11"/><line x1="4" y1="21" x2="20" y2="21"/><line x1="9" y1="21" x2="9" y2="14"/><line x1="15" y1="21" x2="15" y2="14"/></svg></div><div class="logo-text">Teto</div></a>
+  <nav class="nav" id="nav"><a href="#features">Vantagens</a><a href="#comparativo">Comparativo</a><a href="#como-funciona">Como Funciona</a><a href="#simulador">Simulador</a><a href="#faq">FAQ</a><a href="#simulador" class="nav-cta">Simular Agora</a></nav>
+  <button class="hamburger" onclick="document.getElementById('nav').classList.toggle('open')"><span></span><span></span><span></span></button>
+</div></header>
+
+<section class="hero"><div class="hero-bg"></div><div class="hero-shape hero-shape-1"></div><div class="hero-shape hero-shape-2"></div><div class="hero-shape hero-shape-3"></div><div class="hero-dots"></div>
+<div class="hero-photos">
+  <div class="hero-photo hero-photo-1"><img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=480&h=640&fit=crop&q=80" alt="Casa moderna" loading="lazy"></div>
+  <div class="hero-photo hero-photo-2"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=520&fit=crop&q=80" alt="Interior elegante" loading="lazy"></div>
+  <div class="hero-photo hero-photo-3"><img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=320&h=400&fit=crop&q=80" alt="Apartamento" loading="lazy"></div>
+</div>
+<div class="hero-inner">
+  <div class="hero-content">
+    <div class="hero-badge"><div class="hero-badge-dot"></div> Taxas a partir de 0,99% a.m. + IPCA</div>
+    <h1>Seu imóvel vale mais do que você <em>imagina</em></h1>
+    <p class="hero-sub">Transforme o patrimônio do seu imóvel em crédito inteligente. Processo 100% digital, sem burocracia, dinheiro na conta em até 15 dias.</p>
+    <div class="hero-buttons"><a href="#simulador" class="btn-hero-primary"><i class="fas fa-calculator"></i> Simular Meu Crédito</a><a href="#como-funciona" class="btn-hero-secondary"><i class="fas fa-play-circle"></i> Como Funciona</a></div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-value">R$3bi<span>+</span></div><div class="hero-stat-label">Crédito concedido</div></div>
+      <div class="hero-stat"><div class="hero-stat-value">40mil<span>+</span></div><div class="hero-stat-label">Clientes atendidos</div></div>
+      <div class="hero-stat"><div class="hero-stat-value">15<span>dias</span></div><div class="hero-stat-label">Prazo médio liberação</div></div>
+    </div>
+  </div>
+  <div class="hero-card-wrap"><div class="hero-card">
+    <h3>Simulação Rápida</h3><p>Descubra em 30 segundos quanto pode obter</p>
+    <div class="mini-field"><label>Valor estimado do imóvel</label><input type="text" id="mini-valor" placeholder="R$ 500.000" oninput="fmtC(this)"></div>
+    <div class="mini-field"><label>Quanto você precisa?</label><input type="text" id="mini-precisa" placeholder="R$ 150.000" oninput="fmtC(this)"></div>
+    <div class="mini-field"><label>Tipo de imóvel</label><select id="mini-tipo"><option value="">Selecione</option><option>Apartamento</option><option>Casa</option><option>Comercial</option><option>Terreno em condomínio</option></select></div>
+    <button class="btn-gold" onclick="scrollSim()"><i class="fas fa-arrow-right" style="margin-right:8px"></i>Ver Simulação Completa</button>
+  </div></div>
+</div></section>
+
+<div class="trust-bar"><div class="trust-bar-inner">
+  <div class="trust-item"><i class="fas fa-shield-halved"></i> Regulado pelo Banco Central</div>
+  <div class="trust-item"><i class="fas fa-lock"></i> Dados criptografados</div>
+  <div class="trust-item"><i class="fas fa-star"></i> 4.8/5 avaliação</div>
+  <div class="trust-item"><i class="fas fa-clock"></i> Atendimento 7 dias</div>
+</div></div>
+
+<div style="background:var(--bg-card);padding:40px 32px;border-bottom:1px solid var(--border-light)">
+  <div style="max-width:1240px;margin:0 auto;text-align:center">
+    <p style="font-size:12px;text-transform:uppercase;letter-spacing:2px;color:var(--text-muted);font-weight:600;margin-bottom:28px">Integrado com as principais instituições</p>
+    <div style="display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap;opacity:.45;filter:grayscale(1)">
+      <div style="font-size:22px;font-weight:900;letter-spacing:-1px;color:var(--text-primary)">Serasa</div>
+      <div style="font-size:20px;font-weight:800;letter-spacing:-.5px;color:var(--text-primary)">B3</div>
+      <div style="font-size:20px;font-weight:700;color:var(--text-primary)">CVM</div>
+      <div style="font-size:18px;font-weight:800;letter-spacing:1px;color:var(--text-primary)">BACEN</div>
+      <div style="font-size:20px;font-weight:900;letter-spacing:-1px;color:var(--text-primary)">Quod</div>
+      <div style="font-size:18px;font-weight:700;letter-spacing:.5px;color:var(--text-primary)">ClearSale</div>
+    </div>
+  </div>
+</div>
+
+<section class="features" id="features"><div class="sc">
+  <div class="sl">Vantagens</div><div class="st">Por que escolher a Teto?</div>
+  <p class="sd">Tecnologia e atendimento humano para a melhor experiência em crédito imobiliário.</p>
+  <div class="features-grid">
+    <div class="fc aos"><div class="fi"><i class="fas fa-percent"></i></div><h3>Taxas a Partir de 0,99% a.m.</h3><p>Muito menores que empréstimos pessoais, consignado ou cartão. Economia real.</p></div>
+    <div class="fc aos"><div class="fi"><i class="fas fa-laptop"></i></div><h3>100% Digital</h3><p>Da simulação à assinatura, tudo online. Acompanhe em tempo real.</p></div>
+    <div class="fc aos"><div class="fi"><i class="fas fa-bolt"></i></div><h3>Liberação em 15 Dias</h3><p>Processo ágil e transparente. Dinheiro na conta rapidamente.</p></div>
+    <div class="fc aos"><div class="fi"><i class="fas fa-map-marker-alt"></i></div><h3>Cobertura Nacional</h3><p>Imóveis aceitos em todas capitais e regiões metropolitanas.</p></div>
+    <div class="fc aos"><div class="fi"><i class="fas fa-users"></i></div><h3>Composição de Renda</h3><p>Combine renda com cônjuge ou familiar de 1º grau.</p></div>
+    <div class="fc aos"><div class="fi"><i class="fas fa-check-circle"></i></div><h3>Aceita Negativado</h3><p>Restrição no CPF não impede aprovação. Mais flexibilidade.</p></div>
+  </div>
+</div></section>
+
+<section class="img-section" style="background:var(--terra-950);padding:80px 0">
+  <div style="max-width:1240px;margin:0 auto;padding:0 32px;margin-bottom:48px;text-align:center">
+    <div class="sl" style="color:var(--gold-400);justify-content:center">Realizações</div>
+    <div class="st" style="color:#fff">Seu próximo capítulo começa aqui</div>
+    <p class="sd" style="color:rgba(255,255,255,.45);margin:0 auto">Milhares de famílias já transformaram patrimônio em oportunidade.</p>
+  </div>
+  <div class="img-grid">
+    <div class="img-card aos">
+      <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=500&fit=crop&q=80" alt="Casa moderna com piscina" loading="lazy">
+      <div class="img-card-overlay"><h3>Reforma completa</h3><p>R$ 380 mil liberados em 12 dias</p></div>
+    </div>
+    <div class="img-card aos">
+      <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&h=500&fit=crop&q=80" alt="Família em casa nova" loading="lazy">
+      <div class="img-card-overlay"><h3>Investimento</h3><p>Capital para novo negócio com taxa de 0,89%</p></div>
+    </div>
+    <div class="img-card aos">
+      <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&h=500&fit=crop&q=80" alt="Interior apartamento moderno" loading="lazy">
+      <div class="img-card-overlay"><h3>Quitação de dívidas</h3><p>Economize até 80% nos juros mensais</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="comparison" id="comparativo"><div class="sc">
+  <div class="sl">Comparativo</div><div class="st">Compare e economize</div>
+  <p class="sd">Home Equity vs outras modalidades de crédito do mercado.</p>
+  <table class="ct aos"><thead><tr><th>Característica</th><th class="hl">Teto</th><th>Empréstimo Pessoal</th><th>Cartão de Crédito</th></tr></thead>
+  <tbody>
+    <tr><td>Taxa mensal</td><td class="hl">0,99% a.m.</td><td>3% a 8% a.m.</td><td>12% a 16% a.m.</td></tr>
+    <tr><td>Prazo máximo</td><td class="hl">240 meses (20 anos)</td><td>60 meses</td><td>12 meses</td></tr>
+    <tr><td>Valor máximo</td><td class="hl">R$ 3.000.000</td><td>R$ 100.000</td><td>Limite do cartão</td></tr>
+    <tr><td>Aceita negativado</td><td class="hl"><span class="tc"><i class="fas fa-check"></i> Sim</span></td><td><span class="tx"><i class="fas fa-times"></i> Não</span></td><td><span class="tx"><i class="fas fa-times"></i> Não</span></td></tr>
+    <tr><td>Processo digital</td><td class="hl"><span class="tc"><i class="fas fa-check"></i> 100%</span></td><td>Parcial</td><td>Parcial</td></tr>
+    <tr><td>Composição de renda</td><td class="hl"><span class="tc"><i class="fas fa-check"></i> Sim</span></td><td><span class="tx"><i class="fas fa-times"></i> Não</span></td><td><span class="tx"><i class="fas fa-times"></i> Não</span></td></tr>
+  </tbody></table>
+</div></section>
+
+<section class="hiw" id="como-funciona"><div class="sc hiw-inner">
+  <div class="sl">Processo</div><div class="st">4 passos simples</div><p class="sd">Do simulador ao dinheiro na conta, sem complicação.</p>
+  <div class="sg">
+    <div class="sc2 aos"><div class="sn">1</div><h3>Simule Online</h3><p>Dados do imóvel e valor desejado. Proposta em minutos.</p><span class="sa"><i class="fas fa-chevron-right"></i></span></div>
+    <div class="sc2 aos"><div class="sn">2</div><h3>Envie Documentos</h3><p>Upload seguro pela plataforma. Sem filas.</p><span class="sa"><i class="fas fa-chevron-right"></i></span></div>
+    <div class="sc2 aos"><div class="sn">3</div><h3>Análise e Avaliação</h3><p>Crédito e laudo do imóvel. Acompanhe em tempo real.</p><span class="sa"><i class="fas fa-chevron-right"></i></span></div>
+    <div class="sc2 aos"><div class="sn">4</div><h3>Dinheiro na Conta</h3><p>Assinatura digital, crédito em até 15 dias úteis.</p></div>
+  </div>
+</div></section>
+
+<section class="test" id="depoimentos"><div class="sc">
+  <div class="sl">Depoimentos</div><div class="st">Quem confia na Teto</div><p class="sd">Mais de 40 mil clientes transformaram patrimônio em oportunidade.</p>
+  <div class="tg">
+    <div class="tc2 aos"><div class="ts"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="tt">"Consegui R$400 mil para meu negócio. Taxa muito menor que qualquer banco. Rápido e transparente."</p><div class="ta"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=96&h=96&fit=crop&crop=face&q=80" alt="Roberto" style="width:48px;height:48px;border-radius:50%;object-fit:cover"><div><div class="tan">Roberto Machado</div><div class="tar">Empresário, São Paulo</div></div></div></div>
+    <div class="tc2 aos"><div class="ts"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="tt">"Mesmo com restrição, fui aprovada. Quitei dívidas caras e pago parcela que cabe no orçamento."</p><div class="ta"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&h=96&fit=crop&crop=face&q=80" alt="Ana Luiza" style="width:48px;height:48px;border-radius:50%;object-fit:cover"><div><div class="tan">Ana Luiza Santos</div><div class="tar">Servidora Pública, RJ</div></div></div></div>
+    <div class="tc2 aos"><div class="ts"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="tt">"Tudo pelo celular. 12 dias e o dinheiro na conta. Reformei meu apto e ainda sobrou pra investir."</p><div class="ta"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=96&h=96&fit=crop&crop=face&q=80" alt="Carlos" style="width:48px;height:48px;border-radius:50%;object-fit:cover"><div><div class="tan">Carlos Ferreira</div><div class="tar">Engenheiro, BH</div></div></div></div>
+  </div>
+</div></section>
+
+<section class="simulator" id="simulador"><div class="sc">
+  <div class="sl">Simulador</div><div class="st">Simule seu crédito agora</div><p class="sd">Proposta personalizada em menos de 5 minutos.</p>
+  <div class="sim-wrapper"><div class="sim-container">
+    <div class="sim-progress">
+      <div class="sps active" data-step="1"><i class="fas fa-user" style="margin-right:4px;font-size:10px"></i> Dados</div>
+      <div class="sps" data-step="2"><i class="fas fa-home" style="margin-right:4px;font-size:10px"></i> Imóvel</div>
+      <div class="sps" data-step="3"><i class="fas fa-coins" style="margin-right:4px;font-size:10px"></i> Crédito</div>
+      <div class="sps" data-step="4"><i class="fas fa-search" style="margin-right:4px;font-size:10px"></i> Análise</div>
+      <div class="sps" data-step="5"><i class="fas fa-trophy" style="margin-right:4px;font-size:10px"></i> Resultado</div>
+    </div>
+    <div class="sim-body">
+      <div class="ss active" data-step="1"><h2>Dados Pessoais</h2><p>Informações básicas para avaliar elegibilidade.</p>
+        <div class="fg">
+          <div class="fgr"><label>Nome completo <span class="req">*</span></label><input type="text" id="nome" placeholder="Seu nome completo"></div>
+          <div class="fgr"><label>CPF <span class="req">*</span></label><input type="text" id="cpf" placeholder="000.000.000-00" maxlength="14" oninput="fmtCPF(this)"></div>
+          <div class="fgr"><label>Nascimento <span class="req">*</span></label><input type="date" id="nascimento"></div>
+          <div class="fgr"><label>E-mail <span class="req">*</span></label><input type="email" id="email" placeholder="seu@email.com"></div>
+          <div class="fgr"><label>Celular <span class="req">*</span></label><input type="text" id="celular" placeholder="(11) 99999-9999" maxlength="15" oninput="fmtTel(this)"></div>
+          <div class="fgr"><label>Estado Civil <span class="req">*</span></label><select id="estadoCivil"><option value="">Selecione</option><option>Solteiro(a)</option><option>Casado(a)</option><option>União Estável</option><option>Divorciado(a)</option><option>Viúvo(a)</option></select></div>
+          <div class="fgr full"><label>Ocupação <span class="req">*</span></label><div class="rg">
+            <div class="ro"><input type="radio" name="ocupacao" id="ocu-clt" value="CLT"><label for="ocu-clt"><i class="fas fa-briefcase" style="margin-right:6px;font-size:12px;opacity:.5"></i>CLT</label></div>
+            <div class="ro"><input type="radio" name="ocupacao" id="ocu-auto" value="Autônomo"><label for="ocu-auto"><i class="fas fa-user-tie" style="margin-right:6px;font-size:12px;opacity:.5"></i>Autônomo</label></div>
+            <div class="ro"><input type="radio" name="ocupacao" id="ocu-emp" value="Empresário"><label for="ocu-emp"><i class="fas fa-building" style="margin-right:6px;font-size:12px;opacity:.5"></i>Empresário</label></div>
+            <div class="ro"><input type="radio" name="ocupacao" id="ocu-pub" value="Servidor"><label for="ocu-pub"><i class="fas fa-landmark" style="margin-right:6px;font-size:12px;opacity:.5"></i>Servidor</label></div>
+            <div class="ro"><input type="radio" name="ocupacao" id="ocu-apo" value="Aposentado"><label for="ocu-apo"><i class="fas fa-heart" style="margin-right:6px;font-size:12px;opacity:.5"></i>Aposentado</label></div>
+          </div></div>
+          <div class="fgr"><label>Renda bruta (R$) <span class="req">*</span></label><input type="text" id="renda" placeholder="R$ 10.000" oninput="fmtC(this)"></div>
+          <div class="fgr"><label>Compor renda?</label><select id="comporRenda"><option value="nao">Não</option><option value="sim">Sim, cônjuge</option><option value="familiar">Sim, familiar 1º grau</option></select></div>
+          <div class="fgr" id="rcGrp" style="display:none"><label>Renda componente (R$)</label><input type="text" id="rendaComposta" placeholder="R$ 5.000" oninput="fmtC(this)"></div>
+          <div class="fgr"><label>UF <span class="req">*</span></label><select id="uf"><option value="">Selecione</option><option>AC</option><option>AL</option><option>AP</option><option>AM</option><option>BA</option><option>CE</option><option>DF</option><option>ES</option><option>GO</option><option>MA</option><option>MT</option><option>MS</option><option>MG</option><option>PA</option><option>PB</option><option>PR</option><option>PE</option><option>PI</option><option>RJ</option><option>RN</option><option>RS</option><option>RO</option><option>RR</option><option>SC</option><option>SE</option><option selected>SP</option><option>TO</option></select></div>
+        </div>
+        <div class="snav"><div></div><button class="bn" onclick="goTo(2)">Continuar <i class="fas fa-arrow-right"></i></button></div>
+      </div>
+
+      <div class="ss" data-step="2"><h2>Dados do Imóvel</h2><p>Características do imóvel garantia.</p>
+        <div class="fg">
+          <div class="fgr full"><label>Tipo <span class="req">*</span></label><div class="rg">
+            <div class="ro"><input type="radio" name="tipoImovel" id="tipo-apto" value="Apartamento"><label for="tipo-apto"><i class="fas fa-city" style="margin-right:6px;font-size:12px;opacity:.5"></i>Apartamento</label></div>
+            <div class="ro"><input type="radio" name="tipoImovel" id="tipo-casa" value="Casa"><label for="tipo-casa"><i class="fas fa-house" style="margin-right:6px;font-size:12px;opacity:.5"></i>Casa</label></div>
+            <div class="ro"><input type="radio" name="tipoImovel" id="tipo-com" value="Comercial"><label for="tipo-com"><i class="fas fa-store" style="margin-right:6px;font-size:12px;opacity:.5"></i>Comercial</label></div>
+            <div class="ro"><input type="radio" name="tipoImovel" id="tipo-ter" value="Terreno"><label for="tipo-ter"><i class="fas fa-tree" style="margin-right:6px;font-size:12px;opacity:.5"></i>Terreno</label></div>
+          </div></div>
+          <div class="fgr"><label>CEP <span class="req">*</span></label><input type="text" id="cep" placeholder="00000-000" maxlength="9" oninput="fmtCEP(this)"></div>
+          <div class="fgr"><label>Cidade <span class="req">*</span></label><input type="text" id="cidade" placeholder="São Paulo"></div>
+          <div class="fgr"><label>Bairro</label><input type="text" id="bairro" placeholder="Itaim Bibi"></div>
+          <div class="fgr"><label>Endereço</label><input type="text" id="endereco" placeholder="Rua, nº, complemento"></div>
+          <div class="fgr"><label>Valor estimado (R$) <span class="req">*</span></label><input type="text" id="valorImovel" placeholder="R$ 800.000" oninput="fmtC(this)"><div class="fh"><i class="fas fa-info-circle"></i> Mínimo R$ 200.000</div></div>
+          <div class="fgr"><label>Ano construção</label><input type="number" id="anoConstrucao" placeholder="2010" min="1950" max="2026"></div>
+          <div class="fgr"><label>Área (m²)</label><input type="number" id="area" placeholder="85"></div>
+          <div class="fgr"><label>Quartos</label><select id="quartos"><option value="">Selecione</option><option>1</option><option>2</option><option>3</option><option>4+</option></select></div>
+          <div class="fgr"><label>Vagas</label><select id="vagas"><option value="">Selecione</option><option>0</option><option>1</option><option>2</option><option>3+</option></select></div>
+          <div class="fgr"><label>Situação <span class="req">*</span></label><select id="situacaoImovel"><option value="">Selecione</option><option value="quitado">Quitado</option><option value="financiado">Financiado</option></select></div>
+          <div class="fgr" id="pqGrp" style="display:none"><label>% quitado</label><select id="percQuitado"><option value="">Selecione</option><option value="menos50">Menos de 50%</option><option value="50-70">50% a 70%</option><option value="mais70">Mais de 70%</option></select><div class="fh"><i class="fas fa-info-circle"></i> Mínimo 50%</div></div>
+          <div class="fgr full"><label>Titularidade <span class="req">*</span></label><div class="rg">
+            <div class="ro"><input type="radio" name="titularidade" id="tit-prop" value="proprio"><label for="tit-prop">Em meu nome</label></div>
+            <div class="ro"><input type="radio" name="titularidade" id="tit-conj" value="conjuge"><label for="tit-conj">Cônjuge</label></div>
+            <div class="ro"><input type="radio" name="titularidade" id="tit-fam" value="familiar"><label for="tit-fam">Familiar 1º grau</label></div>
+          </div></div>
+          <div class="fgr full"><label>Matrícula em cartório? <span class="req">*</span></label><div class="rg">
+            <div class="ro"><input type="radio" name="matricula" id="mat-sim" value="sim"><label for="mat-sim">Sim</label></div>
+            <div class="ro"><input type="radio" name="matricula" id="mat-nao" value="nao"><label for="mat-nao">Não</label></div>
+            <div class="ro"><input type="radio" name="matricula" id="mat-ns" value="nao-sei"><label for="mat-ns">Não sei</label></div>
+          </div></div>
+          <div class="fgr full"><label>IPTU em dia? <span class="req">*</span></label><div class="rg">
+            <div class="ro"><input type="radio" name="iptu" id="iptu-sim" value="sim"><label for="iptu-sim">Sim</label></div>
+            <div class="ro"><input type="radio" name="iptu" id="iptu-nao" value="nao"><label for="iptu-nao">Não</label></div>
+            <div class="ro"><input type="radio" name="iptu" id="iptu-ns" value="nao-sei"><label for="iptu-ns">Não sei</label></div>
+          </div></div>
+        </div>
+        <div class="snav"><button class="bb" onclick="goTo(1)"><i class="fas fa-arrow-left"></i> Voltar</button><button class="bn" onclick="goTo(3)">Continuar <i class="fas fa-arrow-right"></i></button></div>
+      </div>
+
+      <div class="ss" data-step="3"><h2>Detalhes do Crédito</h2><p>Valor e condições de pagamento.</p>
+        <div class="fgr full" style="margin-bottom:36px"><div class="rd"><div><div class="rl">Valor desejado</div><div class="rv" id="vdDisp">R$ 150.000</div></div></div>
+          <input type="range" id="valorDesejado" min="50000" max="3000000" step="10000" value="150000" oninput="updRange()">
+          <div class="rlim"><span>R$ 50 mil</span><span>R$ 3 milhões</span></div><div class="fh" id="ltvInfo" style="margin-top:12px"></div>
+        </div>
+        <div class="fgr full" style="margin-bottom:36px"><div class="rd"><div><div class="rl">Prazo</div><div class="rv" id="pzDisp">120 meses</div></div></div>
+          <input type="range" id="prazo" min="36" max="240" step="12" value="120" oninput="updRange()">
+          <div class="rlim"><span>36 meses (3 anos)</span><span>240 meses (20 anos)</span></div>
+        </div>
+        <div class="fg">
+          <div class="fgr full"><label>Finalidade <span class="req">*</span></label><div class="rg">
+            <div class="ro"><input type="radio" name="finalidade" id="fin-ref" value="Reforma"><label for="fin-ref"><i class="fas fa-hammer" style="margin-right:6px;font-size:11px;opacity:.5"></i>Reforma</label></div>
+            <div class="ro"><input type="radio" name="finalidade" id="fin-inv" value="Investimento"><label for="fin-inv"><i class="fas fa-chart-line" style="margin-right:6px;font-size:11px;opacity:.5"></i>Investimento</label></div>
+            <div class="ro"><input type="radio" name="finalidade" id="fin-div" value="Quitar Dívidas"><label for="fin-div"><i class="fas fa-hand-holding-dollar" style="margin-right:6px;font-size:11px;opacity:.5"></i>Quitar Dívidas</label></div>
+            <div class="ro"><input type="radio" name="finalidade" id="fin-out" value="Outro"><label for="fin-out"><i class="fas fa-ellipsis" style="margin-right:6px;font-size:11px;opacity:.5"></i>Outro</label></div>
+          </div></div>
+          <div class="fgr full"><label>Restrições no CPF?</label><div class="rg">
+            <div class="ro"><input type="radio" name="restricao" id="res-nao" value="nao"><label for="res-nao">Não</label></div>
+            <div class="ro"><input type="radio" name="restricao" id="res-sim" value="sim"><label for="res-sim">Sim</label></div>
+            <div class="ro"><input type="radio" name="restricao" id="res-ns" value="nao-sei"><label for="res-ns">Não sei</label></div>
+          </div><div class="fh"><i class="fas fa-info-circle"></i> Restrição não impede aprovação.</div></div>
+        </div>
+        <div class="snav"><button class="bb" onclick="goTo(2)"><i class="fas fa-arrow-left"></i> Voltar</button><button class="bn" onclick="goTo(4)"><i class="fas fa-search" style="margin-right:6px"></i>Analisar</button></div>
+      </div>
+
+      <div class="ss" data-step="4"><h2><i class="fas fa-shield-halved" style="color:var(--gold-500);margin-right:10px"></i>Análise de Crédito & Due Diligence</h2><p>Consultando bureaus de crédito, registros públicos e bases antifraude em tempo real.</p>
+
+        <!-- DD Progress Grid -->
+        <div id="ddGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:24px 0"></div>
+
+        <!-- DD Detailed Results -->
+        <div id="ddResults" style="display:none">
+
+          <!-- Credit Score — Serasa/Quod/Boa Vista -->
+          <div class="ddc" id="ddCredit">
+            <div class="ddh"><div class="ddi" style="background:rgba(52,211,153,.08);color:var(--green-500)"><i class="fas fa-chart-line"></i></div><div><div class="ddt">Score de Crédito</div><div class="dds">Serasa Experian · Quod · Boa Vista SCPC</div></div></div>
+            <div id="ddCreditBody"></div>
+          </div>
+
+          <!-- CPF — Serpro DataValid / BigDataCorp -->
+          <div class="ddc" id="ddCPF">
+            <div class="ddh"><div class="ddi" style="background:rgba(59,130,246,.08);color:#3b82f6"><i class="fas fa-id-card"></i></div><div><div class="ddt">Validação de Identidade</div><div class="dds">Serpro DataValid · BigDataCorp · Idwall</div></div></div>
+            <div id="ddCPFBody"></div>
+          </div>
+
+          <!-- Criminal — InfoSimples / Idwall -->
+          <div class="ddc" id="ddCriminal">
+            <div class="ddh"><div class="ddi" style="background:rgba(168,85,247,.08);color:#a855f7"><i class="fas fa-gavel"></i></div><div><div class="ddt">Antecedentes & Certidões</div><div class="dds">InfoSimples · Idwall · TJ/TRF/CNJ · Polícia Federal</div></div></div>
+            <div id="ddCrimBody"></div>
+          </div>
+
+          <!-- Property — Registro de Imóveis / URBIT -->
+          <div class="ddc" id="ddProp">
+            <div class="ddh"><div class="ddi" style="background:rgba(233,30,144,.1);color:var(--gold-500)"><i class="fas fa-building"></i></div><div><div class="ddt">Análise do Imóvel & Registro</div><div class="dds">SREI (Registro de Imóveis) · URBIT AVM · Prefeitura</div></div></div>
+            <div id="ddPropBody"></div>
+          </div>
+
+          <!-- Anti-Fraud — ClearSale / Unico / Incognia -->
+          <div class="ddc" id="ddFraud">
+            <div class="ddh"><div class="ddi" style="background:rgba(239,68,68,.08);color:var(--red-500)"><i class="fas fa-fingerprint"></i></div><div><div class="ddt">Antifraude, KYC & PLD/FT</div><div class="dds">ClearSale · Unico Check · Incognia · COAF · OFAC</div></div></div>
+            <div id="ddFraudBody"></div>
+          </div>
+
+          <!-- Income — Serpro Consulta Renda / Registrato -->
+          <div class="ddc" id="ddIncome">
+            <div class="ddh"><div class="ddi" style="background:rgba(16,185,129,.08);color:#059669"><i class="fas fa-coins"></i></div><div><div class="ddt">Verificação de Renda & Endividamento</div><div class="dds">Serpro Consulta Renda · Registrato (BCB) · eSocial · Open Finance</div></div></div>
+            <div id="ddIncBody"></div>
+          </div>
+
+          <!-- Overall Summary -->
+          <div id="ddSummary" style="margin-top:20px"></div>
+        </div>
+
+        <!-- Docs section (shown after DD) -->
+        <div id="ddDocs" style="display:none;margin-top:32px"><h3 style="font-size:17px;margin-bottom:16px;display:flex;align-items:center;gap:8px"><i class="fas fa-folder-open" style="color:var(--gold-500)"></i> Documentos</h3>
+          <div class="fg">
+            <div style="background:var(--bg-warm);border:1px solid var(--border-light);border-radius:var(--radius-sm);padding:24px"><div style="font-weight:700;font-size:14px;margin-bottom:12px"><i class="fas fa-user" style="color:var(--gold-500);font-size:12px;margin-right:6px"></i>Pessoais</div><div style="font-size:13px;color:var(--text-secondary);line-height:2">RG ou CNH<br>Comprovante residência (3m)<br>Comprovante renda (3 holerites)<br>Declaração IR<br>Selfie com documento (prova de vida)</div></div>
+            <div style="background:var(--bg-warm);border:1px solid var(--border-light);border-radius:var(--radius-sm);padding:24px"><div style="font-weight:700;font-size:14px;margin-bottom:12px"><i class="fas fa-home" style="color:var(--gold-500);font-size:12px;margin-right:6px"></i>Imóvel</div><div style="font-size:13px;color:var(--text-secondary);line-height:2">Matrícula atualizada<br>IPTU ano vigente<br>Certidão negativa ônus<br>Habite-se (se aplicável)<br>Laudo de avaliação (emitido por nós)</div></div>
+          </div>
+        </div>
+
+        <div class="fgr full" style="margin-top:24px"><label style="display:flex;align-items:center;gap:10px;cursor:pointer"><input type="checkbox" id="termos" style="width:20px;height:20px;accent-color:var(--gold-500)"><span style="font-size:13px;color:var(--text-secondary)">Li e concordo com os <a href="#" style="color:var(--gold-500);font-weight:600">Termos</a>, <a href="#" style="color:var(--gold-500);font-weight:600">Privacidade</a> e autorizo consulta a bureaus de crédito e órgãos públicos.</span></label></div>
+        <div class="snav"><button class="bb" onclick="goTo(3)"><i class="fas fa-arrow-left"></i> Voltar</button><button class="bn" id="btnRes" onclick="goTo(5)" disabled><i class="fas fa-trophy" style="margin-right:6px"></i>Ver Resultado</button></div>
+      </div>
+
+      <div class="ss" data-step="5"><h2>Sua Proposta</h2><p>Proposta personalizada com base nos seus dados.</p>
+        <div id="resC"></div>
+        <div class="snav" style="border-top:0;margin-top:24px"><button class="bb" onclick="goTo(1)"><i class="fas fa-redo"></i> Nova Simulação</button><button class="bn" id="btnContratar" onclick="submitLead()"><i class="fas fa-check" style="margin-right:6px"></i>Quero Contratar</button></div>
+      </div>
+    </div>
+  </div></div>
+</div></section>
+
+<section class="faq" id="faq"><div class="sc">
+  <div class="sl">Dúvidas</div><div class="st">Perguntas Frequentes</div><p class="sd">Respostas para as dúvidas mais comuns.</p>
+  <div class="faq-w">
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">O que é Home Equity? <i class="fas fa-chevron-down"></i></div><div class="fqa"><div class="fqa-inner">Crédito com imóvel como garantia, taxas muito menores. Você continua morando nele — fica alienado fiduciariamente até quitação.</div></div></div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Valor mínimo e máximo? <i class="fas fa-chevron-down"></i></div><div class="fqa"><div class="fqa-inner">Mínimo R$ 50.000, máximo R$ 3.000.000 (até 60% do imóvel). Imóvel mínimo R$ 200.000.</div></div></div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Imóvel financiado pode? <i class="fas fa-chevron-down"></i></div><div class="fqa"><div class="fqa-inner">Sim, com pelo menos 50% quitado. Parte do crédito quita o saldo restante.</div></div></div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Nome negativado pode? <i class="fas fa-chevron-down"></i></div><div class="fqa"><div class="fqa-inner">Sim. Imóvel como garantia dá flexibilidade. Restrições podem influenciar a taxa.</div></div></div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Documentos necessários? <i class="fas fa-chevron-down"></i></div><div class="fqa"><div class="fqa-inner">Pessoais: RG/CNH, residência, renda (3m), IR. Imóvel: matrícula, IPTU, certidão negativa.</div></div></div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Prazo de liberação? <i class="fas fa-chevron-down"></i></div><div class="fqa"><div class="fqa-inner">15 dias úteis após aprovação, incluindo análise, avaliação, jurídico e registro.</div></div></div>
+  </div>
+</div></section>
+
+<section class="cta" style="background:linear-gradient(135deg,rgba(0,37,32,.92),rgba(0,77,64,.85)),url('https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1400&h=600&fit=crop&q=80') center/cover no-repeat;min-height:400px;display:flex;align-items:center"><div class="cta-inner">
+  <h2>Pronto para transformar seu patrimônio?</h2>
+  <p>Simule agora com as menores taxas do mercado.</p>
+  <a href="#simulador" class="btn-hero-primary" style="display:inline-flex"><i class="fas fa-calculator"></i> Simular Crédito</a>
+</div></section>
+
+<footer class="footer"><div class="footer-inner">
+  <div class="footer-brand">
+    <div class="logo" style="margin-bottom:4px"><div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V10a8 8 0 0116 0v11"/><line x1="4" y1="21" x2="20" y2="21"/><line x1="9" y1="21" x2="9" y2="14"/><line x1="15" y1="21" x2="15" y2="14"/></svg></div><div class="logo-text">Teto</div></div>
+    <p>Transformando patrimônio em oportunidade. Crédito 100% digital.</p>
+    <div class="fsoc"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-whatsapp"></i></a></div>
+  </div>
+  <div class="footer-col"><h4>Produto</h4><a href="#simulador">Simulador</a><a href="#features">Vantagens</a><a href="#como-funciona">Como Funciona</a><a href="#comparativo">Comparativo</a></div>
+  <div class="footer-col"><h4>Empresa</h4><a href="#">Sobre Nós</a><a href="#">Carreiras</a><a href="#">Blog</a><a href="#">Imprensa</a></div>
+  <div class="footer-col"><h4>Suporte</h4><a href="#">Central de Ajuda</a><a href="#">Fale Conosco</a><a href="#">Ouvidoria</a><a href="#">Termos</a></div>
+</div><div class="footer-bottom"><span>Teto Tecnologia Financeira LTDA — CNPJ 00.000.000/0001-00</span><span>Regulada pelo Banco Central</span></div></footer>
+
+<script>
+const obs=new IntersectionObserver(e=>{e.forEach((el,i)=>{if(el.isIntersecting){setTimeout(()=>el.target.classList.add('v'),i*80);obs.unobserve(el.target)}})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.aos').forEach(el=>obs.observe(el));
+window.addEventListener('scroll',()=>{document.getElementById('header').classList.toggle('scrolled',window.scrollY>60)});
+
+function fmtC(el){let v=el.value.replace(/\D/g,'');if(!v){el.value='';return}el.value=(parseInt(v)/100).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
+function fmtCPF(el){let v=el.value.replace(/\D/g,'').slice(0,11);v=v.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');el.value=v}
+function fmtTel(el){let v=el.value.replace(/\D/g,'').slice(0,11);v=v.replace(/(\d{2})(\d)/,'($1) $2').replace(/(\d{5})(\d)/,'$1-$2');el.value=v}
+function fmtCEP(el){let v=el.value.replace(/\D/g,'').slice(0,8);v=v.replace(/(\d{5})(\d)/,'$1-$2');el.value=v}
+function pC(s){if(!s)return 0;return parseFloat(s.replace(/[^\d,]/g,'').replace(',','.'))||0}
+function brl(n){return n.toLocaleString('pt-BR',{style:'currency',currency:'BRL',minimumFractionDigits:2})}
+
+let cs=1;
+
+// ========== VALIDATION ==========
+function showErr(el,msg){
+  el.style.borderColor='var(--red-500)';el.style.boxShadow='0 0 0 3px rgba(239,68,68,.12)';
+  let tip=el.parentElement.querySelector('.val-err');
+  if(!tip){tip=document.createElement('div');tip.className='val-err';tip.style.cssText='color:var(--red-500);font-size:12px;margin-top:4px;display:flex;align-items:center;gap:4px';el.parentElement.appendChild(tip)}
+  tip.innerHTML='<i class="fas fa-exclamation-circle" style="font-size:11px"></i> '+msg;
+}
+function clearErr(el){el.style.borderColor='';el.style.boxShadow='';const t=el.parentElement.querySelector('.val-err');if(t)t.remove()}
+function clearAllErr(){document.querySelectorAll('.val-err').forEach(e=>e.remove());document.querySelectorAll('[style*="border-color"]').forEach(e=>{e.style.borderColor='';e.style.boxShadow=''})}
+
+function valStep(s){
+  clearAllErr();let ok=true;
+  const req=(id,msg)=>{const el=document.getElementById(id);if(!el)return;if(!el.value||el.value.trim()===''){showErr(el,msg||'Campo obrigatório');ok=false}};
+  const reqRadio=(name,msg)=>{const el=document.querySelector('input[name="'+name+'"]:checked');if(!el){const wrap=document.querySelector('input[name="'+name+'"]');if(wrap){const rg=wrap.closest('.rg')||wrap.closest('.fgr');if(rg){let tip=rg.querySelector('.val-err');if(!tip){tip=document.createElement('div');tip.className='val-err';tip.style.cssText='color:var(--red-500);font-size:12px;margin-top:8px;display:flex;align-items:center;gap:4px';rg.appendChild(tip)}tip.innerHTML='<i class="fas fa-exclamation-circle" style="font-size:11px"></i> '+(msg||'Selecione uma opção')}}ok=false}};
+  const minVal=(id,min,msg)=>{const el=document.getElementById(id);if(!el)return;const v=pC(el.value);if(v<min){showErr(el,msg);ok=false}};
+
+  if(s===1){
+    req('nome','Preencha seu nome');
+    const cpfEl=document.getElementById('cpf');if(cpfEl&&cpfEl.value.replace(/\D/g,'').length!==11){showErr(cpfEl,'CPF inválido (11 dígitos)');ok=false}
+    req('nascimento','Informe a data de nascimento');
+    const emailEl=document.getElementById('email');if(emailEl&&(!emailEl.value||!/\S+@\S+\.\S+/.test(emailEl.value))){showErr(emailEl,'E-mail inválido');ok=false}
+    const celEl=document.getElementById('celular');if(celEl&&celEl.value.replace(/\D/g,'').length<10){showErr(celEl,'Celular inválido');ok=false}
+    req('estadoCivil','Selecione o estado civil');
+    reqRadio('ocupacao','Selecione sua ocupação');
+    minVal('renda',1,'Informe sua renda');
+    req('uf','Selecione o UF');
+    // Se compor renda = sim, valida renda composta
+    const comp=document.getElementById('comporRenda');
+    if(comp&&comp.value!=='nao'){minVal('rendaComposta',1,'Informe a renda do componente')}
+  }
+  else if(s===2){
+    reqRadio('tipoImovel','Selecione o tipo de imóvel');
+    const cepEl=document.getElementById('cep');if(cepEl&&cepEl.value.replace(/\D/g,'').length!==8){showErr(cepEl,'CEP inválido (8 dígitos)');ok=false}
+    req('cidade','Informe a cidade');
+    minVal('valorImovel',200000,'Valor mínimo R$ 200.000');
+    req('situacaoImovel','Selecione a situação');
+    reqRadio('titularidade','Selecione a titularidade');
+    reqRadio('matricula','Informe sobre a matrícula');
+    reqRadio('iptu','Informe sobre o IPTU');
+    // Se financiado, valida % quitado
+    const sit=document.getElementById('situacaoImovel');
+    if(sit&&sit.value==='financiado'){
+      const pq=document.getElementById('percQuitado');
+      if(pq&&!pq.value){showErr(pq,'Selecione o percentual quitado');ok=false}
+      else if(pq&&pq.value==='menos50'){showErr(pq,'Mínimo 50% quitado para elegibilidade');ok=false}
+    }
+  }
+  else if(s===3){
+    // Valida LTV
+    const vi=pC(document.getElementById('valorImovel').value);
+    const vd=parseInt(document.getElementById('valorDesejado').value);
+    if(vi>0&&vd>vi*0.6){
+      const el=document.getElementById('ltvInfo');
+      el.innerHTML='<i class="fas fa-exclamation-triangle" style="color:var(--red-500)"></i> <span style="color:var(--red-500);font-weight:600">LTV acima de 60% — reduza o valor desejado</span>';
+      ok=false;
+    }
+    reqRadio('finalidade','Selecione a finalidade');
+    reqRadio('restricao','Informe sobre restrições');
+  }
+
+  if(!ok){
+    // Scroll to first error
+    const firstErr=document.querySelector('.val-err');
+    if(firstErr)firstErr.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+  return ok;
+}
+
+function goTo(s){
+  // Validate current step before advancing (not when going back)
+  if(s>cs&&!valStep(cs))return;
+  if(s===4)buildAn();if(s===5)buildRes();cs=s;
+  document.querySelectorAll('.ss').forEach(e=>e.classList.remove('active'));
+  document.querySelector('.ss[data-step="'+s+'"]').classList.add('active');
+  document.querySelectorAll('.sps').forEach(e=>{const n=parseInt(e.dataset.step);e.classList.remove('active','completed');if(n===s)e.classList.add('active');else if(n<s)e.classList.add('completed')});
+  document.querySelector('.sim-container').scrollIntoView({behavior:'smooth',block:'start'})}
+
+document.getElementById('comporRenda').addEventListener('change',function(){document.getElementById('rcGrp').style.display=this.value!=='nao'?'block':'none'});
+document.getElementById('situacaoImovel').addEventListener('change',function(){document.getElementById('pqGrp').style.display=this.value==='financiado'?'block':'none'});
+document.getElementById('termos').addEventListener('change',function(){document.getElementById('btnRes').disabled=!this.checked});
+
+function updRange(){
+  const v=parseInt(document.getElementById('valorDesejado').value);document.getElementById('vdDisp').textContent=brl(v);
+  const p=parseInt(document.getElementById('prazo').value);const a=Math.round(p/12);
+  document.getElementById('pzDisp').textContent=p+' meses ('+a+' ano'+(a>1?'s':'')+')';
+  const vi=pC(document.getElementById('valorImovel').value);
+  if(vi>0){const l=(v/vi*100).toFixed(0);const el=document.getElementById('ltvInfo');
+    el.innerHTML=l>60?'<i class="fas fa-exclamation-triangle" style="color:var(--red-500)"></i> <span style="color:var(--red-500)">LTV: '+l+'% — Máximo 60%</span>'
+    :'<i class="fas fa-check-circle" style="color:var(--green-600)"></i> <span style="color:var(--green-600)">LTV: '+l+'% — OK</span>'}}
+
+function scrollSim(){
+  const mv=document.getElementById('mini-valor').value,mp=document.getElementById('mini-precisa').value,mt=document.getElementById('mini-tipo').value;
+  if(mv){
+    document.getElementById('valorImovel').value=mv;
+    // Atualiza LTV com o valor do imóvel preenchido
+    setTimeout(updRange,100);
+  }
+  if(mp){const v=pC(mp);if(v>=50000&&v<=3000000){document.getElementById('valorDesejado').value=v;updRange()}}
+  if(mt){const m={'Apartamento':'tipo-apto','Casa':'tipo-casa','Comercial':'tipo-com','Terreno em condomínio':'tipo-ter'};if(m[mt])document.getElementById(m[mt]).checked=true}
+  document.getElementById('simulador').scrollIntoView({behavior:'smooth'})}
+
+// ==========================================
+// DD SERVICE INTEGRATIONS (Real API Configs)
+// Each service maps to real providers used by
+// C6 Bank, Creditas, and major BR fintechs.
+// Currently simulated — swap fetch calls when
+// API keys are configured.
+// ==========================================
+
+const DDConfig = {
+  // === CREDIT SCORE ===
+  // Serasa Experian: https://developer.serasaexperian.com.br/apis
+  // Quod (5 biggest banks): https://www.quod.com.br/
+  // Boa Vista / Equifax: https://developer.equifax.com/products/apiproducts/equifax-boa-vista-api-scpc
+  serasa:   { baseUrl: 'https://api.serasaexperian.com.br/credit/v1', apiKey: '' },
+  quod:     { baseUrl: 'https://api.quod.com.br/v1', apiKey: '' },
+  boaVista: { baseUrl: 'https://api.equifax.com.br/boa-vista/scpc/v1', apiKey: '' },
+
+  // === IDENTITY / CPF ===
+  // Serpro DataValid: https://apidocs.datavalidp.estaleiro.serpro.gov.br/
+  // BigDataCorp: https://docs.bigdatacorp.com.br/
+  // Idwall: https://api-v2.idwall.co (docs: https://docs.idwall.co/)
+  dataValid:    { baseUrl: 'https://apigateway.serpro.gov.br/datavalid/v3', apiKey: '' },
+  bigDataCorp:  { baseUrl: 'https://bigboost.bigdatacorp.com.br/peoplev2', apiKey: '' },
+  idwall:       { baseUrl: 'https://api-v2.idwall.co', apiKey: '' },
+
+  // === CRIMINAL / CERTIDÕES ===
+  // InfoSimples: https://infosimples.com/ (TJ, TRF, PF, TST)
+  // Idwall also covers criminal background
+  infoSimples: { baseUrl: 'https://api.infosimples.com/api/v2', apiKey: '' },
+
+  // === PROPERTY / VALUATION ===
+  // SREI (Registro de Imóveis Nacional): https://integracao.registrodeimoveis.org.br/
+  // URBIT AVM: https://urbit.com.br/ (algorithmic valuation)
+  srei:  { baseUrl: 'https://api.registrodeimoveis.org.br/v1', apiKey: '' },
+  urbit: { baseUrl: 'https://api.urbit.com.br/v1', apiKey: '' },
+
+  // === ANTI-FRAUD / KYC ===
+  // ClearSale: https://api.clearsale.com.br/docs
+  // Unico Check (biometria): https://unico.io/
+  // Incognia (location fraud): https://api.incognia.com/
+  clearSale: { baseUrl: 'https://api.clearsale.com.br/v1', apiKey: '' },
+  unico:     { baseUrl: 'https://api.unico.io/v1', apiKey: '' },
+  incognia:  { baseUrl: 'https://api.incognia.com/v2', apiKey: '' },
+
+  // === INCOME / DEBT ===
+  // Serpro Consulta Renda: https://apicenter.estaleiro.serpro.gov.br/documentacao/api-renda/
+  // Registrato (BCB): via Open Finance
+  consultaRenda: { baseUrl: 'https://apigateway.serpro.gov.br/consulta-renda/v1', apiKey: '' },
+};
+
+const DDChecks = [
+  { id:'cpf',    icon:'fa-id-card',     label:'Validação CPF',           sub:'Serpro DataValid · BigDataCorp',       delay:900,  color:'#3b82f6' },
+  { id:'credit', icon:'fa-chart-line',   label:'Score de Crédito',        sub:'Serasa · Quod · Boa Vista',            delay:1600, color:'#10b981' },
+  { id:'crim',   icon:'fa-gavel',        label:'Antecedentes Criminais',  sub:'InfoSimples · Idwall · TJ/TRF/PF',    delay:2300, color:'#a855f7' },
+  { id:'prop',   icon:'fa-building',     label:'Registro do Imóvel',      sub:'SREI · URBIT AVM · Prefeitura',       delay:1900, color:'#e91e90' },
+  { id:'fraud',  icon:'fa-fingerprint',  label:'Antifraude / KYC',        sub:'ClearSale · Unico · Incognia · COAF', delay:1300, color:'#ef4444' },
+  { id:'income', icon:'fa-coins',        label:'Renda & Endividamento',   sub:'Serpro Renda · Registrato · eSocial',  delay:2100, color:'#059669' },
+];
+
+// ========== SIMULATED API CALLS ==========
+// In production, replace each with real fetch() to DDConfig endpoints
+
+const DDApi = {
+  fetchCPF(cpf) {
+    // PROD: fetch(DDConfig.dataValid.baseUrl + '/validate/pf', { headers: { Authorization: 'Bearer ' + DDConfig.dataValid.apiKey }, body: JSON.stringify({cpf}) })
+    // PROD: fetch(DDConfig.bigDataCorp.baseUrl, { headers: { AccessToken: DDConfig.bigDataCorp.apiKey }, body: JSON.stringify({cpf}) })
+    const clean = (cpf||'').replace(/\D/g,'');
+    const valid = clean.length === 11;
+    const nm = document.getElementById('nome').value||'N/A';
+    const nasc = document.getElementById('nascimento').value;
+    const age = nasc ? Math.floor((new Date()-new Date(nasc))/31557600000) : null;
+    return {
+      provider: 'Serpro DataValid + BigDataCorp',
+      status: valid?'regular':'irregular', situacao: valid?'Regular':'CPF Inválido',
+      nome: nm, idade: age, obito: false, uf: document.getElementById('uf').value||'SP',
+      alerts: !valid ? ['CPF com formato inválido.'] : (age&&age<18) ? ['Menor de idade — não elegível.'] : []
+    };
+  },
+
+  fetchCreditScore(cpf) {
+    // PROD: fetch(DDConfig.serasa.baseUrl + '/score', { headers: { Authorization: 'Bearer ' + DDConfig.serasa.apiKey }, body: JSON.stringify({document:cpf}) })
+    // PROD: fetch(DDConfig.quod.baseUrl + '/score', { ... })
+    // PROD: fetch(DDConfig.boaVista.baseUrl + '/score', { ... })
+    const renda = pC(document.getElementById('renda').value);
+    const rest = document.querySelector('input[name="restricao"]:checked');
+    const hasRest = rest && rest.value === 'sim';
+    const ocu = document.querySelector('input[name="ocupacao"]:checked');
+    const ocuT = ocu ? ocu.value : '';
+    let score = 680;
+    if(hasRest) score -= 200;
+    if(renda > 15000) score += 80; else if(renda > 8000) score += 40;
+    if(ocuT==='Servidor'||ocuT==='CLT') score += 50;
+    if(ocuT==='Autônomo') score -= 20;
+    score = Math.max(150, Math.min(1000, score + Math.floor(Math.random()*60-30)));
+    let faixa, cor;
+    if(score>=800){faixa='Excelente';cor='#059669'} else if(score>=600){faixa='Bom';cor='#10b981'} else if(score>=400){faixa='Regular';cor='#f59e0b'} else{faixa='Baixo';cor='#ef4444'}
+    return {
+      provider: 'Serasa Experian + Quod + Boa Vista',
+      score, faixa, cor, max: 1000,
+      negativacoes: hasRest ? Math.floor(Math.random()*3)+1 : 0,
+      protestos: hasRest ? Math.floor(Math.random()*2) : 0,
+      consultasRecentes: Math.floor(Math.random()*4)+1,
+      ccf: false, pefin: hasRest, refin: hasRest,
+      alerts: hasRest ? ['Pendências financeiras registradas — pode impactar a taxa.'] : []
+    };
+  },
+
+  fetchCriminal(cpf) {
+    // PROD: fetch(DDConfig.infoSimples.baseUrl + '/certificates/criminal', { headers: { Authorization: DDConfig.infoSimples.apiKey }, body: JSON.stringify({cpf}) })
+    // PROD: fetch(DDConfig.idwall.baseUrl + '/background-check', { headers: { Authorization: 'Bearer ' + DDConfig.idwall.apiKey }, body: JSON.stringify({cpf}) })
+    return {
+      provider: 'InfoSimples + Idwall',
+      criminal: {st:'ok',ds:'Nada Consta'}, civil: {st:'ok',ds:'Nada Consta',n:0},
+      trabalhista: {st:'ok',ds:'Nada Consta',n:0}, federal: {st:'ok',ds:'Nada Consta'},
+      eleitoral: {st:'ok',ds:'Regular'}, cnj: {st:'ok',ds:'Sem impedimentos'},
+      pf: {st:'ok',ds:'Nada Consta'}, interpol: {st:'ok',ds:'Sem registros'},
+      dt: new Date().toLocaleDateString('pt-BR'), alerts: []
+    };
+  },
+
+  fetchProperty() {
+    // PROD: fetch(DDConfig.srei.baseUrl + '/matricula/online', { headers: { Authorization: 'Bearer ' + DDConfig.srei.apiKey }, body: JSON.stringify({cep, endereco}) })
+    // PROD: fetch(DDConfig.urbit.baseUrl + '/avm', { headers: { Authorization: 'Bearer ' + DDConfig.urbit.apiKey }, body: JSON.stringify({cep, area, tipo}) })
+    const vi = pC(document.getElementById('valorImovel').value);
+    const tipo = document.querySelector('input[name="tipoImovel"]:checked');
+    const ano = document.getElementById('anoConstrucao').value;
+    const area = parseFloat(document.getElementById('area').value)||80;
+    const cidade = document.getElementById('cidade').value||'São Paulo';
+    const bairro = document.getElementById('bairro').value||'';
+    const mat = document.querySelector('input[name="matricula"]:checked');
+    const iptu = document.querySelector('input[name="iptu"]:checked');
+    const sit = document.getElementById('situacaoImovel').value;
+    const variance = 0.9 + Math.random()*0.2;
+    const avm = Math.round(vi*variance/1000)*1000;
+    const pm2 = Math.round(avm/area);
+    const idadeI = ano ? (new Date().getFullYear()-parseInt(ano)) : null;
+    let alerts = [];
+    if(mat&&mat.value==='nao') alerts.push('Sem matrícula — impeditivo para alienação fiduciária.');
+    if(iptu&&iptu.value==='nao') alerts.push('IPTU em atraso — regularizar antes.');
+    if(idadeI&&idadeI>40) alerts.push('Imóvel 40+ anos — vistoria técnica obrigatória.');
+    if(sit==='financiado') alerts.push('Alienação fiduciária vigente — portabilidade necessária.');
+    return {
+      provider: 'SREI + URBIT AVM',
+      tipo: tipo?tipo.value:'Apartamento', cidade, bairro, area, ano: ano||'N/I', idadeI,
+      valorDecl: vi, avm, pm2, pm2Regiao: Math.round(pm2*(0.95+Math.random()*0.1)),
+      matOk: !mat||mat.value!=='nao', iptuOk: !iptu||iptu.value!=='nao',
+      onus: false, penhora: false, alerts
+    };
+  },
+
+  fetchAntiFraud(cpf) {
+    // PROD: fetch(DDConfig.clearSale.baseUrl + '/orders', { headers: { Authorization: 'Bearer ' + DDConfig.clearSale.apiKey }, body: JSON.stringify({cpf}) })
+    // PROD: fetch(DDConfig.unico.baseUrl + '/processes', { headers: { Authorization: 'Bearer ' + DDConfig.unico.apiKey }, body: JSON.stringify({cpf}) })
+    // PROD: fetch(DDConfig.incognia.baseUrl + '/transactions', { headers: { Authorization: 'Bearer ' + DDConfig.incognia.apiKey }, body: JSON.stringify({cpf}) })
+    return {
+      provider: 'ClearSale + Unico Check + Incognia',
+      pep: false, pepRel: false, ofac: false, ue: false, onu: false,
+      coaf: {st:'ok',ds:'Sem alertas'},
+      clearSale: {score: Math.floor(Math.random()*15)+2, risk:'baixo'},
+      unico: {st:'pendente',ds:'Aguardando selfie + documento'},
+      incognia: {st:'ok',ds:'Localização consistente', risk:'baixo'},
+      alerts: []
+    };
+  },
+
+  fetchIncome() {
+    // PROD: fetch(DDConfig.consultaRenda.baseUrl + '/renda', { headers: { Authorization: 'Bearer ' + DDConfig.consultaRenda.apiKey }, body: JSON.stringify({cpf, autorizacao}) })
+    const renda = pC(document.getElementById('renda').value);
+    const rc = pC(document.getElementById('rendaComposta')?.value||'0');
+    const ocu = document.querySelector('input[name="ocupacao"]:checked');
+    const ocuT = ocu ? ocu.value : '';
+    const vd = parseInt(document.getElementById('valorDesejado').value);
+    const pz = parseInt(document.getElementById('prazo').value);
+    const rt = renda + rc;
+    const tx = 0.0099;
+    const am = vd/pz;
+    const p1 = am + vd*tx;
+    const comp = rt > 0 ? (p1/rt*100) : 0;
+    const outrasP = rt * (Math.random()*0.15);
+    const compTotal = rt > 0 ? ((p1+outrasP)/rt*100) : 0;
+    let alerts = [];
+    if(comp>30) alerts.push('Comprometimento acima de 30% — pode exigir garantias adicionais.');
+    if(compTotal>40) alerts.push('Endividamento total acima de 40% — risco elevado.');
+    if(ocuT==='Autônomo') alerts.push('Autônomo: exige DECORE ou extratos 6 meses.');
+    return {
+      provider: 'Serpro Consulta Renda + Registrato (BCB)',
+      rendaDecl: renda, rendaComp: rc, rendaTotal: rt, ocupacao: ocuT,
+      parcela: p1, comp: comp.toFixed(1), compTotal: compTotal.toFixed(1),
+      registrato: { empAtivos: Math.floor(Math.random()*3), inst: Math.floor(Math.random()*3)+1, saldoDev: Math.round(outrasP*24) },
+      openFinance: { st:'disponivel', consent: false },
+      alerts
+    };
+  }
+};
+
+// ========== DD ANIMATION ENGINE ==========
+async function runDD() {
+  const grid = document.getElementById('ddGrid');
+  const results = document.getElementById('ddResults');
+  const docs = document.getElementById('ddDocs');
+  results.style.display = 'none'; docs.style.display = 'none';
+
+  grid.innerHTML = DDChecks.map(c =>
+    '<div class="dd-item" id="ddi-'+c.id+'"><div class="dd-spin" id="dds-'+c.id+'"></div><div><div class="dd-lbl">'+c.label+'</div><div class="dd-sub">'+c.sub+'</div></div></div>'
+  ).join('');
+
+  const cpf = document.getElementById('cpf').value;
+  const res = {};
+
+  for (const ck of DDChecks) {
+    document.getElementById('ddi-'+ck.id).classList.add('running');
+    await new Promise(r => setTimeout(r, ck.delay));
+
+    switch(ck.id) {
+      case 'cpf':    res.cpf = DDApi.fetchCPF(cpf); break;
+      case 'credit': res.credit = DDApi.fetchCreditScore(cpf); break;
+      case 'crim':   res.crim = DDApi.fetchCriminal(cpf); break;
+      case 'prop':   res.prop = DDApi.fetchProperty(); break;
+      case 'fraud':  res.fraud = DDApi.fetchAntiFraud(cpf); break;
+      case 'income': res.income = DDApi.fetchIncome(); break;
+    }
+
+    const r = res[ck.id];
+    const hasA = r.alerts && r.alerts.length > 0;
+    const item = document.getElementById('ddi-'+ck.id);
+    item.classList.remove('running');
+    item.classList.add(hasA ? 'warn' : 'done');
+    document.getElementById('dds-'+ck.id).outerHTML = hasA
+      ? '<i class="fas fa-exclamation-triangle" style="color:var(--gold-500);font-size:16px;flex-shrink:0"></i>'
+      : '<i class="fas fa-check-circle" style="color:var(--green-500);font-size:16px;flex-shrink:0"></i>';
+  }
+
+  window._dd = res;
+  await new Promise(r => setTimeout(r, 400));
+  renderDD(res);
+  results.style.display = 'block';
+  docs.style.display = 'block';
+}
+
+function renderDD(r) {
+  // Credit Score
+  const cs = r.credit;
+  document.getElementById('ddCreditBody').innerHTML =
+    '<div class="ddm">'+
+      '<div class="ddmx" style="grid-column:span 2"><div class="ddml">Score Serasa</div><div style="display:flex;align-items:baseline;gap:8px"><div class="ddmv" style="font-size:26px;color:'+cs.cor+'">'+cs.score+'</div><span style="font-size:12px;color:var(--text-muted)">/'+cs.max+'</span><span class="ddb '+(cs.score>=600?'ok':cs.score>=400?'rw':'ng')+'">'+cs.faixa+'</span></div><div class="dd-bar"><div class="dd-fill" style="width:'+(cs.score/cs.max*100)+'%;background:'+cs.cor+'"></div></div></div>'+
+      '<div class="ddmx"><div class="ddml">Negativações</div><div class="ddmv" style="color:'+(cs.negativacoes>0?'var(--red-500)':'var(--green-500)')+'">'+cs.negativacoes+'</div></div>'+
+      '<div class="ddmx"><div class="ddml">Protestos</div><div class="ddmv">'+cs.protestos+'</div></div>'+
+      '<div class="ddmx"><div class="ddml">Consultas 90d</div><div class="ddmv">'+cs.consultasRecentes+'</div></div>'+
+      '<div class="ddmx"><div class="ddml">PEFIN / REFIN</div><div class="ddmv" style="font-size:13px">'+(cs.pefin?'Sim':'—')+' / '+(cs.refin?'Sim':'—')+'</div></div>'+
+    '</div>'+
+    '<div class="dd-alert info" style="margin-top:10px"><i class="fas fa-info-circle" style="margin-top:1px"></i> Fonte: '+cs.provider+'</div>'+
+    cs.alerts.map(a => '<div class="dd-alert wr"><i class="fas fa-exclamation-triangle" style="margin-top:1px"></i>'+a+'</div>').join('');
+
+  // CPF
+  const cp = r.cpf;
+  document.getElementById('ddCPFBody').innerHTML =
+    '<div class="ddm">'+
+      '<div class="ddmx"><div class="ddml">Situação</div><div class="ddmv"><span class="ddb '+(cp.status==='regular'?'ok':'ng')+'">'+cp.situacao+'</span></div></div>'+
+      '<div class="ddmx"><div class="ddml">Nome</div><div class="ddmv" style="font-size:13px">'+cp.nome+'</div></div>'+
+      '<div class="ddmx"><div class="ddml">Idade</div><div class="ddmv">'+(cp.idade?cp.idade+' anos':'N/I')+'</div></div>'+
+      '<div class="ddmx"><div class="ddml">UF</div><div class="ddmv">'+cp.uf+'</div></div>'+
+      '<div class="ddmx"><div class="ddml">Óbito</div><div class="ddmv" style="color:var(--green-500)">'+(cp.obito?'Sim':'Não')+'</div></div>'+
+    '</div>'+
+    '<div class="dd-alert info" style="margin-top:10px"><i class="fas fa-info-circle" style="margin-top:1px"></i> Fonte: '+cp.provider+'</div>'+
+    cp.alerts.map(a => '<div class="dd-alert dg"><i class="fas fa-times-circle" style="margin-top:1px"></i>'+a+'</div>').join('');
+
+  // Criminal
+  const cr = r.crim;
+  const certs = [['Criminal (TJ)',cr.criminal],['Civil (TJ)',cr.civil],['Trabalhista (TST)',cr.trabalhista],['Federal (TRF)',cr.federal],['Eleitoral',cr.eleitoral],['CNJ',cr.cnj],['Polícia Federal',cr.pf],['Interpol',cr.interpol]];
+  document.getElementById('ddCrimBody').innerHTML =
+    '<div class="ddm" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">'+
+    certs.map(([l,v]) => '<div class="ddmx"><div class="ddml">'+l+'</div><div class="ddmv" style="font-size:12px"><span class="ddb '+(v.st==='ok'?'ok':'rw')+'">'+v.ds+'</span></div></div>').join('')+
+    '</div>'+
+    '<div class="dd-alert ok" style="margin-top:10px"><i class="fas fa-check-circle" style="margin-top:1px"></i> Nenhuma restrição encontrada — '+cr.dt+'. Fonte: '+cr.provider+'</div>';
+
+  // Property
+  const pr = r.prop;
+  document.getElementById('ddPropBody').innerHTML =
+    '<div class="ddm">'+
+      '<div class="ddmx"><div class="ddml">Tipo</div><div class="ddmv" style="font-size:13px">'+pr.tipo+'</div></div>'+
+      '<div class="ddmx"><div class="ddml">Local</div><div class="ddmv" style="font-size:13px">'+(pr.bairro?pr.bairro+', ':'')+pr.cidade+'</div></div>'+
+      '<div class="ddmx"><div class="ddml">Área</div><div class="ddmv">'+pr.area+' m²</div></div>'+
+      '<div class="ddmx"><div class="ddml">Ano</div><div class="ddmv">'+pr.ano+(pr.idadeI?' ('+pr.idadeI+'a)':'')+'</div></div>'+
+      '<div class="ddmx"><div class="ddml">Valor Declarado</div><div class="ddmv">'+brl(pr.valorDecl)+'</div></div>'+
+      '<div class="ddmx"><div class="ddml">AVM (URBIT)</div><div class="ddmv" style="color:'+(pr.avm>=pr.valorDecl*.85?'var(--green-500)':'var(--gold-500)')+'">'+brl(pr.avm)+'</div><div class="ddms">Laudo presencial pendente</div></div>'+
+      '<div class="ddmx"><div class="ddml">R$/m²</div><div class="ddmv">'+brl(pr.pm2)+'</div><div class="ddms">Região: ~'+brl(pr.pm2Regiao)+'</div></div>'+
+      '<div class="ddmx"><div class="ddml">Matrícula</div><div class="ddmv"><span class="ddb '+(pr.matOk?'ok':'ng')+'">'+(pr.matOk?'OK':'Pendente')+'</span></div></div>'+
+      '<div class="ddmx"><div class="ddml">IPTU</div><div class="ddmv"><span class="ddb '+(pr.iptuOk?'ok':'ng')+'">'+(pr.iptuOk?'Em dia':'Atraso')+'</span></div></div>'+
+      '<div class="ddmx"><div class="ddml">Ônus/Penhora</div><div class="ddmv"><span class="ddb ok">Livre</span></div></div>'+
+    '</div>'+
+    '<div class="dd-alert info" style="margin-top:10px"><i class="fas fa-info-circle" style="margin-top:1px"></i> Fonte: '+pr.provider+'</div>'+
+    pr.alerts.map(a => '<div class="dd-alert wr"><i class="fas fa-exclamation-triangle" style="margin-top:1px"></i>'+a+'</div>').join('');
+
+  // Anti-Fraud
+  const af = r.fraud;
+  document.getElementById('ddFraudBody').innerHTML =
+    '<div class="ddm">'+
+      '<div class="ddmx"><div class="ddml">PEP</div><div class="ddmv"><span class="ddb '+(af.pep?'rw':'ok')+'">'+(af.pep?'Sim':'Não')+'</span></div></div>'+
+      '<div class="ddmx"><div class="ddml">Listas de Sanções</div><div class="ddmv"><span class="ddb ok">Sem Registros</span></div><div class="ddms">OFAC · UE · ONU</div></div>'+
+      '<div class="ddmx"><div class="ddml">COAF</div><div class="ddmv"><span class="ddb ok">'+af.coaf.ds+'</span></div></div>'+
+      '<div class="ddmx"><div class="ddml">ClearSale Score</div><div class="ddmv" style="color:var(--green-500)">'+af.clearSale.score+'/100</div><div class="ddms">Risco: '+af.clearSale.risk+'</div></div>'+
+      '<div class="ddmx"><div class="ddml">Biometria (Unico)</div><div class="ddmv"><span class="ddb rw">'+af.unico.ds+'</span></div></div>'+
+      '<div class="ddmx"><div class="ddml">Incognia</div><div class="ddmv"><span class="ddb ok">'+af.incognia.ds+'</span></div><div class="ddms">Risco: '+af.incognia.risk+'</div></div>'+
+    '</div>'+
+    '<div class="dd-alert info" style="margin-top:10px"><i class="fas fa-info-circle" style="margin-top:1px"></i> Fonte: '+af.provider+'</div>';
+
+  // Income
+  const inc = r.income;
+  document.getElementById('ddIncBody').innerHTML =
+    '<div class="ddm">'+
+      '<div class="ddmx"><div class="ddml">Renda Declarada</div><div class="ddmv">'+brl(inc.rendaDecl)+'/mês</div><div class="ddms">'+inc.ocupacao+'</div></div>'+
+      (inc.rendaComp>0 ? '<div class="ddmx"><div class="ddml">Renda Composta</div><div class="ddmv">'+brl(inc.rendaComp)+'/mês</div></div>' : '')+
+      '<div class="ddmx"><div class="ddml">Renda Total</div><div class="ddmv" style="color:var(--green-500)">'+brl(inc.rendaTotal)+'/mês</div></div>'+
+      '<div class="ddmx"><div class="ddml">Parcela Est.</div><div class="ddmv">'+brl(inc.parcela)+'/mês</div></div>'+
+      '<div class="ddmx"><div class="ddml">Comprometimento</div><div class="ddmv" style="color:'+(parseFloat(inc.comp)>30?'var(--gold-500)':'var(--green-500)')+'">'+inc.comp+'%</div><div class="ddms">Recomendado: até 30%</div></div>'+
+      '<div class="ddmx"><div class="ddml">Endividamento</div><div class="ddmv" style="color:'+(parseFloat(inc.compTotal)>40?'var(--red-500)':parseFloat(inc.compTotal)>30?'var(--gold-500)':'var(--green-500)')+'">'+inc.compTotal+'%</div><div class="ddms">Limite: 40%</div></div>'+
+      '<div class="ddmx" style="grid-column:span 2"><div class="ddml">Registrato (Banco Central)</div><div class="ddmv" style="font-size:12px">'+inc.registrato.empAtivos+' empréstimo(s) em '+inc.registrato.inst+' instituição(ões) · Saldo: '+brl(inc.registrato.saldoDev)+'</div></div>'+
+    '</div>'+
+    '<div class="dd-alert info" style="margin-top:10px"><i class="fas fa-info-circle" style="margin-top:1px"></i> Fonte: '+inc.provider+'</div>'+
+    inc.alerts.map(a => '<div class="dd-alert wr"><i class="fas fa-exclamation-triangle" style="margin-top:1px"></i>'+a+'</div>').join('');
+
+  // Summary
+  const allA = [...r.cpf.alerts,...r.credit.alerts,...r.crim.alerts,...r.prop.alerts,...r.fraud.alerts,...r.income.alerts];
+  const st = allA.length===0?'ok':allA.length<=2?'rw':'ng';
+  const stL = st==='ok'?'Pré-Aprovado':st==='rw'?'Aprovado com Ressalvas':'Análise Manual';
+  const stC = st==='ok'?'var(--green-500)':st==='rw'?'var(--gold-500)':'var(--red-500)';
+  const stI = st==='ok'?'fa-check-circle':st==='rw'?'fa-exclamation-circle':'fa-times-circle';
+  document.getElementById('ddSummary').innerHTML =
+    '<div style="display:flex;align-items:center;gap:14px;padding:22px 28px;background:linear-gradient(135deg,var(--terra-950),var(--terra-800));border-radius:var(--radius);color:#fff">'+
+      '<i class="fas '+stI+'" style="font-size:28px;color:'+stC+';filter:drop-shadow(0 0 8px '+stC+')"></i>'+
+      '<div style="flex:1"><div style="font-weight:800;font-size:18px">'+stL+'</div><div style="font-size:12px;color:rgba(255,255,255,.45);margin-top:2px">'+DDChecks.length+' verificações · '+allA.length+' alerta(s) · Score: '+r.credit.score+'/1000</div></div>'+
+      '<div style="text-align:right"><div style="font-size:10px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px">Protocolo</div><div style="font-size:13px;font-weight:700;color:var(--gold-400);font-family:monospace">#TC-'+Date.now().toString(36).toUpperCase()+'</div></div>'+
+    '</div>';
+}
+
+function buildAn() { runDD(); }
+
+function buildRes(){
+  const vd=parseInt(document.getElementById('valorDesejado').value),pz=parseInt(document.getElementById('prazo').value);
+  const vi=pC(document.getElementById('valorImovel').value),r=pC(document.getElementById('renda').value);
+  const rc=pC(document.getElementById('rendaComposta')?.value||'0'),rt=r+rc;
+  const rest=document.querySelector('input[name="restricao"]:checked');
+  let tx=.0099;
+  const dd=window._dd;
+  if(dd&&dd.credit){const sc=dd.credit.score;if(sc>=800)tx=.0079;else if(sc>=600)tx=.0099;else if(sc>=400)tx=.0129;else tx=.0159}
+  else if(rest&&rest.value==='sim')tx=.0139;else if(vi>1000000)tx=.0089;
+  let vf=Math.min(vd,vi*.6),am=vf/pz,j1=vf*tx,p1=am+j1,pm=am+(vf*tx/2);
+  const cet=(tx*100+.15).toFixed(2),cr=rt>0?(p1/rt*100).toFixed(1):0,ltv=vi>0?Math.min(vd/vi*100,60):0;
+  const rows=[['fa-receipt','Primeira parcela (SAC)',brl(p1),''],['fa-calculator','Parcela média',brl(pm),''],['fa-percent','Taxa mensal',(tx*100).toFixed(2)+'% a.m.',''],['fa-chart-pie','CET estimado',cet+'% a.m.',''],['fa-calendar','Prazo',pz+' meses ('+Math.round(pz/12)+' anos)',''],['fa-home','LTV',ltv.toFixed(1)+'%',''],['fa-wallet','Comprometimento renda',cr+'%',cr>30?'color:var(--gold-400)':'color:var(--green-500)'],['fa-sliders','Amortização','SAC','']];
+  let h='<div class="rc"><div class="rhi"><div class="lb">Crédito aprovado em simulação</div><div class="vl">'+brl(vf)+'</div><div class="sb">Sujeito a análise documental e avaliação</div></div>';
+  rows.forEach(([ic,lb,vl,st])=>{h+='<div class="rr"><span class="rrl"><i class="fas '+ic+'" style="margin-right:8px;opacity:.4"></i>'+lb+'</span><span class="rrv"'+(st?' style="'+st+'"':'')+'>'+vl+'</span></div>'});
+  h+='</div><div class="rdis"><i class="fas fa-info-circle" style="color:var(--gold-500);margin-right:8px"></i><strong>Importante:</strong> Simulação informativa. Valores sujeitos a análise, avaliação e mercado. Seguros MIP/DFI não incluídos.</div>';
+  document.getElementById('resC').innerHTML=h}
+
+function tFaq(el){el.parentElement.classList.toggle('open')}
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();const t=document.querySelector(this.getAttribute('href'));if(t){t.scrollIntoView({behavior:'smooth'});document.getElementById('nav').classList.remove('open')}})});
+
+// ========== SUBMIT LEAD TO BACKEND ==========
+async function submitLead(){
+  const btn=document.getElementById('btnContratar');
+  const origHTML=btn.innerHTML;
+  btn.disabled=true;
+  btn.innerHTML='<i class="fas fa-spinner fa-spin" style="margin-right:6px"></i>Enviando...';
+
+  // Collect form data
+  const getVal=id=>{const el=document.getElementById(id);return el?el.value:''};
+  const getRadio=name=>{const el=document.querySelector('input[name="'+name+'"]:checked');return el?el.value:''};
+
+  // Get analysis results if available
+  const dd=window._dd||{};
+  const credit=dd.credit||{};
+  const vi=pC(getVal('valorImovel'));
+  const vd=parseInt(getVal('valorDesejado'));
+  const ltv=vi>0?Math.min(vd/vi*100,60):0;
+  const rest=getRadio('restricao');
+  let tx=0.0099;
+  if(credit.score){if(credit.score>=800)tx=0.0079;else if(credit.score>=600)tx=0.0099;else if(credit.score>=400)tx=0.0129;else tx=0.0159}
+  else if(rest==='sim')tx=0.0139;else if(vi>1000000)tx=0.0089;
+  const pz=parseInt(getVal('prazo'));
+  const vf=Math.min(vd,vi*0.6);
+  const am=vf/pz;
+  const p1=am+vf*tx;
+  const renda=pC(getVal('renda'));
+  const rc=pC(getVal('rendaComposta')||'0');
+  const rt=renda+rc;
+  const comp=rt>0?(p1/rt*100):0;
+
+  const lead={
+    // Dados pessoais
+    nome:getVal('nome'),
+    cpf:getVal('cpf'),
+    nascimento:getVal('nascimento'),
+    email:getVal('email'),
+    celular:getVal('celular'),
+    estadoCivil:getVal('estadoCivil'),
+    ocupacao:getRadio('ocupacao'),
+    rendaBruta:renda,
+    comporRenda:getVal('comporRenda'),
+    rendaComposta:rc,
+    uf:getVal('uf'),
+    // Dados do imóvel
+    tipoImovel:getRadio('tipoImovel'),
+    cep:getVal('cep'),
+    cidade:getVal('cidade'),
+    bairro:getVal('bairro'),
+    endereco:getVal('endereco'),
+    valorImovel:vi,
+    anoConstrucao:parseInt(getVal('anoConstrucao'))||null,
+    area:parseFloat(getVal('area'))||null,
+    quartos:getVal('quartos'),
+    vagas:getVal('vagas'),
+    situacaoImovel:getVal('situacaoImovel'),
+    percQuitado:getVal('percQuitado'),
+    titularidade:getRadio('titularidade'),
+    matricula:getRadio('matricula'),
+    iptu:getRadio('iptu'),
+    // Crédito
+    valorDesejado:vd,
+    prazo:pz,
+    finalidade:getRadio('finalidade'),
+    restricaoCpf:rest,
+    // Resultado análise
+    scoreCredito:credit.score||null,
+    statusAnalise:dd.credit?'simulado':null,
+    ltv:parseFloat(ltv.toFixed(1)),
+    taxaMensal:tx,
+    parcela1:parseFloat(p1.toFixed(2)),
+    cet:parseFloat((tx*100+0.15).toFixed(2)),
+    comprometimento:parseFloat(comp.toFixed(1))
+  };
+
+  try{
+    const resp=await fetch('/api/leads',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(lead)
+    });
+    const data=await resp.json();
+
+    if(resp.ok){
+      // Show success modal
+      const modal=document.createElement('div');
+      modal.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,37,32,.85);backdrop-filter:blur(12px);z-index:9999;display:flex;align-items:center;justify-content:center;animation:fadeIn .3s';
+      modal.innerHTML='<div style="background:#fff;border-radius:var(--radius-lg);padding:48px;max-width:480px;width:90%;text-align:center;animation:fadeInUp .4s">'+
+        '<div style="width:72px;height:72px;background:linear-gradient(135deg,#34d399,#059669);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px"><i class="fas fa-check" style="color:#fff;font-size:32px"></i></div>'+
+        '<h2 style="font-family:'DM Sans',sans-serif;font-size:26px;margin-bottom:12px;color:var(--terra-900)">Solicitação Enviada!</h2>'+
+        '<p style="color:var(--text-secondary);font-size:15px;line-height:1.7;margin-bottom:8px">Seu pedido <strong>#TC-'+data.id+'</strong> foi registrado. Nossa equipe entrará em contato em até <strong>24 horas úteis</strong>.</p>'+
+        '<p style="color:var(--text-muted);font-size:13px;margin-bottom:28px">Confira seu e-mail <strong>'+lead.email+'</strong> para acompanhar.</p>'+
+        '<button onclick="this.closest(\'div[style]\').remove()" style="background:linear-gradient(135deg,var(--gold-500),var(--gold-300));color:var(--terra-900);border:none;padding:14px 36px;border-radius:var(--radius-sm);font-weight:700;font-size:15px;cursor:pointer">Entendido</button>'+
+      '</div>';
+      document.body.appendChild(modal);
+    }else{
+      alert('Erro ao enviar: '+(data.error||'tente novamente'));
+    }
+  }catch(e){
+    alert('Erro de conexão. Verifique se o servidor está rodando (python3 server.py)');
+    console.error(e);
+  }finally{
+    btn.disabled=false;
+    btn.innerHTML=origHTML;
+  }
+}
+</script>
+</body>
+</html>

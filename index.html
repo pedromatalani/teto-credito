@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teto — Crédito com Garantia de Imóvel</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f2440'/%3E%3Cpath d='M6 26V14a10 10 0 0120 0v12' stroke='white' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <style>
+    .ico{display:inline-flex;align-items:center;justify-content:center;vertical-align:middle}
+    .ico svg{display:block}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .ico-spin svg{animation:spin .7s linear infinite}
+    :root{--terra-950:#000000;--terra-900:#0a0a0a;--terra-800:#141414;--terra-700:#1e1e1e;--terra-600:#2a2a2a;--gold-600:#0a1628;--gold-500:#0f2440;--gold-400:#162d4d;--gold-300:#1c3a5e;--gold-200:#2a5080;--accent:#ffffff;--accent-dim:rgba(255,255,255,.85);--green-500:#34d399;--green-600:#059669;--red-500:#ef4444;--red-100:#fee2e2;--bg:#f5f5f0;--bg-warm:#f0efe8;--bg-card:#fff;--text-primary:#111;--text-secondary:#555;--text-muted:#999;--border:#e0ddd5;--border-light:#eae8e0;--radius:16px;--radius-sm:10px;--radius-lg:24px;--shadow-gold:0 8px 32px rgba(0,0,0,.2);--shadow-lg:0 16px 48px rgba(0,0,0,.08);--shadow-xl:0 24px 64px rgba(0,0,0,.12)}
+    *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+    body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text-primary);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes slideInRight{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+    @keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-20px) rotate(3deg)}}
+    @keyframes float2{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px) rotate(-2deg)}}
+    @keyframes pulse-glow{0%,100%{box-shadow:0 0 20px rgba(15,36,64,.15)}50%{box-shadow:0 0 40px rgba(15,36,64,.3)}}
+    @keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    .aos{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}.aos.v{opacity:1;transform:translateY(0)}
+
+    .header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(15,22,33,.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(15,36,64,.1);transition:all .4s cubic-bezier(.16,1,.3,1)}
+    .header.scrolled{background:rgba(15,22,33,.95);box-shadow:0 4px 30px rgba(0,0,0,.15)}
+    .header-inner{max-width:1240px;margin:0 auto;padding:0 32px;height:76px;display:flex;align-items:center;justify-content:space-between}
+    .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+    .logo-icon{width:42px;height:42px;background:linear-gradient(135deg,#0f2440,#1c3a5e);border-radius:12px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(15,36,64,.4);transition:transform .3s}
+    .logo:hover .logo-icon{transform:rotate(-5deg) scale(1.05)}
+    .logo-icon svg{width:24px;height:24px}
+    .logo-text{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:#fff;letter-spacing:-1px}
+    .logo-text span{color:var(--gold-400)}
+    .nav{display:flex;gap:8px;align-items:center}.nav a{color:rgba(255,255,255,.65);text-decoration:none;font-size:14px;font-weight:500;padding:8px 16px;border-radius:8px;transition:all .25s}
+    .nav a:hover{color:#fff;background:rgba(255,255,255,.06)}
+    .nav-cta{background:#fff!important;color:#000!important;padding:10px 24px!important;font-weight:600!important;border-radius:100px!important;box-shadow:none!important}
+    .nav-cta:hover{transform:translateY(-1px)!important;box-shadow:0 8px 24px rgba(255,255,255,.1)!important;opacity:.9!important}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:0;border:0;padding:8px;border-radius:8px}
+    .hamburger:hover{background:rgba(255,255,255,.06)}.hamburger span{width:22px;height:2px;background:#fff;border-radius:2px}
+
+    /* DD Check Grid */
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .dd-item{display:flex;align-items:center;gap:10px;padding:14px 16px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);transition:all .4s}
+    .dd-item.running{border-color:var(--gold-500);box-shadow:0 0 0 3px rgba(15,36,64,.08)}
+    .dd-item.done{border-color:var(--green-500)} .dd-item.warn{border-color:var(--gold-500)} .dd-item.fail{border-color:var(--red-500)}
+    .dd-spin{width:20px;height:20px;border:2.5px solid var(--border);border-top-color:var(--gold-500);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
+    .dd-item .dd-lbl{font-size:12px;font-weight:600;color:var(--text-primary)}.dd-item .dd-sub{font-size:10px;color:var(--text-muted);margin-top:1px}
+
+    /* DD Result Cards */
+    .ddc{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:14px;transition:box-shadow .3s}
+    .ddc:hover{box-shadow:var(--shadow-lg)}
+    .ddh{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+    .ddi{width:44px;height:44px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+    .ddt{font-weight:700;font-size:15px}.dds{font-size:11px;color:var(--text-muted);margin-top:2px}
+    .ddm{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px}
+    .ddmx{padding:14px 16px;background:var(--bg-warm);border-radius:8px;border:1px solid var(--border-light)}
+    .ddml{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
+    .ddmv{font-size:15px;font-weight:700}.ddms{font-size:10px;color:var(--text-muted);margin-top:2px}
+    .ddb{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:100px;font-size:11px;font-weight:700}
+    .ddb.ok{background:rgba(52,211,153,.08);color:var(--green-600)} .ddb.rw{background:rgba(15,36,64,.1);color:var(--gold-600)} .ddb.ng{background:rgba(239,68,68,.08);color:var(--red-500)}
+    .dd-bar{height:7px;background:var(--border-light);border-radius:100px;overflow:hidden;margin-top:8px}
+    .dd-fill{height:100%;border-radius:100px;transition:width 1.5s ease-out}
+    .dd-alert{padding:10px 14px;border-radius:8px;font-size:12px;margin-top:10px;display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+    .dd-alert.info{background:rgba(59,130,246,.05);border:1px solid rgba(59,130,246,.12);color:#1e40af}
+    .dd-alert.ok{background:rgba(52,211,153,.05);border:1px solid rgba(52,211,153,.12);color:var(--green-600)}
+    .dd-alert.wr{background:rgba(15,36,64,.06);border:1px solid rgba(15,36,64,.15);color:#0d6e64}
+    .dd-alert.dg{background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.12);color:#991b1b}
+    @media(max-width:768px){#ddGrid{grid-template-columns:1fr 1fr}.ddm{grid-template-columns:1fr 1fr}}
+    @media(max-width:480px){#ddGrid{grid-template-columns:1fr}}
+
+    .hero{min-height:100vh;background:var(--terra-950);display:flex;align-items:center;position:relative;overflow:hidden}
+    .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 40%,rgba(15,36,64,.08) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 20% 80%,rgba(45,61,86,.4) 0%,transparent 60%),linear-gradient(180deg,var(--terra-950),var(--terra-900) 60%,var(--terra-800))}
+    .hero-shape{position:absolute;border-radius:20%;opacity:.04;border:2px solid var(--gold-500)}
+    .hero-shape-1{width:300px;height:300px;top:10%;right:5%;animation:float 8s ease-in-out infinite;transform:rotate(45deg)}
+    .hero-shape-2{width:200px;height:200px;bottom:15%;left:8%;animation:float2 10s ease-in-out infinite;border-radius:50%;border-color:rgba(15,36,64,.4);background:rgba(15,36,64,.02)}
+    .hero-shape-3{width:120px;height:120px;top:30%;left:15%;animation:float 12s ease-in-out infinite 2s;border-radius:30%}
+    .hero-dots{position:absolute;top:0;right:0;width:40%;height:60%;background-image:radial-gradient(rgba(15,36,64,.08) 1px,transparent 1px);background-size:30px 30px}
+    .hero-inner{max-width:1240px;margin:0 auto;padding:140px 32px 100px;display:grid;grid-template-columns:1.1fr .9fr;gap:80px;align-items:center;position:relative;z-index:2}
+    .hero-content{animation:fadeInUp .8s ease-out}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:8px 20px 8px 12px;font-size:13px;color:rgba(255,255,255,.7);font-weight:500;margin-bottom:28px;backdrop-filter:blur(10px)}
+    .hero-badge-dot{width:8px;height:8px;background:var(--green-500);border-radius:50%;animation:pulse-glow 2s ease-in-out infinite;box-shadow:0 0 8px rgba(52,211,153,.5)}
+    .hero h1{font-family:'Playfair Display',serif;font-size:clamp(40px,5vw,60px);color:#fff;line-height:1.1;margin-bottom:24px;letter-spacing:-1.5px;font-weight:800}
+    .hero h1 em{font-style:italic;color:#fff;-webkit-text-fill-color:#fff;background:none;-webkit-background-clip:unset;background-clip:unset}
+    .hero-sub{font-size:18px;color:rgba(255,255,255,.55);margin-bottom:40px;max-width:500px;line-height:1.8;font-weight:300}
+    .hero-buttons{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+    .btn-hero-primary{display:inline-flex;align-items:center;gap:10px;padding:18px 36px;background:#fff;color:#000;border:0;border-radius:100px;font-size:16px;font-weight:600;font-family:inherit;cursor:pointer;text-decoration:none;transition:all .3s cubic-bezier(.16,1,.3,1);box-shadow:none}
+    .btn-hero-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(255,255,255,.15)}
+    .btn-hero-secondary{display:inline-flex;align-items:center;gap:8px;padding:18px 28px;background:transparent;border:1.5px solid rgba(255,255,255,.25);color:#fff;border-radius:100px;font-size:15px;font-weight:500;font-family:inherit;cursor:pointer;text-decoration:none;transition:all .3s}
+    .btn-hero-secondary:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.4);color:#fff}
+    .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:56px;padding-top:40px;border-top:1px solid rgba(255,255,255,.06)}
+    .hero-stat-value{font-size:36px;font-weight:800;color:#fff;letter-spacing:-1px;line-height:1}.hero-stat-value span{color:rgba(255,255,255,.4);font-size:24px}
+    .hero-stat-label{font-size:13px;color:rgba(255,255,255,.4);margin-top:8px}
+    .hero-card-wrap{animation:slideInRight .8s ease-out .2s both}
+    .hero-card{background:rgba(255,255,255,.04);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius-lg);padding:40px;position:relative;overflow:hidden}
+    .hero-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#0f2440,#2a5080,#0f2440);background-size:200% auto;animation:shimmer 3s linear infinite}
+    .hero-card h3{color:#fff;font-size:22px;font-weight:700;margin-bottom:4px}.hero-card>p{color:rgba(255,255,255,.45);font-size:14px;margin-bottom:32px}
+    .mini-field{margin-bottom:20px}.mini-field label{display:block;color:rgba(255,255,255,.6);font-size:12px;font-weight:600;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+    .mini-field input,.mini-field select{width:100%;padding:15px 18px;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:var(--radius-sm);color:#fff;font-size:15px;font-family:inherit;outline:0;transition:all .25s}
+    .mini-field input::placeholder{color:rgba(255,255,255,.25)}
+    .mini-field input:focus,.mini-field select:focus{border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.08);box-shadow:0 0 0 3px rgba(255,255,255,.06)}
+    .mini-field select option{background:var(--terra-800);color:#fff}
+    .btn-gold{width:100%;padding:16px;background:#fff;color:#000;border:0;border-radius:100px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;transition:all .3s cubic-bezier(.16,1,.3,1)}
+    .btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,255,255,.12)}
+
+    .trust-bar{background:var(--bg-card);border-bottom:1px solid var(--border-light);padding:32px}
+    .trust-bar-inner{max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap}
+    .trust-item{display:flex;align-items:center;gap:12px;color:var(--text-muted);font-size:14px;font-weight:500}.trust-item i{font-size:18px;color:var(--gold-500)}
+
+    .sc{max-width:1240px;margin:0 auto;padding:0 32px}
+    .sl{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;color:#0f2440;text-transform:uppercase;letter-spacing:3px;margin-bottom:16px}
+    .sl::before{content:'';width:24px;height:2px;background:#0f2440;border-radius:2px}
+    .hiw .sl{color:#5a9ad5}.hiw .sl::before{background:#5a9ad5}
+    .st{font-family:'Playfair Display',serif;font-size:clamp(30px,3.5vw,46px);color:var(--terra-900);margin-bottom:16px;letter-spacing:-.5px;font-weight:700;line-height:1.15}
+    .sd{color:var(--text-secondary);font-size:17px;max-width:560px;margin-bottom:56px;line-height:1.7}
+
+    .features{padding:120px 0}
+    .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+    .fc{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:36px 32px;transition:all .4s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}
+    .fc::after{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,#0f2440,#1c3a5e);opacity:0;transition:opacity .3s}
+    .fc:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}.fc:hover::after{opacity:1}
+    .fi{width:56px;height:56px;background:linear-gradient(135deg,rgba(15,36,64,.1),rgba(15,36,64,.03));border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:24px;transition:all .3s}
+    .fc:hover .fi{background:linear-gradient(135deg,#0f2440,#1c3a5e)}.fi i{font-size:22px;color:#0f2440;transition:color .3s}.fc:hover .fi i{color:#fff}
+    .fc h3{font-size:18px;font-weight:700;margin-bottom:10px}.fc p{color:var(--text-secondary);font-size:14px;line-height:1.8}
+
+
+    .hiw{background:var(--terra-950);padding:120px 0;position:relative;overflow:hidden}
+    .hiw::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 40% at 80% 20%,rgba(15,36,64,.05) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 10% 80%,rgba(15,36,64,.03) 0%,transparent 60%)}
+    .hiw-inner{position:relative;z-index:1}.hiw .st{color:#fff}.hiw .sd{color:rgba(255,255,255,.45)}
+    .sg{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+    .sc2{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);padding:36px 28px;text-align:center;transition:all .3s;position:relative}
+    .sc2:hover{background:rgba(255,255,255,.05);border-color:rgba(15,36,64,.2);transform:translateY(-4px)}
+    .sn{width:60px;height:60px;background:linear-gradient(135deg,#0f2440,#1c3a5e);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:#fff;margin:0 auto 24px;box-shadow:0 8px 24px rgba(15,36,64,.35)}
+    .sc2 h3{color:#fff;font-size:17px;font-weight:700;margin-bottom:12px}.sc2 p{color:rgba(255,255,255,.45);font-size:14px;line-height:1.7}
+    .sa{position:absolute;top:50%;right:-24px;color:rgba(15,36,64,.3);font-size:20px;z-index:2}
+
+    .test{padding:120px 0}.test .sl,.test .st{text-align:center}.test .sd{text-align:center;margin:0 auto 56px}
+    .tg{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+    .tc2{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:36px;transition:all .3s}
+    .tc2:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+    .ts{display:flex;gap:2px;margin-bottom:16px}.ts i{color:var(--gold-500);font-size:14px}
+    .tt{color:var(--text-secondary);font-size:15px;line-height:1.8;margin-bottom:24px;font-style:italic}
+    .ta{display:flex;align-items:center;gap:14px}
+    .tav{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--terra-700),var(--terra-600));display:flex;align-items:center;justify-content:center;color:var(--gold-400);font-weight:700;font-size:16px}
+    .tan{font-weight:700;font-size:15px}.tar{font-size:13px;color:var(--text-muted)}
+
+    .simulator{padding:120px 0;background:var(--bg-warm)}
+    .sim-wrapper{max-width:920px;margin:0 auto}
+    .simulator .sl,.simulator .st,.simulator .sd{text-align:center}.simulator .sd{margin:0 auto 56px}
+    .sim-container{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-xl)}
+    .sim-progress{display:flex;background:var(--terra-950)}
+    .sps{flex:1;padding:20px 8px;text-align:center;font-size:12px;font-weight:600;color:rgba(255,255,255,.3);cursor:default;transition:all .4s;position:relative;letter-spacing:.3px}
+    .sps::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:transparent;transition:all .4s}
+    .sps.active{color:#5a9ad5}.sps.active::after{background:linear-gradient(90deg,#0f2440,#2a5080)}
+    .sps.completed{color:var(--green-500)}.sps.completed::after{background:var(--green-500)}
+    .sim-body{padding:48px}
+    .ss{display:none;animation:fadeInUp .4s ease-out}.ss.active{display:block}
+    .ss h2{font-size:26px;font-weight:800;margin-bottom:8px;letter-spacing:-.5px}.ss>p{color:var(--text-secondary);font-size:15px;margin-bottom:36px}
+    .fg{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .fgr{margin-bottom:0}.fgr.full{grid-column:1/-1}
+    .fgr label{display:block;font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:8px}.fgr label .req{color:var(--red-500)}
+    .fgr input,.fgr select{width:100%;padding:14px 18px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:15px;font-family:inherit;background:#fff;color:var(--text-primary);outline:0;transition:all .25s}
+    .fgr input:focus,.fgr select:focus{border-color:#0f2440;box-shadow:0 0 0 3px rgba(15,36,64,.08)}
+    .fgr input::placeholder{color:var(--text-muted)}
+    .fh{font-size:12px;color:var(--text-muted);margin-top:6px;display:flex;align-items:center;gap:4px}
+    .rg{display:flex;gap:10px;flex-wrap:wrap}.ro{flex:1;min-width:110px}.ro input{display:none}
+    .ro label{display:flex;align-items:center;justify-content:center;padding:14px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:13px;font-weight:600;cursor:pointer;transition:all .25s;text-align:center;background:var(--bg-card)}
+    .ro label:hover{border-color:#999;background:rgba(0,0,0,.02)}
+    .ro input:checked+label{border-color:#0f2440;background:rgba(15,36,64,.05);color:#0f2440;box-shadow:0 0 0 3px rgba(15,36,64,.08)}
+    .rd{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:16px}
+    .rv{font-size:32px;font-weight:800;background:linear-gradient(135deg,#0f2440,#2a5080);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-.5px}
+    .rl{font-size:14px;color:var(--text-secondary);font-weight:500}
+    input[type="range"]{-webkit-appearance:none;width:100%;height:8px;background:var(--border);border-radius:10px;outline:0;border:0;padding:0}
+    input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;background:linear-gradient(135deg,#0f2440,#1c3a5e);border-radius:50%;cursor:pointer;box-shadow:0 4px 12px rgba(15,36,64,.4);border:3px solid #fff}
+    .rlim{display:flex;justify-content:space-between;margin-top:10px;font-size:12px;color:var(--text-muted)}
+    .snav{display:flex;justify-content:space-between;margin-top:40px;padding-top:28px;border-top:1px solid var(--border-light)}
+    .bb{padding:14px 28px;background:0;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;color:var(--text-secondary);transition:all .25s;display:flex;align-items:center;gap:8px}
+    .bb:hover{border-color:var(--text-secondary);color:var(--text-primary)}
+    .bn{padding:14px 36px;background:#000;color:#fff;border:0;border-radius:100px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;transition:all .3s cubic-bezier(.16,1,.3,1);display:flex;align-items:center;gap:8px}
+    .bn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}.bn:disabled{opacity:.35;cursor:not-allowed;transform:none!important;box-shadow:none!important}
+
+    .rc{background:linear-gradient(135deg,var(--terra-950),var(--terra-800));border-radius:var(--radius);padding:40px;color:#fff;margin-bottom:28px;position:relative;overflow:hidden}
+    .rc::before{content:'';position:absolute;top:-50%;right:-30%;width:300px;height:300px;background:radial-gradient(circle,rgba(15,36,64,.08) 0%,transparent 70%);border-radius:50%}
+    .rhi{text-align:center;padding:32px 0;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:20px;position:relative}
+    .rhi .lb{font-size:13px;color:rgba(255,255,255,.45);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;font-weight:600}
+    .rhi .vl{font-size:48px;font-weight:900;background:linear-gradient(135deg,#2a5080,#5a9ad5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-1px}
+    .rhi .sb{font-size:13px;color:rgba(255,255,255,.35);margin-top:8px}
+    .rr{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.05)}.rr:last-child{border-bottom:0}
+    .rrl{color:rgba(255,255,255,.55);font-size:14px}.rrv{font-size:17px;font-weight:700}
+    .rdis{background:rgba(15,36,64,.06);border:1px solid rgba(15,36,64,.15);border-radius:var(--radius-sm);padding:20px 24px;font-size:13px;color:var(--text-secondary);line-height:1.7}
+
+    .faq{padding:120px 0}.faq .sl,.faq .st,.faq .sd{text-align:center}.faq .sd{margin:0 auto 56px}
+    .faq-w{max-width:800px;margin:0 auto}
+    .fqi{border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;overflow:hidden;background:var(--bg-card);transition:all .3s}.fqi:hover{border-color:#2a5080}
+    .fqq{padding:22px 28px;font-weight:600;font-size:15px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;transition:background .2s;user-select:none}
+    .fqq:hover{background:rgba(15,36,64,.03)}
+    .fqq i{font-size:14px;color:var(--text-muted);transition:all .3s;flex-shrink:0;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--bg-warm)}
+    .fqi.open .fqq i{transform:rotate(180deg);color:#0f2440;background:rgba(15,36,64,.08)}
+    .fqa{max-height:0;overflow:hidden;transition:max-height .4s ease}
+    .fqa-inner{padding:0 28px 24px;color:var(--text-secondary);font-size:14px;line-height:1.9}.fqi.open .fqa{max-height:400px}
+
+    .cta{background:var(--terra-950);padding:100px 32px;text-align:center;position:relative;overflow:hidden}
+    .cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(15,36,64,.06) 0%,transparent 60%)}
+    .cta-inner{position:relative;z-index:1}
+    .cta h2{font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,44px);color:#fff;margin-bottom:16px;font-weight:700}
+    .cta p{color:rgba(255,255,255,.45);font-size:17px;margin-bottom:40px;max-width:500px;margin-left:auto;margin-right:auto}
+
+    .footer{background:var(--terra-950);border-top:1px solid rgba(255,255,255,.04);padding:72px 32px 36px}
+    .footer-inner{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px}
+    .footer-brand p{color:rgba(255,255,255,.35);font-size:14px;margin-top:20px;line-height:1.8;max-width:300px}
+    .footer-col h4{color:#5a9ad5;font-size:12px;text-transform:uppercase;letter-spacing:2px;margin-bottom:24px;font-weight:700}
+    .footer-col a{display:block;color:rgba(255,255,255,.45);text-decoration:none;font-size:14px;margin-bottom:14px;transition:all .2s}
+    .footer-col a:hover{color:#5a9ad5;transform:translateX(4px)}
+    .fsoc{display:flex;gap:12px;margin-top:24px}
+    .fsoc a{width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);font-size:16px;margin-bottom:0;transition:all .25s}
+    .fsoc a:hover{background:rgba(42,80,128,.2);color:#5a9ad5;transform:translateY(-2px)}
+    .footer-bottom{max-width:1240px;margin:48px auto 0;padding-top:28px;border-top:1px solid rgba(255,255,255,.04);display:flex;justify-content:space-between;align-items:center;font-size:13px;color:rgba(255,255,255,.25);flex-wrap:wrap;gap:12px}
+
+    @media(max-width:1024px){.hero-inner{grid-template-columns:1fr;gap:48px}.hero-card-wrap{max-width:500px}.features-grid{grid-template-columns:1fr 1fr}.sg{grid-template-columns:1fr 1fr}.sa{display:none}.tg{grid-template-columns:1fr 1fr}.footer-inner{grid-template-columns:1fr 1fr}[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important}[style*="grid-template-columns:1fr 1fr"][style*="gap:80px"]{gap:48px!important}}
+    @media(max-width:768px){.nav{display:none}.hamburger{display:flex}.nav.open{display:flex;flex-direction:column;position:absolute;top:76px;left:0;right:0;background:rgba(15,22,33,.98);backdrop-filter:blur(24px);padding:24px;gap:8px;border-bottom:1px solid rgba(255,255,255,.06);animation:fadeIn .3s}.hero-inner{padding:120px 24px 80px}.hero-buttons{flex-direction:column;align-items:stretch}.hero-stats{grid-template-columns:repeat(3,1fr);gap:16px}.hero-stat-value{font-size:24px}.sc{padding:0 20px}.features-grid,.sg,.tg{grid-template-columns:1fr}.fg{grid-template-columns:1fr}.sim-body{padding:28px}.sps{font-size:10px;padding:16px 4px}.ct{font-size:12px}.ct thead th,.ct tbody td{padding:12px 10px}.footer-inner{grid-template-columns:1fr;gap:32px}.footer-bottom{flex-direction:column;text-align:center}.trust-bar-inner{gap:24px}.lifestyle{height:360px!important}[style*="height:480px"]{height:340px!important}}
+    @media(max-width:480px){.hero-stats{grid-template-columns:1fr;gap:16px}.rg{flex-direction:column}.ro{min-width:100%}.rhi .vl{font-size:36px}}
+  </style>
+</head>
+<body>
+
+<header class="header" id="header"><div class="header-inner">
+  <a href="#" class="logo"><div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V10a8 8 0 0116 0v11"/></svg></div><div class="logo-text">Teto<span style="display:block;font-size:9px;font-weight:300;letter-spacing:1.5px;opacity:.7;color:#fff;font-family:'Inter',sans-serif;text-transform:uppercase;margin-top:-2px">by Soho Haus</span></div></a>
+  <nav class="nav" id="nav"><a href="#features">Vantagens</a><a href="#como-funciona">Como Funciona</a><a href="#simulador">Simulador</a><a href="#faq">FAQ</a><a href="#simulador" class="nav-cta">Simular Agora</a></nav>
+  <button class="hamburger" onclick="document.getElementById('nav').classList.toggle('open')"><span></span><span></span><span></span></button>
+</div></header>
+
+<section class="hero"><div class="hero-bg"></div><div class="hero-shape hero-shape-1"></div><div class="hero-shape hero-shape-2"></div><div class="hero-shape hero-shape-3"></div><div class="hero-dots"></div>
+<div class="hero-inner">
+  <div class="hero-content">
+    <h1>Desbloqueie o <em>valor</em> do seu imóvel</h1>
+    <p class="hero-sub">Crédito com garantia de imóvel a partir de 1,00% a.m. — até 14x menos que o rotativo do seu cartão. 100% digital, sem sair de casa.</p>
+    <div class="hero-buttons"><a href="#simulador" class="btn-hero-primary"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="1" width="12" height="14" rx="1.5"/><rect x="4" y="3" width="8" height="3" rx=".5"/><circle cx="5" cy="9" r=".7" fill="currentColor"/><circle cx="8" cy="9" r=".7" fill="currentColor"/><circle cx="11" cy="9" r=".7" fill="currentColor"/><circle cx="5" cy="12" r=".7" fill="currentColor"/><circle cx="8" cy="12" r=".7" fill="currentColor"/><circle cx="11" cy="12" r=".7" fill="currentColor"/></svg></span> Quero Meu Crédito Agora</a><a href="#como-funciona" class="btn-hero-secondary"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M6.5 5l4.5 3-4.5 3z" fill="currentColor"/></svg></span> Como Funciona</a></div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-value">1,00<span>%a.m.</span></div><div class="hero-stat-label">Taxa a partir de</div></div>
+      <div class="hero-stat"><div class="hero-stat-value">R$3<span>mi</span></div><div class="hero-stat-label">Crédito até</div></div>
+      <div class="hero-stat"><div class="hero-stat-value">15<span>dias</span></div><div class="hero-stat-label">Dinheiro na conta</div></div>
+    </div>
+  </div>
+  <div class="hero-card-wrap"><div class="hero-card">
+    <h3>Quanto seu imóvel libera?</h3><p>Descubra em 30 segundos — sem compromisso</p>
+    <div class="mini-field"><label>Valor estimado do imóvel</label><input type="text" id="mini-valor" placeholder="R$ 500.000" oninput="fmtC(this)"></div>
+    <div class="mini-field"><label>Quanto você precisa?</label><input type="text" id="mini-precisa" placeholder="R$ 150.000" oninput="fmtC(this)"></div>
+    <div class="mini-field"><label>Tipo de imóvel</label><select id="mini-tipo"><option value="">Selecione</option><option>Apartamento</option><option>Casa</option><option>Comercial</option><option>Terreno em condomínio</option></select></div>
+    <button class="btn-gold" onclick="scrollSim()"><span class="ico"  style="margin-right:8px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"/></svg></span>Ver Simulação Completa</button>
+  </div></div>
+</div></section>
+
+<div class="trust-bar"><div class="trust-bar-inner">
+  <div class="trust-item"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1L2 4v4c0 4 2.7 6.5 6 8 3.3-1.5 6-4 6-8V4z"/><path d="M8 1v12"/></svg></span> Segurança bancária</div>
+  <div class="trust-item"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="10" height="8" rx="1.5"/><path d="M5 7V5a3 3 0 016 0v2"/><circle cx="8" cy="11" r="1" fill="currentColor"/></svg></span> Criptografia ponta a ponta</div>
+  <div class="trust-item"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l2.2 4.5 5 .7-3.6 3.5.9 5L8 12.5 3.5 14.7l.9-5L.8 6.2l5-.7z"/></svg></span> Sem taxa escondida</div>
+  <div class="trust-item"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M8 4v4l3 2"/></svg></span> Suporte 7 dias por semana</div>
+</div></div>
+
+<section class="lifestyle" style="position:relative;overflow:hidden">
+  <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80" alt="Residência elegante" style="width:100%;height:520px;object-fit:cover;display:block;filter:brightness(.88)">
+  <div style="position:absolute;bottom:0;left:0;right:0;padding:60px 40px 48px;background:linear-gradient(0deg,rgba(0,0,0,.85) 0%,rgba(0,0,0,.4) 60%,transparent 100%)">
+    <div style="max-width:1240px;margin:0 auto">
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(26px,3vw,40px);color:#fff;font-weight:700;margin-bottom:12px">Você está sentado em cima de dinheiro. Literalmente.</h2>
+      <p style="color:rgba(255,255,255,.6);font-size:16px;max-width:520px;line-height:1.7">Cada mês com seu imóvel parado é dinheiro que você deixa na mesa. Libere até 60% do valor — a taxa é uma fração do que bancos cobram em outras linhas.</p>
+    </div>
+  </div>
+</section>
+
+<section class="features" id="features"><div class="sc">
+  <div class="sl">Vantagens</div><div class="st">Por que quem entende escolhe a Teto</div>
+  <p class="sd">Você não precisa de mais um banco. Precisa de quem resolve.</p>
+  <div class="features-grid">
+    <div class="fc aos"><div class="fi"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="4.5" cy="4.5" r="2"/><circle cx="11.5" cy="11.5" r="2"/><path d="M13 3L3 13"/></svg></span></div><h3>A partir de 1,00% a.m. + IPCA</h3><p>Enquanto bancos cobram 6% no pessoal e 14% no rotativo, aqui começa em 1%. Faça as contas.</p></div>
+    <div class="fc aos"><div class="fi"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="12" height="9" rx="1"/><path d="M0 13h16"/></svg></span></div><h3>100% Digital — Zero Fila</h3><p>Nada de agência, nada de gerente. Simule, envie docs e assine do sofá. Acompanhe cada etapa em tempo real.</p></div>
+    <div class="fc aos"><div class="fi"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"><path d="M9.5 1L3 9h4.5L6.5 15 13 7H8.5z"/></svg></span></div><h3>15 Dias e o Dinheiro Cai</h3><p>Da aprovação à conta — enquanto outros bancos levam meses, aqui são dias úteis.</p></div>
+    <div class="fc aos"><div class="fi"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1C5.2 1 3 3.2 3 6c0 4 5 9 5 9s5-5 5-9c0-2.8-2.2-5-5-5z"/><circle cx="8" cy="6" r="2"/></svg></span></div><h3>Todo o Brasil</h3><p>Capitais e regiões metropolitanas. Apartamento, casa ou comercial — se tem matrícula, a gente analisa.</p></div>
+    <div class="fc aos"><div class="fi"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="5" r="2.5"/><path d="M1 14c0-2.8 2.2-5 5-5s5 2.2 5 5"/><circle cx="11.5" cy="4.5" r="2"/><path d="M15 13c0-2-1.5-3.5-3.5-3.5"/></svg></span></div><h3>Composição de Renda</h3><p>Sozinho não atinge o valor? Junte renda com cônjuge ou familiar e desbloqueie um crédito maior.</p></div>
+  </div>
+</div></section>
+
+
+<section style="padding:100px 0;background:var(--bg-warm);overflow:hidden">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;max-width:1240px;margin:0 auto;padding:0 32px">
+    <div style="border-radius:24px;overflow:hidden;box-shadow:var(--shadow-xl)">
+      <img src="https://images.pexels.com/photos/5704720/pexels-photo-5704720.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Mulher sorrindo" style="width:100%;height:620px;object-fit:cover;object-position:center 10%;display:block">
+    </div>
+    <div>
+      <p style="font-family:'Playfair Display',serif;font-size:28px;color:var(--terra-900);line-height:1.5;font-weight:600;margin-bottom:24px">Pare de pagar juros absurdos. Seu imóvel resolve.</p>
+      <p style="font-size:15px;color:var(--text-secondary);font-weight:400;line-height:1.8;margin-bottom:24px">Empréstimo pessoal cobra 6% a.m. Cartão rotativo, 14%. Com garantia de imóvel, a partir de 1% a.m. A matemática é simples — e o processo é 100% digital.</p>
+      <a href="#simulador" style="display:inline-block;padding:14px 32px;background:linear-gradient(135deg,var(--gold-500),var(--gold-300));color:var(--terra-900);font-weight:700;border-radius:10px;text-decoration:none;font-size:15px">Simular Agora</a>
+    </div>
+  </div>
+</section>
+
+<section class="hiw" id="como-funciona"><div class="sc hiw-inner">
+  <div class="sl">Processo</div><div class="st">4 passos. 15 dias. Dinheiro na conta.</div><p class="sd">Sem agência. Sem fila. Sem papelada impressa.</p>
+  <div class="sg">
+    <div class="sc2 aos"><div class="sn">1</div><h3>Simule Online</h3><p>Dados do imóvel e valor desejado. Proposta em minutos.</p><span class="sa"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"/></svg></span></span></div>
+    <div class="sc2 aos"><div class="sn">2</div><h3>Envie Documentos</h3><p>Upload seguro pela plataforma. Sem filas.</p><span class="sa"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"/></svg></span></span></div>
+    <div class="sc2 aos"><div class="sn">3</div><h3>Análise e Avaliação</h3><p>Crédito e laudo do imóvel. Acompanhe em tempo real.</p><span class="sa"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"/></svg></span></span></div>
+    <div class="sc2 aos"><div class="sn">4</div><h3>Dinheiro na Conta</h3><p>Assinatura digital, crédito em até 15 dias úteis.</p></div>
+  </div>
+</div></section>
+
+<section style="padding:100px 0;background:var(--bg);overflow:hidden">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;max-width:1240px;margin:0 auto;padding:0 32px">
+    <div>
+      <p style="font-family:'Playfair Display',serif;font-size:28px;color:var(--terra-900);line-height:1.5;font-weight:600;margin-bottom:24px">Quem tem imóvel não precisa pedir empréstimo caro. Precisa da Teto.</p>
+      <p style="font-size:15px;color:var(--text-secondary);font-weight:400;line-height:1.8;margin-bottom:24px">Enquanto você paga juros de cartão, seu patrimônio está parado rendendo nada. Libere até R$ 3 milhões com taxa a partir de 1% a.m. — sem sair de casa.</p>
+      <a href="#simulador" style="display:inline-block;padding:14px 32px;background:linear-gradient(135deg,var(--gold-500),var(--gold-300));color:var(--terra-900);font-weight:700;border-radius:10px;text-decoration:none;font-size:15px">Simular Agora</a>
+    </div>
+    <div style="border-radius:24px;overflow:hidden;box-shadow:var(--shadow-xl)">
+      <img src="https://images.pexels.com/photos/3785079/pexels-photo-3785079.jpeg?auto=compress&cs=tinysrgb&w=3840&q=90" alt="Homem confiante" style="width:100%;height:620px;object-fit:cover;object-position:center 20%;display:block">
+    </div>
+  </div>
+</section>
+
+<section style="padding:120px 0;background:#000;position:relative;overflow:hidden">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 50% 40% at 30% 50%,rgba(15,36,64,.04) 0%,transparent 60%)"></div>
+  <div style="max-width:1240px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;z-index:1">
+    <div style="display:flex;align-items:flex-end;gap:20px;justify-content:center;height:420px;padding-top:40px">
+      <!-- Bar 1: Teto (highlighted) -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;flex:1;max-width:140px">
+        <div style="font-size:13px;color:var(--gold-400);font-weight:700;letter-spacing:-.3px">1,00% a.m</div>
+        <div style="width:100%;height:40px;border-radius:10px 10px 6px 6px;background:linear-gradient(135deg,#0f2440,#1c3a5e);box-shadow:0 8px 32px rgba(15,36,64,.4);display:flex;align-items:center;justify-content:center">
+          <svg width="20" height="20" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="rgba(0,0,0,.15)"/><path d="M6 26V14a10 10 0 0120 0v12" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+        </div>
+        <div style="font-size:11px;color:rgba(255,255,255,.5);text-align:center;line-height:1.4;font-weight:600;margin-top:4px">Home Equity<br>Teto</div>
+      </div>
+      <!-- Bar 2: Garantia Veículo -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;flex:1;max-width:140px">
+        <div style="font-size:13px;color:rgba(255,255,255,.7);font-weight:600">1,49% a.m</div>
+        <div style="width:100%;height:80px;border-radius:10px 10px 6px 6px;background:rgba(255,255,255,.35)"></div>
+        <div style="font-size:11px;color:rgba(255,255,255,.6);text-align:center;line-height:1.4;font-weight:500;margin-top:4px">Garantia de<br>Veículo</div>
+      </div>
+      <!-- Bar 3: Empréstimo Pessoal -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;flex:1;max-width:140px">
+        <div style="font-size:13px;color:rgba(255,255,255,.8);font-weight:600">6,47% a.m</div>
+        <div style="width:100%;height:220px;border-radius:10px 10px 6px 6px;background:rgba(255,255,255,.28)"></div>
+        <div style="font-size:11px;color:rgba(255,255,255,.6);text-align:center;line-height:1.4;font-weight:500;margin-top:4px">Empréstimo<br>Pessoal</div>
+      </div>
+      <!-- Bar 4: Cartão Rotativo -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;flex:1;max-width:140px">
+        <div style="font-size:13px;color:rgba(255,255,255,.8);font-weight:600">14,06% a.m</div>
+        <div style="width:100%;height:360px;border-radius:10px 10px 6px 6px;background:rgba(255,255,255,.22)"></div>
+        <div style="font-size:11px;color:rgba(255,255,255,.6);text-align:center;line-height:1.4;font-weight:500;margin-top:4px">Cartão de Crédito<br>Rotativo</div>
+      </div>
+    </div>
+    <div>
+      <div class="sl" style="color:rgba(255,255,255,.4)">Compare e decida</div>
+      <div class="st" style="color:#fff">Olha a diferença. Agora pense no que você paga hoje.</div>
+      <p class="sd" style="color:rgba(255,255,255,.45);margin-bottom:32px">1% a.m. vs 14% a.m. no rotativo. Em R$ 500 mil, isso é a diferença entre R$ 5.000 e R$ 70.000 por mês só em juros. Não tem o que pensar.</p>
+      <a href="#simulador" class="btn-hero-primary" style="display:inline-flex;width:auto">Quero pagar menos <i class="fas fa-arrow-right" style="margin-left:8px;font-size:14px"></i></a>
+    </div>
+  </div>
+  <p style="font-size:11px;color:rgba(255,255,255,.15);text-align:center;margin-top:40px">Fonte: Banco Central do Brasil — Sistema Financeiro Nacional, Mar 2026. Taxas médias de mercado.</p>
+</section>
+
+
+<section class="simulator" id="simulador"><div class="sc">
+  <div class="sl">Simulador</div><div class="st">Descubra quanto seu imóvel libera. Agora.</div><p class="sd">Proposta real em menos de 5 minutos. Sem compromisso, sem pegadinha.</p>
+  <div class="sim-wrapper"><div class="sim-container">
+    <div class="sim-progress">
+      <div class="sps active" data-step="1"><span class="ico"  style="margin-right:4px;font-size:10px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="5" r="3"/><path d="M2 15c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg></span> Dados</div>
+      <div class="sps" data-step="2"><span class="ico"  style="margin-right:4px;font-size:10px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8l6-6 6 6"/><path d="M3 7.5V14h4v-4h2v4h4V7.5"/></svg></span> Imóvel</div>
+      <div class="sps" data-step="3"><span class="ico"  style="margin-right:4px;font-size:10px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="6" cy="10" rx="5" ry="2.5"/><path d="M1 10v2c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-2"/><ellipse cx="10" cy="5" rx="5" ry="2.5"/><path d="M5 5v2"/></svg></span> Crédito</div>
+      <div class="sps" data-step="4"><span class="ico"  style="margin-right:4px;font-size:10px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg></span> Análise</div>
+      <div class="sps" data-step="5"><span class="ico"  style="margin-right:4px;font-size:10px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2h8v5a4 4 0 01-8 0z"/><path d="M4 3H2c0 2 1 3.5 2 4M12 3h2c0 2-1 3.5-2 4M6 11v2h4v-2M5 14h6"/></svg></span> Resultado</div>
+    </div>
+    <div class="sim-body">
+      <div class="ss active" data-step="1"><h2>Dados Pessoais</h2><p>Informações básicas para avaliar elegibilidade.</p>
+        <div class="fg">
+          <div class="fgr"><label>Nome completo <span class="req">*</span></label><input type="text" id="nome" placeholder="Seu nome completo"></div>
+          <div class="fgr"><label>CPF <span class="req">*</span></label><input type="text" id="cpf" placeholder="000.000.000-00" maxlength="14" oninput="fmtCPF(this)"></div>
+          <div class="fgr"><label>Nascimento <span class="req">*</span></label><input type="date" id="nascimento"></div>
+          <div class="fgr"><label>E-mail <span class="req">*</span></label><input type="email" id="email" placeholder="seu@email.com"></div>
+          <div class="fgr"><label>Celular <span class="req">*</span></label><input type="text" id="celular" placeholder="(11) 99999-9999" maxlength="15" oninput="fmtTel(this)"></div>
+          <div class="fgr"><label>Estado Civil <span class="req">*</span></label><select id="estadoCivil"><option value="">Selecione</option><option>Solteiro(a)</option><option>Casado(a)</option><option>União Estável</option><option>Divorciado(a)</option><option>Viúvo(a)</option></select></div>
+          <div class="fgr full"><label>Ocupação <span class="req">*</span></label><div class="rg">
+            <div class="ro"><input type="radio" name="ocupacao" id="ocu-clt" value="CLT"><label for="ocu-clt"><span class="ico"  style="margin-right:6px;font-size:12px;opacity:.5"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="5" width="14" height="9" rx="1.5"/><path d="M5 5V3.5A1.5 1.5 0 016.5 2h3A1.5 1.5 0 0111 3.5V5"/></svg></span>CLT</label></div>
+            <div class="ro"><input type="radio" name="ocupacao" id="ocu-auto" value="Autônomo"><label for="ocu-auto"><span class="ico"  style="margin-right:6px;font-size:12px;opacity:.5"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="4.5" r="3"/><path d="M2 15c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M8 10l-1 5h2z"/></svg></span>Autônomo</label></div>
+            <div class="ro"><input type="radio" name="ocupacao" id="ocu-emp" value="Empresário"><label for="ocu-emp"><span class="ico"  style="margin-right:6px;font-size:12px;opacity:.5"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="1" width="12" height="14" rx="1"/><path d="M5 4h1M5 7h1M5 10h1M10 4h1M10 7h1M10 10h1M7 14v-3h2v3"/></svg></span>Empresário</label></div>
+            <div class="ro"><input type="radio" name="ocupacao" id="ocu-pub" value="Servidor"><label for="ocu-pub"><span class="ico"  style="margin-right:6px;font-size:12px;opacity:.5"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1l7 4H1zM3 6v7M6.5 6v7M9.5 6v7M13 6v7M1 13h14M1 14.5h14"/></svg></span>Servidor</label></div>
+            <div class="ro"><input type="radio" name="ocupacao" id="ocu-apo" value="Aposentado"><label for="ocu-apo"><span class="ico"  style="margin-right:6px;font-size:12px;opacity:.5"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 14s-6-4-6-8a3.5 3.5 0 017-1 3.5 3.5 0 017 1c0 4-6 8-6 8z"/></svg></span>Aposentado</label></div>
+          </div></div>
+          <div class="fgr"><label>Renda bruta (R$) <span class="req">*</span></label><input type="text" id="renda" placeholder="R$ 10.000" oninput="fmtC(this)"></div>
+          <div class="fgr"><label>Compor renda?</label><select id="comporRenda"><option value="nao">Não</option><option value="sim">Sim, cônjuge</option><option value="familiar">Sim, familiar 1º grau</option></select></div>
+          <div class="fgr" id="rcGrp" style="display:none"><label>Renda componente (R$)</label><input type="text" id="rendaComposta" placeholder="R$ 5.000" oninput="fmtC(this)"></div>
+          <div class="fgr"><label>UF <span class="req">*</span></label><select id="uf"><option value="">Selecione</option><option>AC</option><option>AL</option><option>AP</option><option>AM</option><option>BA</option><option>CE</option><option>DF</option><option>ES</option><option>GO</option><option>MA</option><option>MT</option><option>MS</option><option>MG</option><option>PA</option><option>PB</option><option>PR</option><option>PE</option><option>PI</option><option>RJ</option><option>RN</option><option>RS</option><option>RO</option><option>RR</option><option>SC</option><option>SE</option><option selected>SP</option><option>TO</option></select></div>
+        </div>
+        <div class="snav"><div></div><button class="bn" onclick="goTo(2)">Continuar <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"/></svg></span></button></div>
+      </div>
+
+      <div class="ss" data-step="2"><h2>Dados do Imóvel</h2><p>Características do imóvel garantia.</p>
+        <div class="fg">
+          <div class="fgr full"><label>Tipo <span class="req">*</span></label><div class="rg">
+            <div class="ro"><input type="radio" name="tipoImovel" id="tipo-apto" value="Apartamento"><label for="tipo-apto"><span class="ico"  style="margin-right:6px;font-size:12px;opacity:.5"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="5" height="9" rx=".5"/><rect x="7" y="1" width="5" height="14" rx=".5"/><path d="M3 9h1M3 12h1M9 4h1M9 7h1M9 10h1M13 8h2v7h-2"/></svg></span>Apartamento</label></div>
+            <div class="ro"><input type="radio" name="tipoImovel" id="tipo-casa" value="Casa"><label for="tipo-casa"><span class="ico"  style="margin-right:6px;font-size:12px;opacity:.5"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8l6-6 6 6"/><path d="M3 7.5V14h4v-4h2v4h4V7.5"/></svg></span>Casa</label></div>
+            <div class="ro"><input type="radio" name="tipoImovel" id="tipo-com" value="Comercial"><label for="tipo-com"><span class="ico"  style="margin-right:6px;font-size:12px;opacity:.5"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l1-4h12l1 4"/><path d="M1 6c0 1.1.9 2 2 2s2-.9 2-2c0 1.1.9 2 2 2s2-.9 2-2c0 1.1.9 2 2 2s2-.9 2-2"/><path d="M2 8v6h12V8M6 14v-4h4v4"/></svg></span>Comercial</label></div>
+            <div class="ro"><input type="radio" name="tipoImovel" id="tipo-ter" value="Terreno"><label for="tipo-ter"><span class="ico"  style="margin-right:6px;font-size:12px;opacity:.5"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1L3 7h2.5L3 11h3v4h4v-4h3l-2.5-4H13z"/></svg></span>Terreno</label></div>
+          </div></div>
+          <div class="fgr"><label>CEP <span class="req">*</span></label><input type="text" id="cep" placeholder="00000-000" maxlength="9" oninput="fmtCEP(this)"></div>
+          <div class="fgr"><label>Cidade <span class="req">*</span></label><input type="text" id="cidade" placeholder="São Paulo"></div>
+          <div class="fgr"><label>Bairro</label><input type="text" id="bairro" placeholder="Itaim Bibi"></div>
+          <div class="fgr"><label>Endereço</label><input type="text" id="endereco" placeholder="Rua, nº, complemento"></div>
+          <div class="fgr"><label>Valor estimado (R$) <span class="req">*</span></label><input type="text" id="valorImovel" placeholder="R$ 800.000" oninput="fmtC(this)"><div class="fh"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M8 7v4"/><circle cx="8" cy="4.5" r=".8" fill="currentColor"/></svg></span> Mínimo R$ 200.000</div></div>
+          <div class="fgr"><label>Ano construção</label><input type="number" id="anoConstrucao" placeholder="2010" min="1950" max="2026"></div>
+          <div class="fgr"><label>Área (m²)</label><input type="number" id="area" placeholder="85"></div>
+          <div class="fgr"><label>Quartos</label><select id="quartos"><option value="">Selecione</option><option>1</option><option>2</option><option>3</option><option>4+</option></select></div>
+          <div class="fgr"><label>Vagas</label><select id="vagas"><option value="">Selecione</option><option>0</option><option>1</option><option>2</option><option>3+</option></select></div>
+          <div class="fgr"><label>Situação <span class="req">*</span></label><select id="situacaoImovel"><option value="">Selecione</option><option value="quitado">Quitado</option><option value="financiado">Financiado</option></select></div>
+          <div class="fgr" id="pqGrp" style="display:none"><label>% quitado</label><select id="percQuitado"><option value="">Selecione</option><option value="menos50">Menos de 50%</option><option value="50-70">50% a 70%</option><option value="mais70">Mais de 70%</option></select><div class="fh"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M8 7v4"/><circle cx="8" cy="4.5" r=".8" fill="currentColor"/></svg></span> Mínimo 50%</div></div>
+          <div class="fgr full"><label>Titularidade <span class="req">*</span></label><div class="rg">
+            <div class="ro"><input type="radio" name="titularidade" id="tit-prop" value="proprio"><label for="tit-prop">Em meu nome</label></div>
+            <div class="ro"><input type="radio" name="titularidade" id="tit-conj" value="conjuge"><label for="tit-conj">Cônjuge</label></div>
+            <div class="ro"><input type="radio" name="titularidade" id="tit-fam" value="familiar"><label for="tit-fam">Familiar 1º grau</label></div>
+          </div></div>
+          <div class="fgr full"><label>Matrícula em cartório? <span class="req">*</span></label><div class="rg">
+            <div class="ro"><input type="radio" name="matricula" id="mat-sim" value="sim"><label for="mat-sim">Sim</label></div>
+            <div class="ro"><input type="radio" name="matricula" id="mat-nao" value="nao"><label for="mat-nao">Não</label></div>
+            <div class="ro"><input type="radio" name="matricula" id="mat-ns" value="nao-sei"><label for="mat-ns">Não sei</label></div>
+          </div></div>
+          <div class="fgr full"><label>IPTU em dia? <span class="req">*</span></label><div class="rg">
+            <div class="ro"><input type="radio" name="iptu" id="iptu-sim" value="sim"><label for="iptu-sim">Sim</label></div>
+            <div class="ro"><input type="radio" name="iptu" id="iptu-nao" value="nao"><label for="iptu-nao">Não</label></div>
+            <div class="ro"><input type="radio" name="iptu" id="iptu-ns" value="nao-sei"><label for="iptu-ns">Não sei</label></div>
+          </div></div>
+        </div>
+        <div class="snav"><button class="bb" onclick="goTo(1)"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3L5 8l5 5"/></svg></span> Voltar</button><button class="bn" onclick="goTo(3)">Continuar <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"/></svg></span></button></div>
+      </div>
+
+      <div class="ss" data-step="3"><h2>Detalhes do Crédito</h2><p>Valor e condições de pagamento.</p>
+        <div class="fgr full" style="margin-bottom:36px"><div class="rd"><div><div class="rl">Valor desejado</div><div class="rv" id="vdDisp">R$ 1.200.000</div></div></div>
+          <input type="range" id="valorDesejado" min="1200000" max="3000000" step="50000" value="1200000" oninput="updRange()">
+          <div class="rlim"><span>R$ 1,2 milhão</span><span>R$ 3 milhões</span></div><div class="fh" id="ltvInfo" style="margin-top:12px"></div>
+        </div>
+        <div class="fgr full" style="margin-bottom:36px"><div class="rd"><div><div class="rl">Prazo</div><div class="rv" id="pzDisp">36 meses</div></div></div>
+          <input type="range" id="prazo" min="12" max="36" step="6" value="36" oninput="updRange()">
+          <div class="rlim"><span>12 meses (1 ano)</span><span>36 meses (3 anos)</span></div>
+        </div>
+        <div class="fg">
+          <div class="fgr full"><label>Finalidade <span class="req">*</span></label><div class="rg">
+            <div class="ro"><input type="radio" name="finalidade" id="fin-ref" value="Reforma"><label for="fin-ref"><span class="ico"  style="margin-right:6px;font-size:11px;opacity:.5"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2l4 4-7 7-4-4zM6 1l3 3M2 13l2-2"/></svg></span>Reforma</label></div>
+            <div class="ro"><input type="radio" name="finalidade" id="fin-inv" value="Investimento"><label for="fin-inv"><span class="ico"  style="margin-right:6px;font-size:11px;opacity:.5"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 14l4-6 3 3 7-9"/></svg></span>Investimento</label></div>
+            <div class="ro"><input type="radio" name="finalidade" id="fin-div" value="Quitar Dívidas"><label for="fin-div"><span class="ico"  style="margin-right:6px;font-size:11px;opacity:.5"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1v2M6.5 3.5a1.5 1.5 0 013 0c0 1-1.5 1-1.5 2M8 7.5v.5"/><path d="M1 13c1-2 3-3 5-3h2l3-1c1 0 1.5.5 1 1l-2 2H7"/><path d="M1 12l2 3"/></svg></span>Quitar Dívidas</label></div>
+            <div class="ro"><input type="radio" name="finalidade" id="fin-out" value="Outro"><label for="fin-out"><span class="ico"  style="margin-right:6px;font-size:11px;opacity:.5"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"><circle cx="3" cy="8" r="1.5"/><circle cx="8" cy="8" r="1.5"/><circle cx="13" cy="8" r="1.5"/></svg></span>Outro</label></div>
+          </div></div>
+          <div class="fgr full"><label>Restrições no CPF?</label><div class="rg">
+            <div class="ro"><input type="radio" name="restricao" id="res-nao" value="nao"><label for="res-nao">Não</label></div>
+            <div class="ro"><input type="radio" name="restricao" id="res-sim" value="sim"><label for="res-sim">Sim</label></div>
+            <div class="ro"><input type="radio" name="restricao" id="res-ns" value="nao-sei"><label for="res-ns">Não sei</label></div>
+          </div><div class="fh"><span class="ico"  style="color:var(--gold-600)"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5L1 14h14z"/><path d="M8 6v3.5"/><circle cx="8" cy="12" r=".7" fill="currentColor"/></svg></span> CPF com restrições pode impedir a aprovação. Recomendamos regularizar antes de solicitar.</div></div>
+        </div>
+        <div class="snav"><button class="bb" onclick="goTo(2)"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3L5 8l5 5"/></svg></span> Voltar</button><button class="bn" onclick="goTo(4)"><span class="ico"  style="margin-right:6px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg></span>Analisar</button></div>
+      </div>
+
+      <div class="ss" data-step="4"><h2><span class="ico"  style="color:var(--gold-500);margin-right:10px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1L2 4v4c0 4 2.7 6.5 6 8 3.3-1.5 6-4 6-8V4z"/><path d="M8 1v12"/></svg></span>Análise de Crédito & Due Diligence</h2><p>Consultando bureaus de crédito, registros públicos e bases antifraude em tempo real.</p>
+
+        <!-- DD Progress Grid -->
+        <div id="ddGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:24px 0"></div>
+
+        <!-- DD Detailed Results -->
+        <div id="ddResults" style="display:none">
+
+          <!-- Credit Score — Serasa/Quod/Boa Vista -->
+          <div class="ddc" id="ddCredit">
+            <div class="ddh"><div class="ddi" style="background:rgba(52,211,153,.08);color:var(--green-500)"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 14l4-6 3 3 7-9"/></svg></span></div><div><div class="ddt">Score de Crédito</div><div class="dds">Serasa Experian · Quod · Boa Vista SCPC</div></div></div>
+            <div id="ddCreditBody"></div>
+          </div>
+
+          <!-- CPF — Serpro DataValid / BigDataCorp -->
+          <div class="ddc" id="ddCPF">
+            <div class="ddh"><div class="ddi" style="background:rgba(59,130,246,.08);color:#3b82f6"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="14" height="10" rx="1.5"/><circle cx="5.5" cy="7.5" r="1.5"/><path d="M3.5 11c0-1 .9-1.5 2-1.5s2 .5 2 1.5M10 6h3M10 9h2"/></svg></span></div><div><div class="ddt">Validação de Identidade</div><div class="dds">Serpro DataValid · BigDataCorp · Idwall</div></div></div>
+            <div id="ddCPFBody"></div>
+          </div>
+
+          <!-- Criminal — InfoSimples / Idwall -->
+          <div class="ddc" id="ddCriminal">
+            <div class="ddh"><div class="ddi" style="background:rgba(168,85,247,.08);color:#a855f7"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3l3 3M8 6l3-3M4.5 8.5l-3 3M6 7l4 4M10 11l3 3M2 14h4"/></svg></span></div><div><div class="ddt">Antecedentes & Certidões</div><div class="dds">InfoSimples · Idwall · TJ/TRF/CNJ · Polícia Federal</div></div></div>
+            <div id="ddCrimBody"></div>
+          </div>
+
+          <!-- Property — Registro de Imóveis / URBIT -->
+          <div class="ddc" id="ddProp">
+            <div class="ddh"><div class="ddi" style="background:rgba(15,36,64,.1);color:var(--gold-500)"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="1" width="12" height="14" rx="1"/><path d="M5 4h1M5 7h1M5 10h1M10 4h1M10 7h1M10 10h1M7 14v-3h2v3"/></svg></span></div><div><div class="ddt">Análise do Imóvel & Registro</div><div class="dds">SREI (Registro de Imóveis) · URBIT AVM · Prefeitura</div></div></div>
+            <div id="ddPropBody"></div>
+          </div>
+
+          <!-- Anti-Fraud — ClearSale / Unico / Incognia -->
+          <div class="ddc" id="ddFraud">
+            <div class="ddh"><div class="ddi" style="background:rgba(239,68,68,.08);color:var(--red-500)"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M8 2C5.2 2 3 4.5 3 7.5c0 2 .5 4 1.5 5.5M13 7.5c0 2.5-1 5-2.5 6.5M5.5 7.5c0 1.5.3 3 1 4.5M10.5 7.5c0 1-.2 2.5-.8 4M8 5.5c1.4 0 2.5 1 2.5 2s-.5 2.5-1 4"/></svg></span></div><div><div class="ddt">Antifraude, KYC & PLD/FT</div><div class="dds">ClearSale · Unico Check · Incognia · COAF · OFAC</div></div></div>
+            <div id="ddFraudBody"></div>
+          </div>
+
+          <!-- Income — Serpro Consulta Renda / Registrato -->
+          <div class="ddc" id="ddIncome">
+            <div class="ddh"><div class="ddi" style="background:rgba(16,185,129,.08);color:#059669"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="6" cy="10" rx="5" ry="2.5"/><path d="M1 10v2c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-2"/><ellipse cx="10" cy="5" rx="5" ry="2.5"/><path d="M5 5v2"/></svg></span></div><div><div class="ddt">Verificação de Renda & Endividamento</div><div class="dds">Serpro Consulta Renda · Registrato (BCB) · eSocial · Open Finance</div></div></div>
+            <div id="ddIncBody"></div>
+          </div>
+
+          <!-- Overall Summary -->
+          <div id="ddSummary" style="margin-top:20px"></div>
+        </div>
+
+        <!-- Docs section (shown after DD) -->
+        <div id="ddDocs" style="display:none;margin-top:32px"><h3 style="font-size:17px;margin-bottom:16px;display:flex;align-items:center;gap:8px"><span class="ico"  style="color:var(--gold-500)"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 13V4a1 1 0 011-1h3l2 2h5a1 1 0 011 1v1H6L4 13H2z"/><path d="M4 13l2-6h10l-2 6H4z"/></svg></span> Documentos</h3>
+          <div class="fg">
+            <div style="background:var(--bg-warm);border:1px solid var(--border-light);border-radius:var(--radius-sm);padding:24px"><div style="font-weight:700;font-size:14px;margin-bottom:12px"><span class="ico"  style="color:var(--gold-500);font-size:12px;margin-right:6px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="5" r="3"/><path d="M2 15c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg></span>Pessoais</div><div style="font-size:13px;color:var(--text-secondary);line-height:2">RG ou CNH<br>Comprovante residência (3m)<br>Comprovante renda (3 holerites)<br>Declaração IR<br>Selfie com documento (prova de vida)</div></div>
+            <div style="background:var(--bg-warm);border:1px solid var(--border-light);border-radius:var(--radius-sm);padding:24px"><div style="font-weight:700;font-size:14px;margin-bottom:12px"><span class="ico"  style="color:var(--gold-500);font-size:12px;margin-right:6px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8l6-6 6 6"/><path d="M3 7.5V14h4v-4h2v4h4V7.5"/></svg></span>Imóvel</div><div style="font-size:13px;color:var(--text-secondary);line-height:2">Matrícula atualizada<br>IPTU ano vigente<br>Certidão negativa ônus<br>Habite-se (se aplicável)<br>Laudo de avaliação (emitido por nós)</div></div>
+          </div>
+        </div>
+
+        <div class="fgr full" style="margin-top:24px"><label style="display:flex;align-items:center;gap:10px;cursor:pointer"><input type="checkbox" id="termos" style="width:20px;height:20px;accent-color:var(--gold-500)"><span style="font-size:13px;color:var(--text-secondary)">Li e concordo com os <a href="#" style="color:var(--gold-500);font-weight:600">Termos</a>, <a href="#" style="color:var(--gold-500);font-weight:600">Privacidade</a> e autorizo consulta a bureaus de crédito e órgãos públicos.</span></label></div>
+        <div class="snav"><button class="bb" onclick="goTo(3)"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3L5 8l5 5"/></svg></span> Voltar</button><button class="bn" id="btnRes" onclick="goTo(5)" disabled><span class="ico"  style="margin-right:6px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2h8v5a4 4 0 01-8 0z"/><path d="M4 3H2c0 2 1 3.5 2 4M12 3h2c0 2-1 3.5-2 4M6 11v2h4v-2M5 14h6"/></svg></span>Ver Resultado</button></div>
+      </div>
+
+      <div class="ss" data-step="5"><h2>Sua Proposta</h2><p>Proposta personalizada com base nos seus dados.</p>
+        <div id="resC"></div>
+        <div class="snav" style="border-top:0;margin-top:24px"><button class="bb" onclick="goTo(1)"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4h-4"/><path d="M12 6A5.5 5.5 0 103.5 11"/></svg></span> Nova Simulação</button><button class="bn" id="btnContratar" onclick="submitLead()"><span class="ico"  style="margin-right:6px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.5 3.5L13 4"/></svg></span>Quero Contratar</button></div>
+      </div>
+    </div>
+  </div></div>
+</div></section>
+
+<section class="faq" id="faq"><div class="sc">
+  <div class="sl">Dúvidas</div><div class="st">Perguntas Frequentes</div><p class="sd">Respostas para as dúvidas mais comuns.</p>
+  <div class="faq-w">
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">O que é Home Equity? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">Crédito com imóvel como garantia, taxas muito menores. Você continua morando nele — fica alienado fiduciariamente até quitação.</div></div></div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Valor mínimo e máximo? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">Crédito de R$ 1.200.000 a R$ 3.000.000 (até 60% do valor do imóvel). Imóvel mínimo R$ 2.000.000.</div></div></div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Imóvel financiado pode? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">Sim, com pelo menos 50% quitado. Parte do crédito quita o saldo restante.</div></div></div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Nome negativado pode? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">Não. Para garantir segurança nas operações, é necessário que o CPF esteja regularizado. Recomendamos resolver pendências antes de solicitar.</div></div></div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Documentos necessários? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">Pessoais: RG/CNH, residência, renda (3m), IR. Imóvel: matrícula, IPTU, certidão negativa.</div></div></div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Prazo de liberação? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">15 dias úteis após aprovação, incluindo análise, avaliação, jurídico e registro.</div></div></div>
+  </div>
+</div></section>
+
+<section style="position:relative;overflow:hidden">
+  <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1600&q=80" alt="Time profissional reunido" style="width:100%;height:440px;object-fit:cover;display:block;filter:brightness(.82)">
+  <div style="position:absolute;inset:0;display:flex;align-items:center;background:linear-gradient(90deg,rgba(0,0,0,.7) 0%,rgba(0,0,0,.3) 50%,transparent 100%)">
+    <div style="max-width:1240px;margin:0 auto;padding:0 40px">
+      <p style="font-family:'Playfair Display',serif;font-size:clamp(22px,2.5vw,32px);color:#fff;font-weight:600;max-width:500px;line-height:1.5;margin-bottom:20px">Você não precisa vender seu imóvel para usar o dinheiro que ele vale. A Teto existe para isso.</p>
+      <p style="color:rgba(255,255,255,.6);font-size:14px"><strong style="color:#fff">Simule em 2 minutos</strong> — sem compromisso</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta"><div class="cta-inner">
+  <h2>Cada dia que passa é dinheiro parado. Simule agora.</h2>
+  <p>Leva 2 minutos. Sem compromisso. Sem burocracia.</p>
+  <a href="#simulador" class="btn-hero-primary" style="display:inline-flex"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="1" width="12" height="14" rx="1.5"/><rect x="4" y="3" width="8" height="3" rx=".5"/><circle cx="5" cy="9" r=".7" fill="currentColor"/><circle cx="8" cy="9" r=".7" fill="currentColor"/><circle cx="11" cy="9" r=".7" fill="currentColor"/><circle cx="5" cy="12" r=".7" fill="currentColor"/><circle cx="8" cy="12" r=".7" fill="currentColor"/><circle cx="11" cy="12" r=".7" fill="currentColor"/></svg></span> Simular Crédito</a>
+</div></section>
+
+<footer class="footer"><div class="footer-inner">
+  <div class="footer-brand">
+    <div class="logo" style="margin-bottom:4px"><div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V10a8 8 0 0116 0v11"/></svg></div><div class="logo-text">Teto<span style="display:block;font-size:9px;font-weight:300;letter-spacing:1.5px;opacity:.7;color:#fff;font-family:'Inter',sans-serif;text-transform:uppercase;margin-top:-2px">by Soho Haus</span></div></div>
+    <p>Crédito inteligente para quem tem patrimônio. 100% digital, sem burocracia.</p>
+    <div class="fsoc"><a href="#"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="1.5" width="13" height="13" rx="3.5"/><circle cx="8" cy="8" r="3"/><circle cx="12" cy="4" r=".8" fill="currentColor"/></svg></span></a><a href="#"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"><path d="M3.5 2a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM2 6.5h3V14H2zM6 6.5h2.5v1c.5-.8 1.5-1.3 2.5-1.3 2.5 0 3 1.5 3 3.8V14h-3v-3.5c0-1-.5-1.5-1.3-1.5s-1.7.6-1.7 1.7V14H6z"/></svg></span></a><a href="#"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"><path d="M14.3 4.3c-.2-.7-.7-1.2-1.4-1.4C11.8 2.5 8 2.5 8 2.5s-3.8 0-4.9.4c-.7.2-1.2.7-1.4 1.4C1.3 5.4 1.3 8 1.3 8s0 2.6.4 3.7c.2.7.7 1.2 1.4 1.4 1.1.4 4.9.4 4.9.4s3.8 0 4.9-.4c.7-.2 1.2-.7 1.4-1.4.4-1.1.4-3.7.4-3.7s0-2.6-.4-3.7zM6.5 10.5v-5L10.5 8z"/></svg></span></a><a href="#"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5A6.5 6.5 0 001.9 11L1 15l4.1-.9A6.5 6.5 0 108 1.5zm3.6 9.3c-.2.5-1 .9-1.4 1s-.8.1-1.2-.1-.9-.4-1.6-1a6 6 0 01-1.6-1.8c-.4-.5-.4-1.2 0-1.7l.3-.4c.1-.2.3-.2.4-.2h.3c.1 0 .3 0 .4.3l.6 1.3c.1.1 0 .3 0 .4l-.3.4-.2.3s0 .2.1.3c.3.5.7 1 1.1 1.3.5.3.9.5 1 .5s.2 0 .3-.1l.4-.5c.1-.2.3-.1.4-.1l1.2.6c.2.1.3.2.3.3s0 .5-.2 1z"/></svg></span></a></div>
+  </div>
+  <div class="footer-col"><h4>Produto</h4><a href="#simulador">Simulador</a><a href="#features">Vantagens</a><a href="#como-funciona">Como Funciona</a></div>
+  <div class="footer-col"><h4>Empresa</h4><a href="#">Sobre Nós</a><a href="#">Carreiras</a><a href="#">Blog</a><a href="#">Imprensa</a></div>
+  <div class="footer-col"><h4>Suporte</h4><a href="#">Central de Ajuda</a><a href="#">Fale Conosco</a><a href="#">Ouvidoria</a><a href="#">Termos</a></div>
+</div><div class="footer-bottom"><span>Teto Tecnologia Financeira LTDA</span><span>Correspondente bancário — em processo de formalização</span></div></footer>
+
+<script>
+const obs=new IntersectionObserver(e=>{e.forEach((el,i)=>{if(el.isIntersecting){setTimeout(()=>el.target.classList.add('v'),i*80);obs.unobserve(el.target)}})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.aos').forEach(el=>obs.observe(el));
+window.addEventListener('scroll',()=>{document.getElementById('header').classList.toggle('scrolled',window.scrollY>60)});
+
+function fmtC(el){let v=el.value.replace(/\D/g,'');if(!v){el.value='';return}el.value=(parseInt(v)/100).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
+function fmtCPF(el){let v=el.value.replace(/\D/g,'').slice(0,11);v=v.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');el.value=v}
+function fmtTel(el){let v=el.value.replace(/\D/g,'').slice(0,11);v=v.replace(/(\d{2})(\d)/,'($1) $2').replace(/(\d{5})(\d)/,'$1-$2');el.value=v}
+function fmtCEP(el){let v=el.value.replace(/\D/g,'').slice(0,8);v=v.replace(/(\d{5})(\d)/,'$1-$2');el.value=v}
+function pC(s){if(!s)return 0;return parseFloat(s.replace(/[^\d,]/g,'').replace(',','.'))||0}
+function brl(n){return n.toLocaleString('pt-BR',{style:'currency',currency:'BRL',minimumFractionDigits:2})}
+
+let cs=1;
+
+// ========== VALIDATION ==========
+function showErr(el,msg){
+  el.style.borderColor='var(--red-500)';el.style.boxShadow='0 0 0 3px rgba(239,68,68,.12)';
+  let tip=el.parentElement.querySelector('.val-err');
+  if(!tip){tip=document.createElement('div');tip.className='val-err';tip.style.cssText='color:var(--red-500);font-size:12px;margin-top:4px;display:flex;align-items:center;gap:4px';el.parentElement.appendChild(tip)}
+  tip.innerHTML='<span class="ico"  style="font-size:11px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M8 4.5v4"/><circle cx="8" cy="11.5" r=".8" fill="currentColor"/></svg></span> '+msg;
+}
+function clearErr(el){el.style.borderColor='';el.style.boxShadow='';const t=el.parentElement.querySelector('.val-err');if(t)t.remove()}
+function clearAllErr(){document.querySelectorAll('.val-err').forEach(e=>e.remove());document.querySelectorAll('[style*="border-color"]').forEach(e=>{e.style.borderColor='';e.style.boxShadow=''})}
+
+function valStep(s){
+  clearAllErr();let ok=true;
+  const req=(id,msg)=>{const el=document.getElementById(id);if(!el)return;if(!el.value||el.value.trim()===''){showErr(el,msg||'Campo obrigatório');ok=false}};
+  const reqRadio=(name,msg)=>{const el=document.querySelector('input[name="'+name+'"]:checked');if(!el){const wrap=document.querySelector('input[name="'+name+'"]');if(wrap){const rg=wrap.closest('.rg')||wrap.closest('.fgr');if(rg){let tip=rg.querySelector('.val-err');if(!tip){tip=document.createElement('div');tip.className='val-err';tip.style.cssText='color:var(--red-500);font-size:12px;margin-top:8px;display:flex;align-items:center;gap:4px';rg.appendChild(tip)}tip.innerHTML='<span class="ico"  style="font-size:11px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M8 4.5v4"/><circle cx="8" cy="11.5" r=".8" fill="currentColor"/></svg></span> '+(msg||'Selecione uma opção')}}ok=false}};
+  const minVal=(id,min,msg)=>{const el=document.getElementById(id);if(!el)return;const v=pC(el.value);if(v<min){showErr(el,msg);ok=false}};
+
+  if(s===1){
+    req('nome','Preencha seu nome');
+    const cpfEl=document.getElementById('cpf');if(cpfEl&&cpfEl.value.replace(/\D/g,'').length!==11){showErr(cpfEl,'CPF inválido (11 dígitos)');ok=false}
+    req('nascimento','Informe a data de nascimento');
+    const emailEl=document.getElementById('email');if(emailEl&&(!emailEl.value||!/\S+@\S+\.\S+/.test(emailEl.value))){showErr(emailEl,'E-mail inválido');ok=false}
+    const celEl=document.getElementById('celular');if(celEl&&celEl.value.replace(/\D/g,'').length<10){showErr(celEl,'Celular inválido');ok=false}
+    req('estadoCivil','Selecione o estado civil');
+    reqRadio('ocupacao','Selecione sua ocupação');
+    minVal('renda',1,'Informe sua renda');
+    req('uf','Selecione o UF');
+    // Se compor renda = sim, valida renda composta
+    const comp=document.getElementById('comporRenda');
+    if(comp&&comp.value!=='nao'){minVal('rendaComposta',1,'Informe a renda do componente')}
+  }
+  else if(s===2){
+    reqRadio('tipoImovel','Selecione o tipo de imóvel');
+    const cepEl=document.getElementById('cep');if(cepEl&&cepEl.value.replace(/\D/g,'').length!==8){showErr(cepEl,'CEP inválido (8 dígitos)');ok=false}
+    req('cidade','Informe a cidade');
+    minVal('valorImovel',2000000,'Valor mínimo R$ 2.000.000');
+    req('situacaoImovel','Selecione a situação');
+    reqRadio('titularidade','Selecione a titularidade');
+    reqRadio('matricula','Informe sobre a matrícula');
+    reqRadio('iptu','Informe sobre o IPTU');
+    // Se financiado, valida % quitado
+    const sit=document.getElementById('situacaoImovel');
+    if(sit&&sit.value==='financiado'){
+      const pq=document.getElementById('percQuitado');
+      if(pq&&!pq.value){showErr(pq,'Selecione o percentual quitado');ok=false}
+      else if(pq&&pq.value==='menos50'){showErr(pq,'Mínimo 50% quitado para elegibilidade');ok=false}
+    }
+  }
+  else if(s===3){
+    // Valida LTV
+    const vi=pC(document.getElementById('valorImovel').value);
+    const vd=parseInt(document.getElementById('valorDesejado').value);
+    if(vi>0&&vd>vi*0.6){
+      const el=document.getElementById('ltvInfo');
+      el.innerHTML='<span class="ico"  style="color:var(--red-500)"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5L1 14h14z"/><path d="M8 6v3.5"/><circle cx="8" cy="12" r=".7" fill="currentColor"/></svg></span> <span style="color:var(--red-500);font-weight:600">LTV acima de 60% — reduza o valor desejado</span>';
+      ok=false;
+    }
+    reqRadio('finalidade','Selecione a finalidade');
+    reqRadio('restricao','Informe sobre restrições');
+    // Não aceita negativados
+    const restVal=document.querySelector('input[name="restricao"]:checked');
+    if(restVal&&restVal.value==='sim'){
+      const restEl=restVal.closest('.fgr');
+      if(restEl){const hint=restEl.querySelector('.fh');if(hint){hint.innerHTML='<span class="ico"  style="color:var(--red-500)"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M5.5 5.5l5 5M10.5 5.5l-5 5"/></svg></span> <span style="color:var(--red-500);font-weight:600">Não é possível prosseguir com restrições no CPF. Regularize antes de solicitar.</span>'}}
+      ok=false;
+    }
+  }
+
+  if(!ok){
+    // Scroll to first error
+    const firstErr=document.querySelector('.val-err');
+    if(firstErr)firstErr.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+  return ok;
+}
+
+function goTo(s){
+  // Validate current step before advancing (not when going back)
+  if(s>cs&&!valStep(cs))return;
+  if(s===4)buildAn();if(s===5)buildRes();cs=s;
+  document.querySelectorAll('.ss').forEach(e=>e.classList.remove('active'));
+  document.querySelector('.ss[data-step="'+s+'"]').classList.add('active');
+  document.querySelectorAll('.sps').forEach(e=>{const n=parseInt(e.dataset.step);e.classList.remove('active','completed');if(n===s)e.classList.add('active');else if(n<s)e.classList.add('completed')});
+  document.querySelector('.sim-container').scrollIntoView({behavior:'smooth',block:'start'})}
+
+document.getElementById('comporRenda').addEventListener('change',function(){document.getElementById('rcGrp').style.display=this.value!=='nao'?'block':'none'});
+document.getElementById('situacaoImovel').addEventListener('change',function(){document.getElementById('pqGrp').style.display=this.value==='financiado'?'block':'none'});
+document.getElementById('termos').addEventListener('change',function(){document.getElementById('btnRes').disabled=!this.checked});
+
+function updRange(){
+  const v=parseInt(document.getElementById('valorDesejado').value);document.getElementById('vdDisp').textContent=brl(v);
+  const p=parseInt(document.getElementById('prazo').value);const a=Math.round(p/12);
+  document.getElementById('pzDisp').textContent=p+' meses ('+a+' ano'+(a>1?'s':'')+')';
+  const vi=pC(document.getElementById('valorImovel').value);
+  if(vi>0){const l=(v/vi*100).toFixed(0);const el=document.getElementById('ltvInfo');
+    el.innerHTML=l>60?'<span class="ico"  style="color:var(--red-500)"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5L1 14h14z"/><path d="M8 6v3.5"/><circle cx="8" cy="12" r=".7" fill="currentColor"/></svg></span> <span style="color:var(--red-500)">LTV: '+l+'% — Máximo 60%</span>'
+    :'<span class="ico"  style="color:var(--green-600)"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M5 8l2 2.5L11 6"/></svg></span> <span style="color:var(--green-600)">LTV: '+l+'% — OK</span>'}}
+
+function scrollSim(){
+  const mv=document.getElementById('mini-valor').value,mp=document.getElementById('mini-precisa').value,mt=document.getElementById('mini-tipo').value;
+  if(mv){
+    document.getElementById('valorImovel').value=mv;
+    // Atualiza LTV com o valor do imóvel preenchido
+    setTimeout(updRange,100);
+  }
+  if(mp){const v=pC(mp);if(v>=1200000&&v<=3000000){document.getElementById('valorDesejado').value=v;updRange()}}
+  if(mt){const m={'Apartamento':'tipo-apto','Casa':'tipo-casa','Comercial':'tipo-com','Terreno em condomínio':'tipo-ter'};if(m[mt])document.getElementById(m[mt]).checked=true}
+  document.getElementById('simulador').scrollIntoView({behavior:'smooth'})}
+
+// ==========================================
+// DD SERVICE INTEGRATIONS (Real API Configs)
+// Each service maps to real providers used by
+// C6 Bank, Creditas, and major BR fintechs.
+// Currently simulated — swap fetch calls when
+// API keys are configured.
+// ==========================================
+
+const DDConfig = {
+  // === CREDIT SCORE ===
+  // Serasa Experian: https://developer.serasaexperian.com.br/apis
+  // Quod (5 biggest banks): https://www.quod.com.br/
+  // Boa Vista / Equifax: https://developer.equifax.com/products/apiproducts/equifax-boa-vista-api-scpc
+  serasa:   { baseUrl: 'https://api.serasaexperian.com.br/credit/v1', apiKey: '' },
+  quod:     { baseUrl: 'https://api.quod.com.br/v1', apiKey: '' },
+  boaVista: { baseUrl: 'https://api.equifax.com.br/boa-vista/scpc/v1', apiKey: '' },
+
+  // === IDENTITY / CPF ===
+  // Serpro DataValid: https://apidocs.datavalidp.estaleiro.serpro.gov.br/
+  // BigDataCorp: https://docs.bigdatacorp.com.br/
+  // Idwall: https://api-v2.idwall.co (docs: https://docs.idwall.co/)
+  dataValid:    { baseUrl: 'https://apigateway.serpro.gov.br/datavalid/v3', apiKey: '' },
+  bigDataCorp:  { baseUrl: 'https://bigboost.bigdatacorp.com.br/peoplev2', apiKey: '' },
+  idwall:       { baseUrl: 'https://api-v2.idwall.co', apiKey: '' },
+
+  // === CRIMINAL / CERTIDÕES ===
+  // InfoSimples: https://infosimples.com/ (TJ, TRF, PF, TST)
+  // Idwall also covers criminal background
+  infoSimples: { baseUrl: 'https://api.infosimples.com/api/v2', apiKey: '' },
+
+  // === PROPERTY / VALUATION ===
+  // SREI (Registro de Imóveis Nacional): https://integracao.registrodeimoveis.org.br/
+  // URBIT AVM: https://urbit.com.br/ (algorithmic valuation)
+  srei:  { baseUrl: 'https://api.registrodeimoveis.org.br/v1', apiKey: '' },
+  urbit: { baseUrl: 'https://api.urbit.com.br/v1', apiKey: '' },
+
+  // === ANTI-FRAUD / KYC ===
+  // ClearSale: https://api.clearsale.com.br/docs
+  // Unico Check (biometria): https://unico.io/
+  // Incognia (location fraud): https://api.incognia.com/
+  clearSale: { baseUrl: 'https://api.clearsale.com.br/v1', apiKey: '' },
+  unico:     { baseUrl: 'https://api.unico.io/v1', apiKey: '' },
+  incognia:  { baseUrl: 'https://api.incognia.com/v2', apiKey: '' },
+
+  // === INCOME / DEBT ===
+  // Serpro Consulta Renda: https://apicenter.estaleiro.serpro.gov.br/documentacao/api-renda/
+  // Registrato (BCB): via Open Finance
+  consultaRenda: { baseUrl: 'https://apigateway.serpro.gov.br/consulta-renda/v1', apiKey: '' },
+};
+
+const DDChecks = [
+  { id:'cpf',    label:'Validação CPF',           sub:'Serpro DataValid · BigDataCorp',       delay:900,  color:'#3b82f6' },
+  { id:'credit', label:'Score de Crédito',        sub:'Serasa · Quod · Boa Vista',            delay:1600, color:'#10b981' },
+  { id:'crim',   label:'Antecedentes Criminais',  sub:'InfoSimples · Idwall · TJ/TRF/PF',    delay:2300, color:'#a855f7' },
+  { id:'prop',   label:'Registro do Imóvel',      sub:'SREI · URBIT AVM · Prefeitura',       delay:1900, color:'#0f2440' },
+  { id:'fraud',  label:'Antifraude / KYC',        sub:'ClearSale · Unico · Incognia · COAF', delay:1300, color:'#ef4444' },
+  { id:'income', label:'Renda & Endividamento',   sub:'Serpro Renda · Registrato · eSocial',  delay:2100, color:'#059669' },
+];
+
+// ========== SIMULATED API CALLS ==========
+// In production, replace each with real fetch() to DDConfig endpoints
+
+const DDApi = {
+  fetchCPF(cpf) {
+    // PROD: fetch(DDConfig.dataValid.baseUrl + '/validate/pf', { headers: { Authorization: 'Bearer ' + DDConfig.dataValid.apiKey }, body: JSON.stringify({cpf}) })
+    // PROD: fetch(DDConfig.bigDataCorp.baseUrl, { headers: { AccessToken: DDConfig.bigDataCorp.apiKey }, body: JSON.stringify({cpf}) })
+    const clean = (cpf||'').replace(/\D/g,'');
+    const valid = clean.length === 11;
+    const nm = document.getElementById('nome').value||'N/A';
+    const nasc = document.getElementById('nascimento').value;
+    const age = nasc ? Math.floor((new Date()-new Date(nasc))/31557600000) : null;
+    return {
+      provider: 'Serpro DataValid + BigDataCorp',
+      status: valid?'regular':'irregular', situacao: valid?'Regular':'CPF Inválido',
+      nome: nm, idade: age, obito: false, uf: document.getElementById('uf').value||'SP',
+      alerts: !valid ? ['CPF com formato inválido.'] : (age&&age<18) ? ['Menor de idade — não elegível.'] : []
+    };
+  },
+
+  fetchCreditScore(cpf) {
+    // PROD: fetch(DDConfig.serasa.baseUrl + '/score', { headers: { Authorization: 'Bearer ' + DDConfig.serasa.apiKey }, body: JSON.stringify({document:cpf}) })
+    // PROD: fetch(DDConfig.quod.baseUrl + '/score', { ... })
+    // PROD: fetch(DDConfig.boaVista.baseUrl + '/score', { ... })
+    const renda = pC(document.getElementById('renda').value);
+    const rest = document.querySelector('input[name="restricao"]:checked');
+    const hasRest = rest && rest.value === 'sim';
+    const ocu = document.querySelector('input[name="ocupacao"]:checked');
+    const ocuT = ocu ? ocu.value : '';
+    let score = 680;
+    if(hasRest) score -= 200;
+    if(renda > 15000) score += 80; else if(renda > 8000) score += 40;
+    if(ocuT==='Servidor'||ocuT==='CLT') score += 50;
+    if(ocuT==='Autônomo') score -= 20;
+    score = Math.max(150, Math.min(1000, score + Math.floor(Math.random()*60-30)));
+    let faixa, cor;
+    if(score>=800){faixa='Excelente';cor='#059669'} else if(score>=600){faixa='Bom';cor='#10b981'} else if(score>=400){faixa='Regular';cor='#f59e0b'} else{faixa='Baixo';cor='#ef4444'}
+    return {
+      provider: 'Serasa Experian + Quod + Boa Vista',
+      score, faixa, cor, max: 1000,
+      negativacoes: hasRest ? Math.floor(Math.random()*3)+1 : 0,
+      protestos: hasRest ? Math.floor(Math.random()*2) : 0,
+      consultasRecentes: Math.floor(Math.random()*4)+1,
+      ccf: false, pefin: hasRest, refin: hasRest,
+      alerts: hasRest ? ['Pendências financeiras registradas — pode impactar a taxa.'] : []
+    };
+  },
+
+  fetchCriminal(cpf) {
+    // PROD: fetch(DDConfig.infoSimples.baseUrl + '/certificates/criminal', { headers: { Authorization: DDConfig.infoSimples.apiKey }, body: JSON.stringify({cpf}) })
+    // PROD: fetch(DDConfig.idwall.baseUrl + '/background-check', { headers: { Authorization: 'Bearer ' + DDConfig.idwall.apiKey }, body: JSON.stringify({cpf}) })
+    return {
+      provider: 'InfoSimples + Idwall',
+      criminal: {st:'ok',ds:'Nada Consta'}, civil: {st:'ok',ds:'Nada Consta',n:0},
+      trabalhista: {st:'ok',ds:'Nada Consta',n:0}, federal: {st:'ok',ds:'Nada Consta'},
+      eleitoral: {st:'ok',ds:'Regular'}, cnj: {st:'ok',ds:'Sem impedimentos'},
+      pf: {st:'ok',ds:'Nada Consta'}, interpol: {st:'ok',ds:'Sem registros'},
+      dt: new Date().toLocaleDateString('pt-BR'), alerts: []
+    };
+  },
+
+  fetchProperty() {
+    // PROD: fetch(DDConfig.srei.baseUrl + '/matricula/online', { headers: { Authorization: 'Bearer ' + DDConfig.srei.apiKey }, body: JSON.stringify({cep, endereco}) })
+    // PROD: fetch(DDConfig.urbit.baseUrl + '/avm', { headers: { Authorization: 'Bearer ' + DDConfig.urbit.apiKey }, body: JSON.stringify({cep, area, tipo}) })
+    const vi = pC(document.getElementById('valorImovel').value);
+    const tipo = document.querySelector('input[name="tipoImovel"]:checked');
+    const ano = document.getElementById('anoConstrucao').value;
+    const area = parseFloat(document.getElementById('area').value)||80;
+    const cidade = document.getElementById('cidade').value||'São Paulo';
+    const bairro = document.getElementById('bairro').value||'';
+    const mat = document.querySelector('input[name="matricula"]:checked');
+    const iptu = document.querySelector('input[name="iptu"]:checked');
+    const sit = document.getElementById('situacaoImovel').value;
+    const variance = 0.9 + Math.random()*0.2;
+    const avm = Math.round(vi*variance/1000)*1000;
+    const pm2 = Math.round(avm/area);
+    const idadeI = ano ? (new Date().getFullYear()-parseInt(ano)) : null;
+    let alerts = [];
+    if(mat&&mat.value==='nao') alerts.push('Sem matrícula — impeditivo para alienação fiduciária.');
+    if(iptu&&iptu.value==='nao') alerts.push('IPTU em atraso — regularizar antes.');
+    if(idadeI&&idadeI>40) alerts.push('Imóvel 40+ anos — vistoria técnica obrigatória.');
+    if(sit==='financiado') alerts.push('Alienação fiduciária vigente — portabilidade necessária.');
+    return {
+      provider: 'SREI + URBIT AVM',
+      tipo: tipo?tipo.value:'Apartamento', cidade, bairro, area, ano: ano||'N/I', idadeI,
+      valorDecl: vi, avm, pm2, pm2Regiao: Math.round(pm2*(0.95+Math.random()*0.1)),
+      matOk: !mat||mat.value!=='nao', iptuOk: !iptu||iptu.value!=='nao',
+      onus: false, penhora: false, alerts
+    };
+  },
+
+  fetchAntiFraud(cpf) {
+    // PROD: fetch(DDConfig.clearSale.baseUrl + '/orders', { headers: { Authorization: 'Bearer ' + DDConfig.clearSale.apiKey }, body: JSON.stringify({cpf}) })
+    // PROD: fetch(DDConfig.unico.baseUrl + '/processes', { headers: { Authorization: 'Bearer ' + DDConfig.unico.apiKey }, body: JSON.stringify({cpf}) })
+    // PROD: fetch(DDConfig.incognia.baseUrl + '/transactions', { headers: { Authorization: 'Bearer ' + DDConfig.incognia.apiKey }, body: JSON.stringify({cpf}) })
+    return {
+      provider: 'ClearSale + Unico Check + Incognia',
+      pep: false, pepRel: false, ofac: false, ue: false, onu: false,
+      coaf: {st:'ok',ds:'Sem alertas'},
+      clearSale: {score: Math.floor(Math.random()*15)+2, risk:'baixo'},
+      unico: {st:'pendente',ds:'Aguardando selfie + documento'},
+      incognia: {st:'ok',ds:'Localização consistente', risk:'baixo'},
+      alerts: []
+    };
+  },
+
+  fetchIncome() {
+    // PROD: fetch(DDConfig.consultaRenda.baseUrl + '/renda', { headers: { Authorization: 'Bearer ' + DDConfig.consultaRenda.apiKey }, body: JSON.stringify({cpf, autorizacao}) })
+    const renda = pC(document.getElementById('renda').value);
+    const rc = pC(document.getElementById('rendaComposta')?.value||'0');
+    const ocu = document.querySelector('input[name="ocupacao"]:checked');
+    const ocuT = ocu ? ocu.value : '';
+    const vd = parseInt(document.getElementById('valorDesejado').value);
+    const pz = parseInt(document.getElementById('prazo').value);
+    const rt = renda + rc;
+    const tx = 0.0100;
+    const am = vd/pz;
+    const p1 = am + vd*tx;
+    const comp = rt > 0 ? (p1/rt*100) : 0;
+    const outrasP = rt * (Math.random()*0.15);
+    const compTotal = rt > 0 ? ((p1+outrasP)/rt*100) : 0;
+    let alerts = [];
+    if(comp>30) alerts.push('Comprometimento acima de 30% — pode exigir garantias adicionais.');
+    if(compTotal>40) alerts.push('Endividamento total acima de 40% — risco elevado.');
+    if(ocuT==='Autônomo') alerts.push('Autônomo: exige DECORE ou extratos 6 meses.');
+    return {
+      provider: 'Serpro Consulta Renda + Registrato (BCB)',
+      rendaDecl: renda, rendaComp: rc, rendaTotal: rt, ocupacao: ocuT,
+      parcela: p1, comp: comp.toFixed(1), compTotal: compTotal.toFixed(1),
+      registrato: { empAtivos: Math.floor(Math.random()*3), inst: Math.floor(Math.random()*3)+1, saldoDev: Math.round(outrasP*24) },
+      openFinance: { st:'disponivel', consent: false },
+      alerts
+    };
+  }
+};
+
+// ========== DD ANIMATION ENGINE ==========
+async function runDD() {
+  const grid = document.getElementById('ddGrid');
+  const results = document.getElementById('ddResults');
+  const docs = document.getElementById('ddDocs');
+  results.style.display = 'none'; docs.style.display = 'none';
+
+  grid.innerHTML = DDChecks.map(c =>
+    '<div class="dd-item" id="ddi-'+c.id+'"><div class="dd-spin" id="dds-'+c.id+'"></div><div><div class="dd-lbl">'+c.label+'</div><div class="dd-sub">'+c.sub+'</div></div></div>'
+  ).join('');
+
+  const cpf = document.getElementById('cpf').value;
+  const res = {};
+
+  for (const ck of DDChecks) {
+    document.getElementById('ddi-'+ck.id).classList.add('running');
+    await new Promise(r => setTimeout(r, ck.delay));
+
+    switch(ck.id) {
+      case 'cpf':    res.cpf = DDApi.fetchCPF(cpf); break;
+      case 'credit': res.credit = DDApi.fetchCreditScore(cpf); break;
+      case 'crim':   res.crim = DDApi.fetchCriminal(cpf); break;
+      case 'prop':   res.prop = DDApi.fetchProperty(); break;
+      case 'fraud':  res.fraud = DDApi.fetchAntiFraud(cpf); break;
+      case 'income': res.income = DDApi.fetchIncome(); break;
+    }
+
+    const r = res[ck.id];
+    const hasA = r.alerts && r.alerts.length > 0;
+    const item = document.getElementById('ddi-'+ck.id);
+    item.classList.remove('running');
+    item.classList.add(hasA ? 'warn' : 'done');
+    document.getElementById('dds-'+ck.id).outerHTML = hasA
+      ? '<span class="ico"  style="color:var(--gold-500);font-size:16px;flex-shrink:0"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5L1 14h14z"/><path d="M8 6v3.5"/><circle cx="8" cy="12" r=".7" fill="currentColor"/></svg></span>'
+      : '<span class="ico"  style="color:var(--green-500);font-size:16px;flex-shrink:0"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M5 8l2 2.5L11 6"/></svg></span>';
+  }
+
+  window._dd = res;
+  await new Promise(r => setTimeout(r, 400));
+  renderDD(res);
+  results.style.display = 'block';
+  docs.style.display = 'block';
+}
+
+function renderDD(r) {
+  // Credit Score
+  const cs = r.credit;
+  document.getElementById('ddCreditBody').innerHTML =
+    '<div class="ddm">'+
+      '<div class="ddmx" style="grid-column:span 2"><div class="ddml">Score Serasa</div><div style="display:flex;align-items:baseline;gap:8px"><div class="ddmv" style="font-size:26px;color:'+cs.cor+'">'+cs.score+'</div><span style="font-size:12px;color:var(--text-muted)">/'+cs.max+'</span><span class="ddb '+(cs.score>=600?'ok':cs.score>=400?'rw':'ng')+'">'+cs.faixa+'</span></div><div class="dd-bar"><div class="dd-fill" style="width:'+(cs.score/cs.max*100)+'%;background:'+cs.cor+'"></div></div></div>'+
+      '<div class="ddmx"><div class="ddml">Negativações</div><div class="ddmv" style="color:'+(cs.negativacoes>0?'var(--red-500)':'var(--green-500)')+'">'+cs.negativacoes+'</div></div>'+
+      '<div class="ddmx"><div class="ddml">Protestos</div><div class="ddmv">'+cs.protestos+'</div></div>'+
+      '<div class="ddmx"><div class="ddml">Consultas 90d</div><div class="ddmv">'+cs.consultasRecentes+'</div></div>'+
+      '<div class="ddmx"><div class="ddml">PEFIN / REFIN</div><div class="ddmv" style="font-size:13px">'+(cs.pefin?'Sim':'—')+' / '+(cs.refin?'Sim':'—')+'</div></div>'+
+    '</div>'+
+    '<div class="dd-alert info" style="margin-top:10px"><span class="ico"  style="margin-top:1px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M8 7v4"/><circle cx="8" cy="4.5" r=".8" fill="currentColor"/></svg></span> Fonte: '+cs.provider+'</div>'+
+    cs.alerts.map(a => '<div class="dd-alert wr"><span class="ico"  style="margin-top:1px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5L1 14h14z"/><path d="M8 6v3.5"/><circle cx="8" cy="12" r=".7" fill="currentColor"/></svg></span>'+a+'</div>').join('');
+
+  // CPF
+  const cp = r.cpf;
+  document.getElementById('ddCPFBody').innerHTML =
+    '<div class="ddm">'+
+      '<div class="ddmx"><div class="ddml">Situação</div><div class="ddmv"><span class="ddb '+(cp.status==='regular'?'ok':'ng')+'">'+cp.situacao+'</span></div></div>'+
+      '<div class="ddmx"><div class="ddml">Nome</div><div class="ddmv" style="font-size:13px">'+cp.nome+'</div></div>'+
+      '<div class="ddmx"><div class="ddml">Idade</div><div class="ddmv">'+(cp.idade?cp.idade+' anos':'N/I')+'</div></div>'+
+      '<div class="ddmx"><div class="ddml">UF</div><div class="ddmv">'+cp.uf+'</div></div>'+
+      '<div class="ddmx"><div class="ddml">Óbito</div><div class="ddmv" style="color:var(--green-500)">'+(cp.obito?'Sim':'Não')+'</div></div>'+
+    '</div>'+
+    '<div class="dd-alert info" style="margin-top:10px"><span class="ico"  style="margin-top:1px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M8 7v4"/><circle cx="8" cy="4.5" r=".8" fill="currentColor"/></svg></span> Fonte: '+cp.provider+'</div>'+
+    cp.alerts.map(a => '<div class="dd-alert dg"><span class="ico"  style="margin-top:1px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M5.5 5.5l5 5M10.5 5.5l-5 5"/></svg></span>'+a+'</div>').join('');
+
+  // Criminal
+  const cr = r.crim;
+  const certs = [['Criminal (TJ)',cr.criminal],['Civil (TJ)',cr.civil],['Trabalhista (TST)',cr.trabalhista],['Federal (TRF)',cr.federal],['Eleitoral',cr.eleitoral],['CNJ',cr.cnj],['Polícia Federal',cr.pf],['Interpol',cr.interpol]];
+  document.getElementById('ddCrimBody').innerHTML =
+    '<div class="ddm" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">'+
+    certs.map(([l,v]) => '<div class="ddmx"><div class="ddml">'+l+'</div><div class="ddmv" style="font-size:12px"><span class="ddb '+(v.st==='ok'?'ok':'rw')+'">'+v.ds+'</span></div></div>').join('')+
+    '</div>'+
+    '<div class="dd-alert ok" style="margin-top:10px"><span class="ico"  style="margin-top:1px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M5 8l2 2.5L11 6"/></svg></span> Nenhuma restrição encontrada — '+cr.dt+'. Fonte: '+cr.provider+'</div>';
+
+  // Property
+  const pr = r.prop;
+  document.getElementById('ddPropBody').innerHTML =
+    '<div class="ddm">'+
+      '<div class="ddmx"><div class="ddml">Tipo</div><div class="ddmv" style="font-size:13px">'+pr.tipo+'</div></div>'+
+      '<div class="ddmx"><div class="ddml">Local</div><div class="ddmv" style="font-size:13px">'+(pr.bairro?pr.bairro+', ':'')+pr.cidade+'</div></div>'+
+      '<div class="ddmx"><div class="ddml">Área</div><div class="ddmv">'+pr.area+' m²</div></div>'+
+      '<div class="ddmx"><div class="ddml">Ano</div><div class="ddmv">'+pr.ano+(pr.idadeI?' ('+pr.idadeI+'a)':'')+'</div></div>'+
+      '<div class="ddmx"><div class="ddml">Valor Declarado</div><div class="ddmv">'+brl(pr.valorDecl)+'</div></div>'+
+      '<div class="ddmx"><div class="ddml">AVM (URBIT)</div><div class="ddmv" style="color:'+(pr.avm>=pr.valorDecl*.85?'var(--green-500)':'var(--gold-500)')+'">'+brl(pr.avm)+'</div><div class="ddms">Laudo presencial pendente</div></div>'+
+      '<div class="ddmx"><div class="ddml">R$/m²</div><div class="ddmv">'+brl(pr.pm2)+'</div><div class="ddms">Região: ~'+brl(pr.pm2Regiao)+'</div></div>'+
+      '<div class="ddmx"><div class="ddml">Matrícula</div><div class="ddmv"><span class="ddb '+(pr.matOk?'ok':'ng')+'">'+(pr.matOk?'OK':'Pendente')+'</span></div></div>'+
+      '<div class="ddmx"><div class="ddml">IPTU</div><div class="ddmv"><span class="ddb '+(pr.iptuOk?'ok':'ng')+'">'+(pr.iptuOk?'Em dia':'Atraso')+'</span></div></div>'+
+      '<div class="ddmx"><div class="ddml">Ônus/Penhora</div><div class="ddmv"><span class="ddb ok">Livre</span></div></div>'+
+    '</div>'+
+    '<div class="dd-alert info" style="margin-top:10px"><span class="ico"  style="margin-top:1px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M8 7v4"/><circle cx="8" cy="4.5" r=".8" fill="currentColor"/></svg></span> Fonte: '+pr.provider+'</div>'+
+    pr.alerts.map(a => '<div class="dd-alert wr"><span class="ico"  style="margin-top:1px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5L1 14h14z"/><path d="M8 6v3.5"/><circle cx="8" cy="12" r=".7" fill="currentColor"/></svg></span>'+a+'</div>').join('');
+
+  // Anti-Fraud
+  const af = r.fraud;
+  document.getElementById('ddFraudBody').innerHTML =
+    '<div class="ddm">'+
+      '<div class="ddmx"><div class="ddml">PEP</div><div class="ddmv"><span class="ddb '+(af.pep?'rw':'ok')+'">'+(af.pep?'Sim':'Não')+'</span></div></div>'+
+      '<div class="ddmx"><div class="ddml">Listas de Sanções</div><div class="ddmv"><span class="ddb ok">Sem Registros</span></div><div class="ddms">OFAC · UE · ONU</div></div>'+
+      '<div class="ddmx"><div class="ddml">COAF</div><div class="ddmv"><span class="ddb ok">'+af.coaf.ds+'</span></div></div>'+
+      '<div class="ddmx"><div class="ddml">ClearSale Score</div><div class="ddmv" style="color:var(--green-500)">'+af.clearSale.score+'/100</div><div class="ddms">Risco: '+af.clearSale.risk+'</div></div>'+
+      '<div class="ddmx"><div class="ddml">Biometria (Unico)</div><div class="ddmv"><span class="ddb rw">'+af.unico.ds+'</span></div></div>'+
+      '<div class="ddmx"><div class="ddml">Incognia</div><div class="ddmv"><span class="ddb ok">'+af.incognia.ds+'</span></div><div class="ddms">Risco: '+af.incognia.risk+'</div></div>'+
+    '</div>'+
+    '<div class="dd-alert info" style="margin-top:10px"><span class="ico"  style="margin-top:1px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M8 7v4"/><circle cx="8" cy="4.5" r=".8" fill="currentColor"/></svg></span> Fonte: '+af.provider+'</div>';
+
+  // Income
+  const inc = r.income;
+  document.getElementById('ddIncBody').innerHTML =
+    '<div class="ddm">'+
+      '<div class="ddmx"><div class="ddml">Renda Declarada</div><div class="ddmv">'+brl(inc.rendaDecl)+'/mês</div><div class="ddms">'+inc.ocupacao+'</div></div>'+
+      (inc.rendaComp>0 ? '<div class="ddmx"><div class="ddml">Renda Composta</div><div class="ddmv">'+brl(inc.rendaComp)+'/mês</div></div>' : '')+
+      '<div class="ddmx"><div class="ddml">Renda Total</div><div class="ddmv" style="color:var(--green-500)">'+brl(inc.rendaTotal)+'/mês</div></div>'+
+      '<div class="ddmx"><div class="ddml">Parcela Est.</div><div class="ddmv">'+brl(inc.parcela)+'/mês</div></div>'+
+      '<div class="ddmx"><div class="ddml">Comprometimento</div><div class="ddmv" style="color:'+(parseFloat(inc.comp)>30?'var(--gold-500)':'var(--green-500)')+'">'+inc.comp+'%</div><div class="ddms">Recomendado: até 30%</div></div>'+
+      '<div class="ddmx"><div class="ddml">Endividamento</div><div class="ddmv" style="color:'+(parseFloat(inc.compTotal)>40?'var(--red-500)':parseFloat(inc.compTotal)>30?'var(--gold-500)':'var(--green-500)')+'">'+inc.compTotal+'%</div><div class="ddms">Limite: 40%</div></div>'+
+      '<div class="ddmx" style="grid-column:span 2"><div class="ddml">Registrato (Banco Central)</div><div class="ddmv" style="font-size:12px">'+inc.registrato.empAtivos+' empréstimo(s) em '+inc.registrato.inst+' instituição(ões) · Saldo: '+brl(inc.registrato.saldoDev)+'</div></div>'+
+    '</div>'+
+    '<div class="dd-alert info" style="margin-top:10px"><span class="ico"  style="margin-top:1px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M8 7v4"/><circle cx="8" cy="4.5" r=".8" fill="currentColor"/></svg></span> Fonte: '+inc.provider+'</div>'+
+    inc.alerts.map(a => '<div class="dd-alert wr"><span class="ico"  style="margin-top:1px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5L1 14h14z"/><path d="M8 6v3.5"/><circle cx="8" cy="12" r=".7" fill="currentColor"/></svg></span>'+a+'</div>').join('');
+
+  // Summary
+  const allA = [...r.cpf.alerts,...r.credit.alerts,...r.crim.alerts,...r.prop.alerts,...r.fraud.alerts,...r.income.alerts];
+  const st = allA.length===0?'ok':allA.length<=2?'rw':'ng';
+  const stL = st==='ok'?'Pré-Aprovado':st==='rw'?'Aprovado com Ressalvas':'Análise Manual';
+  const stC = st==='ok'?'var(--green-500)':st==='rw'?'var(--gold-500)':'var(--red-500)';
+  const stSvg = st==='ok'
+    ? '<svg width="28" height="28" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M5 8l2 2.5L11 6"/></svg>'
+    : st==='rw'
+    ? '<svg width="28" height="28" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M8 5v4"/><circle cx="8" cy="11.5" r=".7" fill="currentColor"/></svg>'
+    : '<svg width="28" height="28" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M5.5 5.5l5 5M10.5 5.5l-5 5"/></svg>';
+  document.getElementById('ddSummary').innerHTML =
+    '<div style="display:flex;align-items:center;gap:14px;padding:22px 28px;background:linear-gradient(135deg,var(--terra-950),var(--terra-800));border-radius:var(--radius);color:#fff">'+
+      '<span style="color:'+stC+';filter:drop-shadow(0 0 8px '+stC+');flex-shrink:0">'+stSvg+'</span>'+
+      '<div style="flex:1"><div style="font-weight:800;font-size:18px">'+stL+'</div><div style="font-size:12px;color:rgba(255,255,255,.45);margin-top:2px">'+DDChecks.length+' verificações · '+allA.length+' alerta(s) · Score: '+r.credit.score+'/1000</div></div>'+
+      '<div style="text-align:right"><div style="font-size:10px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px">Protocolo</div><div style="font-size:13px;font-weight:700;color:var(--gold-400);font-family:monospace">#TC-'+Date.now().toString(36).toUpperCase()+'</div></div>'+
+    '</div>';
+}
+
+function buildAn() { runDD(); }
+
+function buildRes(){
+  const vd=parseInt(document.getElementById('valorDesejado').value),pz=parseInt(document.getElementById('prazo').value);
+  const vi=pC(document.getElementById('valorImovel').value),r=pC(document.getElementById('renda').value);
+  const rc=pC(document.getElementById('rendaComposta')?.value||'0'),rt=r+rc;
+  const rest=document.querySelector('input[name="restricao"]:checked');
+  let tx=.0100;
+  const dd=window._dd;
+  if(dd&&dd.credit){const sc=dd.credit.score;if(sc>=800)tx=.0085;else if(sc>=600)tx=.0100;else if(sc>=400)tx=.0130;else tx=.0160}
+  else if(vi>2000000)tx=.0090;
+  let vf=Math.min(vd,vi*.6),am=vf/pz,j1=vf*tx,p1=am+j1,pm=am+(vf*tx/2);
+  const cet=(tx*100+.15).toFixed(2),cr=rt>0?(p1/rt*100).toFixed(1):0,ltv=vi>0?Math.min(vd/vi*100,60):0;
+  const _si={receipt:'<svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="1" width="10" height="14" rx="1"/><path d="M5.5 5h5M5.5 8h5M5.5 11h3"/></svg>',calculator:'<svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="1" width="10" height="14" rx="1.5"/><rect x="5" y="3" width="6" height="3" rx=".5"/><circle cx="5.8" cy="9" r=".6" fill="currentColor"/><circle cx="8" cy="9" r=".6" fill="currentColor"/><circle cx="10.2" cy="9" r=".6" fill="currentColor"/><circle cx="5.8" cy="12" r=".6" fill="currentColor"/><circle cx="8" cy="12" r=".6" fill="currentColor"/><circle cx="10.2" cy="12" r=".6" fill="currentColor"/></svg>',percent:'<svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="5" r="2"/><circle cx="11" cy="11" r="2"/><path d="M13 3L3 13"/></svg>',chartpie:'<svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2a6 6 0 110 12A6 6 0 018 2z"/><path d="M8 2v6h6"/></svg>',calendar:'<svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="11" rx="1.5"/><path d="M2 7h12M5 1v3M11 1v3"/></svg>',home:'<svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8l6-6 6 6"/><path d="M4 7v6.5a.5.5 0 00.5.5h7a.5.5 0 00.5-.5V7"/></svg>',wallet:'<svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="4" width="13" height="9" rx="1.5"/><path d="M1.5 7h13"/><circle cx="11" cy="10" r="1" fill="currentColor"/></svg>',sliders:'<svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v12M8 2v12M12 2v12"/><circle cx="4" cy="5" r="1.5" fill="currentColor"/><circle cx="8" cy="10" r="1.5" fill="currentColor"/><circle cx="12" cy="7" r="1.5" fill="currentColor"/></svg>'};
+  const rows=[['receipt','Primeira parcela (SAC)',brl(p1),''],['calculator','Parcela média',brl(pm),''],['percent','Taxa mensal',(tx*100).toFixed(2)+'% a.m. + IPCA',''],['chartpie','CET estimado',cet+'% a.m. + IPCA',''],['calendar','Prazo',pz+' meses ('+Math.round(pz/12)+' anos)',''],['home','LTV',ltv.toFixed(1)+'%',''],['wallet','Comprometimento renda',cr+'%',cr>30?'color:var(--gold-400)':'color:var(--green-500)'],['sliders','Amortização','SAC','']];
+  let h='<div class="rc"><div class="rhi"><div class="lb">Crédito aprovado em simulação</div><div class="vl">'+brl(vf)+'</div><div class="sb">Sujeito a análise documental e avaliação</div></div>';
+  rows.forEach(([ic,lb,vl,st])=>{h+='<div class="rr"><span class="rrl"><span class="ico" style="margin-right:8px;opacity:.4">'+_si[ic]+'</span>'+lb+'</span><span class="rrv"'+(st?' style="'+st+'"':'')+'>'+vl+'</span></div>'});
+  h+='</div><div class="rdis"><span class="ico"  style="color:var(--gold-500);margin-right:8px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M8 7v4"/><circle cx="8" cy="4.5" r=".8" fill="currentColor"/></svg></span><strong>Importante:</strong> Simulação informativa. Valores sujeitos a análise, avaliação e mercado. Seguros MIP/DFI não incluídos.</div>';
+  document.getElementById('resC').innerHTML=h}
+
+function tFaq(el){el.parentElement.classList.toggle('open')}
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();const t=document.querySelector(this.getAttribute('href'));if(t){t.scrollIntoView({behavior:'smooth'});document.getElementById('nav').classList.remove('open')}})});
+
+// ========== SUBMIT LEAD TO BACKEND ==========
+async function submitLead(){
+  const btn=document.getElementById('btnContratar');
+  const origHTML=btn.innerHTML;
+  btn.disabled=true;
+  btn.innerHTML='<span style="display:inline-block;margin-right:6px;animation:spin 1s linear infinite;vertical-align:middle"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 2a6 6 0 015.2 3"/></svg></span>Enviando...';
+
+  // Collect form data
+  const getVal=id=>{const el=document.getElementById(id);return el?el.value:''};
+  const getRadio=name=>{const el=document.querySelector('input[name="'+name+'"]:checked');return el?el.value:''};
+
+  // Get analysis results if available
+  const dd=window._dd||{};
+  const credit=dd.credit||{};
+  const vi=pC(getVal('valorImovel'));
+  const vd=parseInt(getVal('valorDesejado'));
+  const ltv=vi>0?Math.min(vd/vi*100,60):0;
+  const rest=getRadio('restricao');
+  let tx=0.0100;
+  if(credit.score){if(credit.score>=800)tx=0.0085;else if(credit.score>=600)tx=0.0100;else if(credit.score>=400)tx=0.0130;else tx=0.0160}
+  else if(vi>2000000)tx=0.0090;
+  const pz=parseInt(getVal('prazo'));
+  const vf=Math.min(vd,vi*0.6);
+  const am=vf/pz;
+  const p1=am+vf*tx;
+  const renda=pC(getVal('renda'));
+  const rc=pC(getVal('rendaComposta')||'0');
+  const rt=renda+rc;
+  const comp=rt>0?(p1/rt*100):0;
+
+  const lead={
+    // Dados pessoais
+    nome:getVal('nome'),
+    cpf:getVal('cpf'),
+    nascimento:getVal('nascimento'),
+    email:getVal('email'),
+    celular:getVal('celular'),
+    estadoCivil:getVal('estadoCivil'),
+    ocupacao:getRadio('ocupacao'),
+    rendaBruta:renda,
+    comporRenda:getVal('comporRenda'),
+    rendaComposta:rc,
+    uf:getVal('uf'),
+    // Dados do imóvel
+    tipoImovel:getRadio('tipoImovel'),
+    cep:getVal('cep'),
+    cidade:getVal('cidade'),
+    bairro:getVal('bairro'),
+    endereco:getVal('endereco'),
+    valorImovel:vi,
+    anoConstrucao:parseInt(getVal('anoConstrucao'))||null,
+    area:parseFloat(getVal('area'))||null,
+    quartos:getVal('quartos'),
+    vagas:getVal('vagas'),
+    situacaoImovel:getVal('situacaoImovel'),
+    percQuitado:getVal('percQuitado'),
+    titularidade:getRadio('titularidade'),
+    matricula:getRadio('matricula'),
+    iptu:getRadio('iptu'),
+    // Crédito
+    valorDesejado:vd,
+    prazo:pz,
+    finalidade:getRadio('finalidade'),
+    restricaoCpf:rest,
+    // Resultado análise
+    scoreCredito:credit.score||null,
+    statusAnalise:dd.credit?'simulado':null,
+    ltv:parseFloat(ltv.toFixed(1)),
+    taxaMensal:tx,
+    parcela1:parseFloat(p1.toFixed(2)),
+    cet:parseFloat((tx*100+0.15).toFixed(2)),
+    comprometimento:parseFloat(comp.toFixed(1))
+  };
+
+  try{
+    const resp=await fetch('/api/leads',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(lead)
+    });
+    const data=await resp.json();
+
+    if(resp.ok){
+      // Show success modal
+      const modal=document.createElement('div');
+      modal.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(15,22,33,.85);backdrop-filter:blur(12px);z-index:9999;display:flex;align-items:center;justify-content:center;animation:fadeIn .3s';
+      modal.innerHTML='<div style="background:#fff;border-radius:var(--radius-lg);padding:48px;max-width:480px;width:90%;text-align:center;animation:fadeInUp .4s">'+
+        '<div style="width:72px;height:72px;background:linear-gradient(135deg,#34d399,#059669);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px"><span class="ico"  style="color:#fff;font-size:32px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.5 3.5L13 4"/></svg></span></div>'+
+        '<h2 style="font-family:Playfair Display,serif;font-size:26px;margin-bottom:12px;color:var(--terra-900)">Solicitação Enviada!</h2>'+
+        '<p style="color:var(--text-secondary);font-size:15px;line-height:1.7;margin-bottom:8px">Seu pedido <strong>#TC-'+data.id+'</strong> foi registrado. Nossa equipe entrará em contato em até <strong>24 horas úteis</strong>.</p>'+
+        '<p style="color:var(--text-muted);font-size:13px;margin-bottom:28px">Confira seu e-mail <strong>'+lead.email+'</strong> para acompanhar.</p>'+
+        '<button onclick="this.closest(\'div[style]\').remove()" style="background:linear-gradient(135deg,var(--gold-500),var(--gold-300));color:var(--terra-900);border:none;padding:14px 36px;border-radius:var(--radius-sm);font-weight:700;font-size:15px;cursor:pointer">Entendido</button>'+
+      '</div>';
+      document.body.appendChild(modal);
+    }else{
+      alert('Erro ao enviar: '+(data.error||'tente novamente'));
+    }
+  }catch(e){
+    alert('Erro de conexão. Verifique se o servidor está rodando (python3 server.py)');
+    console.error(e);
+  }finally{
+    btn.disabled=false;
+    btn.innerHTML=origHTML;
+  }
+}
+</script>
+</body>
+</html>
