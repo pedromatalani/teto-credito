@@ -118,9 +118,9 @@
     .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
     .fc{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:36px 32px;transition:all .4s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}
     .fc::after{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,#0f2440,#1c3a5e);opacity:0;transition:opacity .3s}
-    .fc:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}.fc:hover::after{opacity:1}
+    .fc:hover{transform:none;box-shadow:var(--shadow);border-color:var(--border);cursor:default}.fc:hover::after{opacity:0}
     .fi{width:56px;height:56px;background:linear-gradient(135deg,rgba(15,36,64,.1),rgba(15,36,64,.03));border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:24px;transition:all .3s}
-    .fc:hover .fi{background:linear-gradient(135deg,#0f2440,#1c3a5e)}.fi i{font-size:22px;color:#0f2440;transition:color .3s}.fc:hover .fi i{color:#fff}
+    .fi i{font-size:22px;color:#0f2440}
     .fc h3{font-size:18px;font-weight:700;margin-bottom:10px}.fc p{color:var(--text-secondary);font-size:14px;line-height:1.8}
 
 
@@ -190,12 +190,31 @@
     .rdis{background:rgba(15,36,64,.06);border:1px solid rgba(15,36,64,.15);border-radius:var(--radius-sm);padding:20px 24px;font-size:13px;color:var(--text-secondary);line-height:1.7}
 
     .faq{padding:120px 0}.faq .sl,.faq .st,.faq .sd{text-align:center}.faq .sd{margin:0 auto 56px}
-    .faq-w{max-width:800px;margin:0 auto}
+    .faq-w{max-width:900px;margin:0 auto}
+    /* Topic cards grid */
+    .faq-topics{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;max-width:900px;margin:0 auto 0}
+    @media(max-width:768px){.faq-topics{grid-template-columns:repeat(2,1fr)}}
+    .faq-topic{background:var(--bg-card);border:1.5px solid var(--border);border-radius:16px;padding:28px 20px;text-align:center;cursor:pointer;transition:all .3s;user-select:none}
+    .faq-topic:hover{border-color:var(--terra-600);box-shadow:var(--shadow)}
+    .faq-topic.active{border-color:var(--terra-700);background:var(--terra-700);color:#fff}
+    .faq-topic.active .faq-topic-icon{background:rgba(255,255,255,.15);color:#fff}
+    .faq-topic.active .faq-topic-label{color:#fff}
+    .faq-topic.active .faq-topic-count{color:rgba(255,255,255,.5)}
+    .faq-topic-icon{width:48px;height:48px;border-radius:12px;background:rgba(15,36,64,.05);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;color:var(--terra-900);transition:all .3s}
+    .faq-topic-label{font-size:14px;font-weight:700;color:var(--terra-900);transition:color .3s}
+    .faq-topic-count{font-size:12px;color:var(--text-muted);margin-top:4px;transition:color .3s}
+    /* FAQ items inside panel */
+    .faq-panel{max-width:800px;margin:0 auto;overflow:hidden;max-height:0;opacity:0;transition:max-height .5s ease,opacity .4s ease,margin .4s ease}
+    .faq-panel.open{max-height:2000px;opacity:1;margin-top:40px}
+    .faq-panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+    .faq-panel-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:600;color:var(--terra-900)}
+    .faq-panel-close{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;color:var(--text-muted)}
+    .faq-panel-close:hover{border-color:var(--terra-900);color:var(--terra-900)}
     .fqi{border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;overflow:hidden;background:var(--bg-card);transition:all .3s}.fqi:hover{border-color:#2a5080}
     .fqq{padding:22px 28px;font-weight:600;font-size:15px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;transition:background .2s;user-select:none}
     .fqq:hover{background:rgba(15,36,64,.03)}
-    .fqq i{font-size:14px;color:var(--text-muted);transition:all .3s;flex-shrink:0;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--bg-warm)}
-    .fqi.open .fqq i{transform:rotate(180deg);color:#0f2440;background:rgba(15,36,64,.08)}
+    .fqq .ico{font-size:14px;color:var(--text-muted);transition:all .3s;flex-shrink:0;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--bg-warm)}
+    .fqi.open .fqq .ico{transform:rotate(180deg);color:#0f2440;background:rgba(15,36,64,.08)}
     .fqa{max-height:0;overflow:hidden;transition:max-height .4s ease}
     .fqa-inner{padding:0 28px 24px;color:var(--text-secondary);font-size:14px;line-height:1.9}.fqi.open .fqa{max-height:400px}
 
@@ -217,7 +236,7 @@
     .footer-bottom{max-width:1240px;margin:48px auto 0;padding-top:28px;border-top:1px solid rgba(255,255,255,.04);display:flex;justify-content:space-between;align-items:center;font-size:13px;color:rgba(255,255,255,.25);flex-wrap:wrap;gap:12px}
 
     @media(max-width:1024px){.hero-inner{grid-template-columns:1fr;gap:48px}.hero-card-wrap{max-width:500px}.features-grid{grid-template-columns:1fr 1fr}.sg{grid-template-columns:1fr 1fr}.sa{display:none}.tg{grid-template-columns:1fr 1fr}.footer-inner{grid-template-columns:1fr 1fr}[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important}[style*="grid-template-columns:1fr 1fr"][style*="gap:80px"]{gap:48px!important}}
-    @media(max-width:768px){.nav{display:none}.hamburger{display:flex}.nav.open{display:flex;flex-direction:column;position:absolute;top:76px;left:0;right:0;background:rgba(15,22,33,.98);backdrop-filter:blur(24px);padding:24px;gap:8px;border-bottom:1px solid rgba(255,255,255,.06);animation:fadeIn .3s}.hero-inner{padding:120px 24px 80px}.hero-buttons{flex-direction:column;align-items:stretch}.hero-stats{grid-template-columns:repeat(3,1fr);gap:16px}.hero-stat-value{font-size:24px}.sc{padding:0 20px}.features-grid,.sg,.tg{grid-template-columns:1fr}.fg{grid-template-columns:1fr}.sim-body{padding:28px}.sps{font-size:10px;padding:16px 4px}.ct{font-size:12px}.ct thead th,.ct tbody td{padding:12px 10px}.footer-inner{grid-template-columns:1fr;gap:32px}.footer-bottom{flex-direction:column;text-align:center}.trust-bar-inner{gap:24px}.lifestyle{height:360px!important}[style*="height:480px"]{height:340px!important}}
+    @media(max-width:768px){[style*="grid-template-columns:repeat(3"]{grid-template-columns:1fr!important}.nav{display:none}.hamburger{display:flex}.nav.open{display:flex;flex-direction:column;position:absolute;top:76px;left:0;right:0;background:rgba(15,22,33,.98);backdrop-filter:blur(24px);padding:24px;gap:8px;border-bottom:1px solid rgba(255,255,255,.06);animation:fadeIn .3s}.hero-inner{padding:120px 24px 80px}.hero-buttons{flex-direction:column;align-items:stretch}.hero-stats{grid-template-columns:repeat(3,1fr);gap:16px}.hero-stat-value{font-size:24px}.sc{padding:0 20px}.features-grid,.sg,.tg{grid-template-columns:1fr}.fg{grid-template-columns:1fr}.sim-body{padding:28px}.sps{font-size:10px;padding:16px 4px}.ct{font-size:12px}.ct thead th,.ct tbody td{padding:12px 10px}.footer-inner{grid-template-columns:1fr;gap:32px}.footer-bottom{flex-direction:column;text-align:center}.trust-bar-inner{gap:24px}.lifestyle{height:360px!important}[style*="height:480px"]{height:340px!important}}
     @media(max-width:480px){.hero-stats{grid-template-columns:1fr;gap:16px}.rg{flex-direction:column}.ro{min-width:100%}.rhi .vl{font-size:36px}}
   </style>
 </head>
@@ -243,8 +262,8 @@
   </div>
   <div class="hero-card-wrap"><div class="hero-card">
     <h3>Quanto seu imóvel libera?</h3><p>Descubra em 30 segundos — sem compromisso</p>
-    <div class="mini-field"><label>Valor estimado do imóvel</label><input type="text" id="mini-valor" placeholder="R$ 500.000" oninput="fmtC(this)"></div>
-    <div class="mini-field"><label>Quanto você precisa?</label><input type="text" id="mini-precisa" placeholder="R$ 150.000" oninput="fmtC(this)"></div>
+    <div class="mini-field"><label>Valor estimado do imóvel</label><input type="text" id="mini-valor" placeholder="R$ 2.000.000" oninput="fmtC(this)"></div>
+    <div class="mini-field"><label>Quanto você precisa?</label><input type="text" id="mini-precisa" placeholder="R$ 1.200.000" oninput="fmtC(this)"></div>
     <div class="mini-field"><label>Tipo de imóvel</label><select id="mini-tipo"><option value="">Selecione</option><option>Apartamento</option><option>Casa</option><option>Comercial</option><option>Terreno em condomínio</option></select></div>
     <button class="btn-gold" onclick="scrollSim()"><span class="ico"  style="margin-right:8px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"/></svg></span>Ver Simulação Completa</button>
   </div></div>
@@ -257,14 +276,8 @@
   <div class="trust-item"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M8 4v4l3 2"/></svg></span> Suporte 7 dias por semana</div>
 </div></div>
 
-<section class="lifestyle" style="position:relative;overflow:hidden">
-  <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80" alt="Residência elegante" style="width:100%;height:520px;object-fit:cover;display:block;filter:brightness(.88)">
-  <div style="position:absolute;bottom:0;left:0;right:0;padding:60px 40px 48px;background:linear-gradient(0deg,rgba(0,0,0,.85) 0%,rgba(0,0,0,.4) 60%,transparent 100%)">
-    <div style="max-width:1240px;margin:0 auto">
-      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(26px,3vw,40px);color:#fff;font-weight:700;margin-bottom:12px">Você está sentado em cima de dinheiro. Literalmente.</h2>
-      <p style="color:rgba(255,255,255,.6);font-size:16px;max-width:520px;line-height:1.7">Cada mês com seu imóvel parado é dinheiro que você deixa na mesa. Libere até 60% do valor — a taxa é uma fração do que bancos cobram em outras linhas.</p>
-    </div>
-  </div>
+<section class="lifestyle" style="overflow:hidden">
+  <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80" alt="Residência elegante" style="width:100%;height:480px;object-fit:cover;display:block">
 </section>
 
 <section class="features" id="features"><div class="sc">
@@ -288,7 +301,7 @@
     <div>
       <p style="font-family:'Playfair Display',serif;font-size:28px;color:var(--terra-900);line-height:1.5;font-weight:600;margin-bottom:24px">Pare de pagar juros absurdos. Seu imóvel resolve.</p>
       <p style="font-size:15px;color:var(--text-secondary);font-weight:400;line-height:1.8;margin-bottom:24px">Empréstimo pessoal cobra 6% a.m. Cartão rotativo, 14%. Com garantia de imóvel, a partir de 1% a.m. A matemática é simples — e o processo é 100% digital.</p>
-      <a href="#simulador" style="display:inline-block;padding:14px 32px;background:linear-gradient(135deg,var(--gold-500),var(--gold-300));color:var(--terra-900);font-weight:700;border-radius:10px;text-decoration:none;font-size:15px">Simular Agora</a>
+      <a href="#simulador" style="display:inline-block;padding:16px 36px;background:#000;color:#fff;font-weight:700;border-radius:100px;text-decoration:none;font-size:15px;transition:all .3s">Simular Agora</a>
     </div>
   </div>
 </section>
@@ -308,7 +321,7 @@
     <div>
       <p style="font-family:'Playfair Display',serif;font-size:28px;color:var(--terra-900);line-height:1.5;font-weight:600;margin-bottom:24px">Quem tem imóvel não precisa pedir empréstimo caro. Precisa da Teto.</p>
       <p style="font-size:15px;color:var(--text-secondary);font-weight:400;line-height:1.8;margin-bottom:24px">Enquanto você paga juros de cartão, seu patrimônio está parado rendendo nada. Libere até R$ 3 milhões com taxa a partir de 1% a.m. — sem sair de casa.</p>
-      <a href="#simulador" style="display:inline-block;padding:14px 32px;background:linear-gradient(135deg,var(--gold-500),var(--gold-300));color:var(--terra-900);font-weight:700;border-radius:10px;text-decoration:none;font-size:15px">Simular Agora</a>
+      <a href="#simulador" style="display:inline-block;padding:16px 36px;background:#000;color:#fff;font-weight:700;border-radius:100px;text-decoration:none;font-size:15px;transition:all .3s">Simular Agora</a>
     </div>
     <div style="border-radius:24px;overflow:hidden;box-shadow:var(--shadow-xl)">
       <img src="https://images.pexels.com/photos/3785079/pexels-photo-3785079.jpeg?auto=compress&cs=tinysrgb&w=3840&q=90" alt="Homem confiante" style="width:100%;height:620px;object-fit:cover;object-position:center 20%;display:block">
@@ -322,7 +335,7 @@
     <div style="display:flex;align-items:flex-end;gap:20px;justify-content:center;height:420px;padding-top:40px">
       <!-- Bar 1: Teto (highlighted) -->
       <div style="display:flex;flex-direction:column;align-items:center;gap:8px;flex:1;max-width:140px">
-        <div style="font-size:13px;color:var(--gold-400);font-weight:700;letter-spacing:-.3px">1,00% a.m</div>
+        <div style="font-size:13px;color:#fff;font-weight:700;letter-spacing:-.3px">1,00% a.m</div>
         <div style="width:100%;height:40px;border-radius:10px 10px 6px 6px;background:linear-gradient(135deg,#0f2440,#1c3a5e);box-shadow:0 8px 32px rgba(15,36,64,.4);display:flex;align-items:center;justify-content:center">
           <svg width="20" height="20" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="rgba(0,0,0,.15)"/><path d="M6 26V14a10 10 0 0120 0v12" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
         </div>
@@ -365,8 +378,7 @@
       <div class="sps active" data-step="1"><span class="ico"  style="margin-right:4px;font-size:10px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="5" r="3"/><path d="M2 15c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg></span> Dados</div>
       <div class="sps" data-step="2"><span class="ico"  style="margin-right:4px;font-size:10px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8l6-6 6 6"/><path d="M3 7.5V14h4v-4h2v4h4V7.5"/></svg></span> Imóvel</div>
       <div class="sps" data-step="3"><span class="ico"  style="margin-right:4px;font-size:10px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="6" cy="10" rx="5" ry="2.5"/><path d="M1 10v2c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-2"/><ellipse cx="10" cy="5" rx="5" ry="2.5"/><path d="M5 5v2"/></svg></span> Crédito</div>
-      <div class="sps" data-step="4"><span class="ico"  style="margin-right:4px;font-size:10px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg></span> Análise</div>
-      <div class="sps" data-step="5"><span class="ico"  style="margin-right:4px;font-size:10px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2h8v5a4 4 0 01-8 0z"/><path d="M4 3H2c0 2 1 3.5 2 4M12 3h2c0 2-1 3.5-2 4M6 11v2h4v-2M5 14h6"/></svg></span> Resultado</div>
+      <div class="sps" data-step="4"><span class="ico"  style="margin-right:4px;font-size:10px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.5 3.5L13 4"/></svg></span> Confirmação</div>
     </div>
     <div class="sim-body">
       <div class="ss active" data-step="1"><h2>Dados Pessoais</h2><p>Informações básicas para avaliar elegibilidade.</p>
@@ -404,7 +416,7 @@
           <div class="fgr"><label>Cidade <span class="req">*</span></label><input type="text" id="cidade" placeholder="São Paulo"></div>
           <div class="fgr"><label>Bairro</label><input type="text" id="bairro" placeholder="Itaim Bibi"></div>
           <div class="fgr"><label>Endereço</label><input type="text" id="endereco" placeholder="Rua, nº, complemento"></div>
-          <div class="fgr"><label>Valor estimado (R$) <span class="req">*</span></label><input type="text" id="valorImovel" placeholder="R$ 800.000" oninput="fmtC(this)"><div class="fh"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M8 7v4"/><circle cx="8" cy="4.5" r=".8" fill="currentColor"/></svg></span> Mínimo R$ 200.000</div></div>
+          <div class="fgr"><label>Valor estimado (R$) <span class="req">*</span></label><input type="text" id="valorImovel" placeholder="R$ 2.000.000" oninput="fmtC(this)"><div class="fh"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M8 7v4"/><circle cx="8" cy="4.5" r=".8" fill="currentColor"/></svg></span> Mínimo R$ 2.000.000</div></div>
           <div class="fgr"><label>Ano construção</label><input type="number" id="anoConstrucao" placeholder="2010" min="1950" max="2026"></div>
           <div class="fgr"><label>Área (m²)</label><input type="number" id="area" placeholder="85"></div>
           <div class="fgr"><label>Quartos</label><select id="quartos"><option value="">Selecione</option><option>1</option><option>2</option><option>3</option><option>4+</option></select></div>
@@ -452,95 +464,153 @@
             <div class="ro"><input type="radio" name="restricao" id="res-ns" value="nao-sei"><label for="res-ns">Não sei</label></div>
           </div><div class="fh"><span class="ico"  style="color:var(--gold-600)"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5L1 14h14z"/><path d="M8 6v3.5"/><circle cx="8" cy="12" r=".7" fill="currentColor"/></svg></span> CPF com restrições pode impedir a aprovação. Recomendamos regularizar antes de solicitar.</div></div>
         </div>
-        <div class="snav"><button class="bb" onclick="goTo(2)"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3L5 8l5 5"/></svg></span> Voltar</button><button class="bn" onclick="goTo(4)"><span class="ico"  style="margin-right:6px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg></span>Analisar</button></div>
+        <div class="snav"><button class="bb" onclick="goTo(2)"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3L5 8l5 5"/></svg></span> Voltar</button><button class="bn" onclick="goTo(4)"><span class="ico"  style="margin-right:6px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.5 3.5L13 4"/></svg></span>Enviar Solicitação</button></div>
       </div>
 
-      <div class="ss" data-step="4"><h2><span class="ico"  style="color:var(--gold-500);margin-right:10px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1L2 4v4c0 4 2.7 6.5 6 8 3.3-1.5 6-4 6-8V4z"/><path d="M8 1v12"/></svg></span>Análise de Crédito & Due Diligence</h2><p>Consultando bureaus de crédito, registros públicos e bases antifraude em tempo real.</p>
-
-        <!-- DD Progress Grid -->
-        <div id="ddGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:24px 0"></div>
-
-        <!-- DD Detailed Results -->
-        <div id="ddResults" style="display:none">
-
-          <!-- Credit Score — Serasa/Quod/Boa Vista -->
-          <div class="ddc" id="ddCredit">
-            <div class="ddh"><div class="ddi" style="background:rgba(52,211,153,.08);color:var(--green-500)"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 14l4-6 3 3 7-9"/></svg></span></div><div><div class="ddt">Score de Crédito</div><div class="dds">Serasa Experian · Quod · Boa Vista SCPC</div></div></div>
-            <div id="ddCreditBody"></div>
+      <div class="ss" data-step="4">
+        <div style="text-align:center;padding:60px 20px">
+          <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--green-500),var(--green-600));display:flex;align-items:center;justify-content:center;margin:0 auto 24px">
+            <svg width="40" height="40" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.5 3.5L13 4"/></svg>
           </div>
-
-          <!-- CPF — Serpro DataValid / BigDataCorp -->
-          <div class="ddc" id="ddCPF">
-            <div class="ddh"><div class="ddi" style="background:rgba(59,130,246,.08);color:#3b82f6"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="14" height="10" rx="1.5"/><circle cx="5.5" cy="7.5" r="1.5"/><path d="M3.5 11c0-1 .9-1.5 2-1.5s2 .5 2 1.5M10 6h3M10 9h2"/></svg></span></div><div><div class="ddt">Validação de Identidade</div><div class="dds">Serpro DataValid · BigDataCorp · Idwall</div></div></div>
-            <div id="ddCPFBody"></div>
+          <h2 style="font-family:'Playfair Display',serif;font-size:28px;color:var(--terra-900);margin-bottom:12px">Solicitação Enviada!</h2>
+          <p style="font-size:16px;color:var(--text-secondary);line-height:1.8;max-width:480px;margin:0 auto 32px">Seus dados estão em análise. Um dos nossos analistas entrará em contato pelo WhatsApp ou e-mail informado o mais breve possível.</p>
+          <div style="background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--radius);padding:24px 32px;max-width:420px;margin:0 auto 32px;text-align:left">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+              <div style="width:40px;height:40px;border-radius:10px;background:rgba(15,36,64,.06);display:flex;align-items:center;justify-content:center"><span class="ico" style="color:var(--terra-900)"><svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M8 4v4l3 2"/></svg></span></div>
+              <div><div style="font-weight:700;font-size:14px;color:var(--terra-900)">Próximos passos</div><div style="font-size:12px;color:var(--text-muted)">O que vai acontecer agora</div></div>
+            </div>
+            <div style="font-size:14px;color:var(--text-secondary);line-height:2.2">
+              1. Análise dos seus dados cadastrais<br>
+              2. Contato do analista por WhatsApp ou e-mail<br>
+              3. Envio de documentos (se aprovado)<br>
+              4. Avaliação do imóvel e liberação do crédito
+            </div>
           </div>
-
-          <!-- Criminal — InfoSimples / Idwall -->
-          <div class="ddc" id="ddCriminal">
-            <div class="ddh"><div class="ddi" style="background:rgba(168,85,247,.08);color:#a855f7"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3l3 3M8 6l3-3M4.5 8.5l-3 3M6 7l4 4M10 11l3 3M2 14h4"/></svg></span></div><div><div class="ddt">Antecedentes & Certidões</div><div class="dds">InfoSimples · Idwall · TJ/TRF/CNJ · Polícia Federal</div></div></div>
-            <div id="ddCrimBody"></div>
-          </div>
-
-          <!-- Property — Registro de Imóveis / URBIT -->
-          <div class="ddc" id="ddProp">
-            <div class="ddh"><div class="ddi" style="background:rgba(15,36,64,.1);color:var(--gold-500)"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="1" width="12" height="14" rx="1"/><path d="M5 4h1M5 7h1M5 10h1M10 4h1M10 7h1M10 10h1M7 14v-3h2v3"/></svg></span></div><div><div class="ddt">Análise do Imóvel & Registro</div><div class="dds">SREI (Registro de Imóveis) · URBIT AVM · Prefeitura</div></div></div>
-            <div id="ddPropBody"></div>
-          </div>
-
-          <!-- Anti-Fraud — ClearSale / Unico / Incognia -->
-          <div class="ddc" id="ddFraud">
-            <div class="ddh"><div class="ddi" style="background:rgba(239,68,68,.08);color:var(--red-500)"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M8 2C5.2 2 3 4.5 3 7.5c0 2 .5 4 1.5 5.5M13 7.5c0 2.5-1 5-2.5 6.5M5.5 7.5c0 1.5.3 3 1 4.5M10.5 7.5c0 1-.2 2.5-.8 4M8 5.5c1.4 0 2.5 1 2.5 2s-.5 2.5-1 4"/></svg></span></div><div><div class="ddt">Antifraude, KYC & PLD/FT</div><div class="dds">ClearSale · Unico Check · Incognia · COAF · OFAC</div></div></div>
-            <div id="ddFraudBody"></div>
-          </div>
-
-          <!-- Income — Serpro Consulta Renda / Registrato -->
-          <div class="ddc" id="ddIncome">
-            <div class="ddh"><div class="ddi" style="background:rgba(16,185,129,.08);color:#059669"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="6" cy="10" rx="5" ry="2.5"/><path d="M1 10v2c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-2"/><ellipse cx="10" cy="5" rx="5" ry="2.5"/><path d="M5 5v2"/></svg></span></div><div><div class="ddt">Verificação de Renda & Endividamento</div><div class="dds">Serpro Consulta Renda · Registrato (BCB) · eSocial · Open Finance</div></div></div>
-            <div id="ddIncBody"></div>
-          </div>
-
-          <!-- Overall Summary -->
-          <div id="ddSummary" style="margin-top:20px"></div>
-        </div>
-
-        <!-- Docs section (shown after DD) -->
-        <div id="ddDocs" style="display:none;margin-top:32px"><h3 style="font-size:17px;margin-bottom:16px;display:flex;align-items:center;gap:8px"><span class="ico"  style="color:var(--gold-500)"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 13V4a1 1 0 011-1h3l2 2h5a1 1 0 011 1v1H6L4 13H2z"/><path d="M4 13l2-6h10l-2 6H4z"/></svg></span> Documentos</h3>
-          <div class="fg">
-            <div style="background:var(--bg-warm);border:1px solid var(--border-light);border-radius:var(--radius-sm);padding:24px"><div style="font-weight:700;font-size:14px;margin-bottom:12px"><span class="ico"  style="color:var(--gold-500);font-size:12px;margin-right:6px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="5" r="3"/><path d="M2 15c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg></span>Pessoais</div><div style="font-size:13px;color:var(--text-secondary);line-height:2">RG ou CNH<br>Comprovante residência (3m)<br>Comprovante renda (3 holerites)<br>Declaração IR<br>Selfie com documento (prova de vida)</div></div>
-            <div style="background:var(--bg-warm);border:1px solid var(--border-light);border-radius:var(--radius-sm);padding:24px"><div style="font-weight:700;font-size:14px;margin-bottom:12px"><span class="ico"  style="color:var(--gold-500);font-size:12px;margin-right:6px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8l6-6 6 6"/><path d="M3 7.5V14h4v-4h2v4h4V7.5"/></svg></span>Imóvel</div><div style="font-size:13px;color:var(--text-secondary);line-height:2">Matrícula atualizada<br>IPTU ano vigente<br>Certidão negativa ônus<br>Habite-se (se aplicável)<br>Laudo de avaliação (emitido por nós)</div></div>
+          <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+            <button class="bb" onclick="goTo(1)" style="border-color:var(--border)"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4h-4"/><path d="M12 6A5.5 5.5 0 103.5 11"/></svg></span> Nova Simulação</button>
           </div>
         </div>
-
-        <div class="fgr full" style="margin-top:24px"><label style="display:flex;align-items:center;gap:10px;cursor:pointer"><input type="checkbox" id="termos" style="width:20px;height:20px;accent-color:var(--gold-500)"><span style="font-size:13px;color:var(--text-secondary)">Li e concordo com os <a href="#" style="color:var(--gold-500);font-weight:600">Termos</a>, <a href="#" style="color:var(--gold-500);font-weight:600">Privacidade</a> e autorizo consulta a bureaus de crédito e órgãos públicos.</span></label></div>
-        <div class="snav"><button class="bb" onclick="goTo(3)"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3L5 8l5 5"/></svg></span> Voltar</button><button class="bn" id="btnRes" onclick="goTo(5)" disabled><span class="ico"  style="margin-right:6px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2h8v5a4 4 0 01-8 0z"/><path d="M4 3H2c0 2 1 3.5 2 4M12 3h2c0 2-1 3.5-2 4M6 11v2h4v-2M5 14h6"/></svg></span>Ver Resultado</button></div>
-      </div>
-
-      <div class="ss" data-step="5"><h2>Sua Proposta</h2><p>Proposta personalizada com base nos seus dados.</p>
-        <div id="resC"></div>
-        <div class="snav" style="border-top:0;margin-top:24px"><button class="bb" onclick="goTo(1)"><span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4h-4"/><path d="M12 6A5.5 5.5 0 103.5 11"/></svg></span> Nova Simulação</button><button class="bn" id="btnContratar" onclick="submitLead()"><span class="ico"  style="margin-right:6px"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.5 3.5L13 4"/></svg></span>Quero Contratar</button></div>
       </div>
     </div>
   </div></div>
 </div></section>
 
 <section class="faq" id="faq"><div class="sc">
-  <div class="sl">Dúvidas</div><div class="st">Perguntas Frequentes</div><p class="sd">Respostas para as dúvidas mais comuns.</p>
-  <div class="faq-w">
-    <div class="fqi"><div class="fqq" onclick="tFaq(this)">O que é Home Equity? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">Crédito com imóvel como garantia, taxas muito menores. Você continua morando nele — fica alienado fiduciariamente até quitação.</div></div></div>
-    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Valor mínimo e máximo? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">Crédito de R$ 1.200.000 a R$ 3.000.000 (até 60% do valor do imóvel). Imóvel mínimo R$ 2.000.000.</div></div></div>
-    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Imóvel financiado pode? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">Sim, com pelo menos 50% quitado. Parte do crédito quita o saldo restante.</div></div></div>
-    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Nome negativado pode? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">Não. Para garantir segurança nas operações, é necessário que o CPF esteja regularizado. Recomendamos resolver pendências antes de solicitar.</div></div></div>
-    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Documentos necessários? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">Pessoais: RG/CNH, residência, renda (3m), IR. Imóvel: matrícula, IPTU, certidão negativa.</div></div></div>
-    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Prazo de liberação? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">15 dias úteis após aprovação, incluindo análise, avaliação, jurídico e registro.</div></div></div>
+  <div class="sl">Dúvidas</div><div class="st">Perguntas Frequentes</div><p class="sd">Tire todas as suas dúvidas sobre o crédito com garantia de imóvel da Teto.</p>
+
+  <!-- FAQ Topic Cards -->
+  <div class="faq-topics" id="faqTopics">
+    <div class="faq-topic" onclick="openFaqTopic('geral',this)">
+      <div class="faq-topic-icon"><svg width="22" height="22" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M6 6a2 2 0 114 0c0 1.1-.9 1.5-1.5 2M8 11.5v.01"/></svg></div>
+      <div class="faq-topic-label">Geral</div>
+      <div class="faq-topic-count">4 perguntas</div>
+    </div>
+    <div class="faq-topic" onclick="openFaqTopic('garantia',this)">
+      <div class="faq-topic-icon"><svg width="22" height="22" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3l6-2 6 2v4c0 3.5-2.5 6-6 7.5C4.5 13 2 10.5 2 7V3z"/><path d="M6 8l2 2 3-3"/></svg></div>
+      <div class="faq-topic-label">Garantia</div>
+      <div class="faq-topic-count">5 perguntas</div>
+    </div>
+    <div class="faq-topic" onclick="openFaqTopic('credito',this)">
+      <div class="faq-topic-icon"><svg width="22" height="22" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1v14M12 4H6a2 2 0 100 4h4a2 2 0 110 4H4"/></svg></div>
+      <div class="faq-topic-label">Crédito</div>
+      <div class="faq-topic-count">4 perguntas</div>
+    </div>
+    <div class="faq-topic" onclick="openFaqTopic('pagamento',this)">
+      <div class="faq-topic-icon"><svg width="22" height="22" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="14" height="9" rx="1.5"/><path d="M1 7.5h14"/></svg></div>
+      <div class="faq-topic-label">Pagamento</div>
+      <div class="faq-topic-count">4 perguntas</div>
+    </div>
+    <div class="faq-topic" onclick="openFaqTopic('processo',this)">
+      <div class="faq-topic-icon"><svg width="22" height="22" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2h8a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z"/><path d="M6 5h4M6 8h4M6 11h2"/></svg></div>
+      <div class="faq-topic-label">Processo</div>
+      <div class="faq-topic-count">4 perguntas</div>
+    </div>
   </div>
+
+  <!-- FAQ Panels (hidden by default, one per category) -->
+  <div class="faq-panel" id="faq-geral">
+    <div class="faq-panel-head">
+      <div class="faq-panel-title">Geral</div>
+      <div class="faq-panel-close" onclick="closeFaqPanel()"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg></div>
+    </div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">O que é Home Equity? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">Home Equity é um crédito com garantia de imóvel. Você coloca seu imóvel como garantia e, em troca, consegue taxas de juros muito menores do que em empréstimos pessoais ou cartão de crédito. Você continua morando no imóvel normalmente — ele fica alienado fiduciariamente até a quitação do contrato.</div></div></div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Quem pode contratar o crédito da Teto? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">Pessoas físicas, maiores de 18 anos, com CPF regularizado e que sejam proprietárias de um imóvel com valor mínimo de R$ 2.000.000. É necessário comprovar renda compatível com as parcelas.</div></div></div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Para que posso usar o dinheiro? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">Para o que você quiser: quitar dívidas mais caras, investir no seu negócio, reformar o imóvel, pagar estudos, fazer um investimento, ou qualquer outra finalidade. O crédito é livre.</div></div></div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">A Teto é segura? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">Sim. A Teto opera como correspondente bancário em processo de formalização, com criptografia ponta a ponta, processos auditados e em conformidade com as normas do Banco Central. Seus dados são protegidos e tratados de acordo com a LGPD.</div></div></div>
+  </div>
+
+  <div class="faq-panel" id="faq-garantia">
+    <div class="faq-panel-head">
+      <div class="faq-panel-title">Garantia</div>
+      <div class="faq-panel-close" onclick="closeFaqPanel()"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg></div>
+    </div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">O imóvel precisa estar quitado? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">Não necessariamente. Aceitamos imóveis com financiamento ativo, desde que pelo menos 50% do valor já esteja quitado. Nesse caso, parte do crédito liberado é usada para quitar o saldo devedor do financiamento existente.</div></div></div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Quais imóveis são aceitos como garantia? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">Apartamentos, casas e imóveis comerciais com matrícula regular, localizados em capitais e regiões metropolitanas do Brasil. O imóvel deve ter valor mínimo de R$ 2.000.000 e estar em boas condições de conservação. Terrenos em condomínio fechado também são analisados caso a caso.</div></div></div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Posso continuar morando no imóvel? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">Sim, com certeza. O imóvel fica alienado fiduciariamente (como em qualquer financiamento), mas você continua morando nele e usando normalmente. A alienação é removida automaticamente quando o contrato é quitado.</div></div></div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">E se o imóvel estiver em nome de mais de uma pessoa? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">É possível, desde que todos os proprietários assinem o contrato como intervenientes. Na prática, todos precisam concordar com a operação e participar da assinatura.</div></div></div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">O que acontece se eu não pagar? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">Em caso de inadimplência prolongada, o imóvel dado como garantia pode ser levado a leilão, conforme previsto na Lei 9.514/97 (alienação fiduciária). Por isso é fundamental que as parcelas estejam dentro da sua capacidade de pagamento — nosso simulador já calcula o comprometimento de renda para te proteger.</div></div></div>
+  </div>
+
+  <div class="faq-panel" id="faq-credito">
+    <div class="faq-panel-head">
+      <div class="faq-panel-title">Crédito</div>
+      <div class="faq-panel-close" onclick="closeFaqPanel()"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg></div>
+    </div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Qual o valor mínimo e máximo do crédito? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">O crédito mínimo é de R$ 1.200.000 e o máximo é de R$ 3.000.000, limitado a 60% do valor de avaliação do imóvel (LTV). O imóvel precisa ter valor mínimo de R$ 2.000.000.</div></div></div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Qual a taxa de juros? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">A taxa parte de 0,89% a.m. + IPCA para imóveis acima de R$ 2.000.000, podendo chegar a 1,39% a.m. dependendo do perfil de crédito. Ainda assim, é até 14 vezes menor que o rotativo do cartão de crédito.</div></div></div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Posso compor renda com outra pessoa? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">Sim. Você pode compor renda com cônjuge ou familiar de primeiro grau para atingir o valor de crédito desejado. Ambos precisarão apresentar documentação de renda.</div></div></div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Preciso ter nome limpo? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">Sim. Não operamos com CPFs que tenham restrições ativas em bureaus de crédito (Serasa, SPC, etc.). Recomendamos regularizar pendências antes de solicitar o crédito.</div></div></div>
+  </div>
+
+  <div class="faq-panel" id="faq-pagamento">
+    <div class="faq-panel-head">
+      <div class="faq-panel-title">Pagamento</div>
+      <div class="faq-panel-close" onclick="closeFaqPanel()"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg></div>
+    </div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Qual o sistema de amortização? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">Utilizamos o sistema SAC (Sistema de Amortização Constante). Isso significa que as parcelas começam um pouco mais altas e vão diminuindo com o tempo, pois os juros incidem sobre um saldo devedor cada vez menor.</div></div></div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Qual o prazo máximo para pagar? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">O prazo varia de 36 meses (3 anos) a 240 meses (20 anos), com ajustes a cada 12 meses. Quanto maior o prazo, menor a parcela — mas maior o custo total dos juros.</div></div></div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Posso antecipar parcelas ou quitar antes? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">Sim. Você pode antecipar parcelas ou quitar o saldo devedor a qualquer momento, com desconto proporcional nos juros. Não há multa por quitação antecipada.</div></div></div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Como funciona o pagamento das parcelas? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">As parcelas são pagas via boleto bancário ou débito automático, conforme sua preferência. O vencimento é definido no momento da contratação e os boletos são enviados por e-mail e ficam disponíveis na plataforma.</div></div></div>
+  </div>
+
+  <div class="faq-panel" id="faq-processo">
+    <div class="faq-panel-head">
+      <div class="faq-panel-title">Processo</div>
+      <div class="faq-panel-close" onclick="closeFaqPanel()"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg></div>
+    </div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Quais documentos são necessários? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">Documentos pessoais: RG ou CNH, comprovante de residência (últimos 3 meses), comprovante de renda (3 últimos holerites ou pró-labore), declaração de Imposto de Renda e selfie com documento. Documentos do imóvel: matrícula atualizada, IPTU do ano vigente, certidão negativa de ônus e habite-se (se aplicável). O laudo de avaliação é emitido por nós.</div></div></div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Quanto tempo leva para o dinheiro cair na conta? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">Em média, 15 dias úteis após a aprovação da sua solicitação. Esse prazo inclui a análise de crédito, avaliação do imóvel, análise jurídica e registro em cartório. Todo o processo é acompanhado em tempo real pela plataforma.</div></div></div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Preciso ir a alguma agência ou cartório? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">Não. O processo é 100% digital: simulação, envio de documentos e assinatura eletrônica. O registro em cartório é feito por nós, sem que você precise se deslocar.</div></div></div>
+    <div class="fqi"><div class="fqq" onclick="tFaq(this)">Como funciona a avaliação do imóvel? <span class="ico"><svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></span></div><div class="fqa"><div class="fqa-inner">Após a aprovação inicial, um engenheiro credenciado realiza uma vistoria presencial no imóvel para elaborar o laudo de avaliação. O custo do laudo é por conta da Teto. A avaliação considera localização, estado de conservação, metragem e valores de mercado da região.</div></div></div>
+  </div>
+
 </div></section>
 
-<section style="position:relative;overflow:hidden">
-  <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1600&q=80" alt="Time profissional reunido" style="width:100%;height:440px;object-fit:cover;display:block;filter:brightness(.82)">
-  <div style="position:absolute;inset:0;display:flex;align-items:center;background:linear-gradient(90deg,rgba(0,0,0,.7) 0%,rgba(0,0,0,.3) 50%,transparent 100%)">
-    <div style="max-width:1240px;margin:0 auto;padding:0 40px">
-      <p style="font-family:'Playfair Display',serif;font-size:clamp(22px,2.5vw,32px);color:#fff;font-weight:600;max-width:500px;line-height:1.5;margin-bottom:20px">Você não precisa vender seu imóvel para usar o dinheiro que ele vale. A Teto existe para isso.</p>
-      <p style="color:rgba(255,255,255,.6);font-size:14px"><strong style="color:#fff">Simule em 2 minutos</strong> — sem compromisso</p>
+<section style="padding:80px 0;background:var(--bg-warm)">
+  <div style="max-width:1240px;margin:0 auto;padding:0 32px">
+    <div style="text-align:center;margin-bottom:48px">
+      <p style="font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,34px);color:var(--terra-900);font-weight:600;margin-bottom:12px">Ficou com alguma dúvida?</p>
+      <p style="font-size:16px;color:var(--text-secondary);font-weight:400">Vamos te ajudar. Escolha o canal que preferir.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:620px;margin:0 auto">
+      <!-- WhatsApp -->
+      <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:32px 24px;text-align:center;transition:box-shadow .3s">
+        <div style="width:56px;height:56px;border-radius:14px;background:rgba(37,211,102,.08);display:flex;align-items:center;justify-content:center;margin:0 auto 20px">
+          <svg width="24" height="24" viewBox="0 0 16 16" fill="#25d366"><path d="M8 1.5A6.5 6.5 0 001.9 11L1 15l4.1-.9A6.5 6.5 0 108 1.5zm3.6 9.3c-.2.5-1 .9-1.4 1s-.8.1-1.2-.1-.9-.4-1.6-1a6 6 0 01-1.6-1.8c-.4-.5-.4-1.2 0-1.7l.3-.4c.1-.2.3-.2.4-.2h.3c.1 0 .3 0 .4.3l.6 1.3c.1.1 0 .3 0 .4l-.3.4-.2.3s0 .2.1.3c.3.5.7 1 1.1 1.3.5.3.9.5 1 .5s.2 0 .3-.1l.4-.5c.1-.2.3-.1.4-.1l1.2.6c.2.1.3.2.3.3s0 .5-.2 1z"/></svg>
+        </div>
+        <h4 style="font-size:16px;font-weight:700;color:var(--terra-900);margin-bottom:8px">WhatsApp</h4>
+        <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:16px">Fale com um especialista pelo WhatsApp. Atendimento de seg a sex, das 9h às 18h.</p>
+        <a href="#" style="font-size:14px;color:var(--terra-900);font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px">Iniciar conversa <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"/></svg></a>
+      </div>
+      <!-- E-mail -->
+      <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:32px 24px;text-align:center;transition:box-shadow .3s">
+        <div style="width:56px;height:56px;border-radius:14px;background:rgba(15,36,64,.06);display:flex;align-items:center;justify-content:center;margin:0 auto 20px">
+          <svg width="24" height="24" viewBox="0 0 16 16" fill="none" stroke="var(--terra-900)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="14" height="10" rx="1.5"/><path d="M1 3l7 5 7-5"/></svg>
+        </div>
+        <h4 style="font-size:16px;font-weight:700;color:var(--terra-900);margin-bottom:8px">E-mail</h4>
+        <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:16px">Envie sua dúvida por e-mail. Respondemos em até 24 horas úteis.</p>
+        <a href="#" style="font-size:14px;color:var(--terra-900);font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px">contato@teto.com.br <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"/></svg></a>
+      </div>
     </div>
   </div>
 </section>
@@ -570,7 +640,8 @@ window.addEventListener('scroll',()=>{document.getElementById('header').classLis
 function fmtC(el){let v=el.value.replace(/\D/g,'');if(!v){el.value='';return}el.value=(parseInt(v)/100).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
 function fmtCPF(el){let v=el.value.replace(/\D/g,'').slice(0,11);v=v.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');el.value=v}
 function fmtTel(el){let v=el.value.replace(/\D/g,'').slice(0,11);v=v.replace(/(\d{2})(\d)/,'($1) $2').replace(/(\d{5})(\d)/,'$1-$2');el.value=v}
-function fmtCEP(el){let v=el.value.replace(/\D/g,'').slice(0,8);v=v.replace(/(\d{5})(\d)/,'$1-$2');el.value=v}
+function fmtCEP(el){let v=el.value.replace(/\D/g,'').slice(0,8);v=v.replace(/(\d{5})(\d)/,'$1-$2');el.value=v;if(v.replace(/\D/g,'').length===8){fetchCEP(v.replace(/\D/g,''))}}
+function fetchCEP(cep){fetch('https://viacep.com.br/ws/'+cep+'/json/').then(r=>r.json()).then(d=>{if(!d.erro){const end=document.getElementById('endereco');const cid=document.getElementById('cidade');const bai=document.getElementById('bairro');if(end)end.value=d.logradouro||'';if(cid)cid.value=d.localidade||'';if(bai)bai.value=d.bairro||''}}).catch(()=>{})}
 function pC(s){if(!s)return 0;return parseFloat(s.replace(/[^\d,]/g,'').replace(',','.'))||0}
 function brl(n){return n.toLocaleString('pt-BR',{style:'currency',currency:'BRL',minimumFractionDigits:2})}
 
@@ -654,7 +725,7 @@ function valStep(s){
 function goTo(s){
   // Validate current step before advancing (not when going back)
   if(s>cs&&!valStep(cs))return;
-  if(s===4)buildAn();if(s===5)buildRes();cs=s;
+  if(s===4)submitLead();cs=s;
   document.querySelectorAll('.ss').forEach(e=>e.classList.remove('active'));
   document.querySelector('.ss[data-step="'+s+'"]').classList.add('active');
   document.querySelectorAll('.sps').forEach(e=>{const n=parseInt(e.dataset.step);e.classList.remove('active','completed');if(n===s)e.classList.add('active');else if(n<s)e.classList.add('completed')});
@@ -662,7 +733,7 @@ function goTo(s){
 
 document.getElementById('comporRenda').addEventListener('change',function(){document.getElementById('rcGrp').style.display=this.value!=='nao'?'block':'none'});
 document.getElementById('situacaoImovel').addEventListener('change',function(){document.getElementById('pqGrp').style.display=this.value==='financiado'?'block':'none'});
-document.getElementById('termos').addEventListener('change',function(){document.getElementById('btnRes').disabled=!this.checked});
+// termos checkbox removed — step 4 is now a confirmation page
 
 function updRange(){
   const v=parseInt(document.getElementById('valorDesejado').value);document.getElementById('vdDisp').textContent=brl(v);
@@ -1044,6 +1115,27 @@ function buildRes(){
   document.getElementById('resC').innerHTML=h}
 
 function tFaq(el){el.parentElement.classList.toggle('open')}
+function openFaqTopic(cat,btn){
+  // Close all panels first
+  document.querySelectorAll('.faq-panel').forEach(p=>p.classList.remove('open'));
+  // Remove active from all topic cards
+  document.querySelectorAll('.faq-topic').forEach(t=>t.classList.remove('active'));
+  // If clicking the same topic that's already open, just close
+  if(btn.dataset.openCat===cat){btn.dataset.openCat='';return}
+  // Reset all topic open states
+  document.querySelectorAll('.faq-topic').forEach(t=>t.dataset.openCat='');
+  // Open the target panel
+  const panel=document.getElementById('faq-'+cat);
+  if(panel){
+    btn.classList.add('active');
+    btn.dataset.openCat=cat;
+    setTimeout(()=>{panel.classList.add('open');panel.scrollIntoView({behavior:'smooth',block:'nearest'})},50);
+  }
+}
+function closeFaqPanel(){
+  document.querySelectorAll('.faq-panel').forEach(p=>p.classList.remove('open'));
+  document.querySelectorAll('.faq-topic').forEach(t=>{t.classList.remove('active');t.dataset.openCat=''});
+}
 document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();const t=document.querySelector(this.getAttribute('href'));if(t){t.scrollIntoView({behavior:'smooth'});document.getElementById('nav').classList.remove('open')}})});
 
 // ========== SUBMIT LEAD TO BACKEND ==========
